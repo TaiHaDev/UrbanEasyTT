@@ -40,6 +40,9 @@ public class ProductServlet extends HttpServlet {
                 case "/product-detail":
                     this.showProductDetail(request, response);
                     break;
+                case "/home-page":
+                    this.listUser(request, response);
+                    break;
                 default:
                     this.listUser(request, response);
             }
@@ -48,7 +51,7 @@ public class ProductServlet extends HttpServlet {
             throw new ServletException(var5);
         }
     }
-
+    
     private void listUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
         List<Product> productList = this.productDAO.selectAllProducts();
         request.setAttribute("productList", productList);

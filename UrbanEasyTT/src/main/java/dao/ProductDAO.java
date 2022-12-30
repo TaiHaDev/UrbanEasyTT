@@ -16,9 +16,10 @@ import model.Product;
 
 public class ProductDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/UrbanEasy?allowPublicKeyRetrieval=true&useSSL=false";
-    private String jdbcUsername = "root";
-    private String jdbcPassword = "15012003";
+    private String jdbcUsername = "my local host";
+    private String jdbcPassword = "370291";
     private static final String SELECT_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ";
+    private static final String SELECT_ALL_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ";
 
     public ProductDAO() {
     }
