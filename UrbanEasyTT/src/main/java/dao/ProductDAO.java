@@ -16,10 +16,16 @@ import model.Product;
 
 public class ProductDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/UrbanEasy?allowPublicKeyRetrieval=true&useSSL=false";
-    private String jdbcUsername = "my local host";
+    private String jdbcUsername = "root";
     private String jdbcPassword = "370291";
     private static final String SELECT_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ";
-    private static final String SELECT_ALL_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ";
+    private static final String SELECT_ALL_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating, a.url, pr.price\r\n"
+    		+ "FROM property p join (SELECT propertyId, AVG(stars) as avg_rating \r\n"
+    		+ "						FROM reviews\r\n"
+    		+ "                        GROUP BY propertyId) r\r\n"
+    		+ "ON p.propertyId = r.propertyId\r\n"
+    		+ "join asset a on p.propertyId = a.apartmentId\r\n"
+    		+ "join price pr on pr.apartmentId =p.propertyId; ";
 
     public ProductDAO() {
     }
@@ -50,7 +56,13 @@ public class ProductDAO {
                 Connection connection = this.getConnection();
 
                 try {
-                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ");
+                    PreparedStatement preparedStatement = connection.prepareStatement("SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating, a.url, pr.price\r\n"
+                    		+ "FROM property p join (SELECT propertyId, AVG(stars) as avg_rating \r\n"
+                    		+ "						FROM reviews\r\n"
+                    		+ "                        GROUP BY propertyId) r\r\n"
+                    		+ "ON p.propertyId = r.propertyId\r\n"
+                    		+ "join asset a on p.propertyId = a.apartmentId\r\n"
+                    		+ "join price pr on pr.apartmentId =p.propertyId;");
 
                     try {
                         ResultSet rs = preparedStatement.executeQuery();
@@ -61,7 +73,9 @@ public class ProductDAO {
                             String city = rs.getString("city");
                             String country = rs.getString("country");
                             double avg_rating = (double)Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
-                            products.add(new Product(id, district, city, country, avg_rating));
+                            String url = rs.getString("url");
+                            double price = rs.getDouble("price");
+                            products.add(new Product(id, district, city, country, avg_rating, url, price));
                         }
                     } finally {
                         if (preparedStatement != null) {

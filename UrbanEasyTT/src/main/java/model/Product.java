@@ -11,13 +11,17 @@ public class Product {
     private String city;
     private String country;
     private double stars;
+    private String url;
+    private double price;
 
-    public Product(int id, String district, String city, String country, double stars) {
+    public Product(int id, String district, String city, String country, double stars, String url, double price) {
         this.id = id;
         this.district = district;
         this.city = city;
         this.country = country;
         this.stars = stars;
+        this.url = url;
+        this.price = price;
     }
 
     public int getId() {
@@ -59,4 +63,22 @@ public class Product {
     public void setStars(double stars) {
         this.stars = stars;
     }
+
+	public String getUrl() {
+		return url;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+    
+    
 }

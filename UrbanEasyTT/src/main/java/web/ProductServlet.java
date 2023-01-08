@@ -40,7 +40,7 @@ public class ProductServlet extends HttpServlet {
                 case "/product-detail":
                     this.showProductDetail(request, response);
                     break;
-                case "/home-page":
+                case "/list-product":
                     this.listUser(request, response);
                     break;
                 default:
