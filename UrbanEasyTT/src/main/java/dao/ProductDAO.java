@@ -28,16 +28,15 @@ import model.Product;
 import model.Product;
 
 public class ProductDAO {
-    private String jdbcURL = "jdbc:mysql://localhost:3306/urbaneasyv2?allowPublicKeyRetrieval=true&useSSL=false";
+    private String jdbcURL = "jdbc:mysql://localhost:3306/UrbanEasyV2?allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String jdbcUsername = "root";
-    private String jdbcPassword = "370291";
-    private static final String SELECT_PRODUCT = "SELECT p.propertyId, p.district, p.city, p.country, r.avg_rating FROM property p join\t(SELECT propertyId, AVG(stars) as avg_rating FROM reviews GROUP BY propertyId) r ON p.propertyId = r.propertyId; ";
-    private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price\r\n"
-    		+ "    		FROM property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
-    		+ "    								FROM review\r\n"
-    		+ "    		                        GROUP BY propertyId) r\r\n"
-    		+ "    		ON p.id = r.propertyId\r\n"
-    		+ "    		join asset a on p.id = a.property_id\r\n"
+    private String jdbcPassword = "15012003";
+    private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price\n"
+    		+ "    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \n"
+    		+ "    								FROM UrbanEasyV2.review\n"
+    		+ "    		                        GROUP BY propertyId) r\n"
+    		+ "    		ON p.id = r.propertyId\n"
+    		+ "    		join asset a on p.id = a.property_id\n"
     		+ "            where a.name='1';";
 
     public ProductDAO() {
@@ -58,67 +57,7 @@ public class ProductDAO {
         return connection;
     }
 
-    public List<Product> selectAllProducts() {
-        List<Product> products = new ArrayList();
-
-        try {
-            Throwable var2 = null;
-            Object var3 = null;
-
-            try {
-                Connection connection = this.getConnection();
-
-                try {
-                    PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_PRODUCT);
-
-                    try {
-                        ResultSet rs = preparedStatement.executeQuery();
-
-                        while(rs.next()) {
-                            int id = rs.getInt("propertyId");
-                            String district = rs.getString("district");
-                            String city = rs.getString("city");
-                            String country = rs.getString("country");
-                            double avg_rating = (double)Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
-                            String url = rs.getString("url");
-                            double price = rs.getDouble("price");
-                            products.add(new Product(id, district, city, country, avg_rating, url, price));
-                        }
-                    } finally {
-                        if (preparedStatement != null) {
-                            preparedStatement.close();
-                        }
-
-                    }
-                } catch (Throwable var26) {
-                    if (var2 == null) {
-                        var2 = var26;
-                    } else if (var2 != var26) {
-                        var2.addSuppressed(var26);
-                    }
-
-                    if (connection != null) {
-                        connection.close();
-                    }
-                }
-
-                if (connection != null) {
-                    connection.close();
-                }
-            } catch (Throwable var27) {
-                if (var2 == null) {
-                    var2 = var27;
-                } else if (var2 != var27) {
-                    var2.addSuppressed(var27);
-                }
-            }
-        } catch (Exception var28) {
-            var28.printStackTrace();
-        }
-
-        return products;
-    }
-	}
+   
 
 	public List<Product> selectAllProducts2() {
 	    // using try-with-resources to avoid closing resources (boiler plate code)
@@ -134,7 +73,7 @@ public class ProductDAO {
 	
 	        // Step 4: Process the ResultSet object.
 	        while (rs.next()) {
-	        	int id = rs.getInt("propertyId");
+	        	int id = rs.getInt("id");
                 String district = rs.getString("district");
                 String city = rs.getString("city");
                 String country = rs.getString("country");
@@ -144,8 +83,7 @@ public class ProductDAO {
                 products.add(new Product(id, district, city, country, avg_rating, url, price));
 	        }
 	    } catch (SQLException e) {
-	        printSQLException(e);
+	        e.printStackTrace();
 	    }
-	    System.out.println("test"+products[0]);
 	    return products;
-}
+}}

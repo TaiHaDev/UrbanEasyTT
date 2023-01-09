@@ -9,6 +9,7 @@ import model.Product;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -55,7 +56,8 @@ public class ProductServlet extends HttpServlet {
     }
     
     private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        ArrayList<Product> products = this.productDAO.selectAllProducts();
+        List<Product> products = this.productDAO.selectAllProducts2();
+        System.out.print(products);
         request.setAttribute("productList", products);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
