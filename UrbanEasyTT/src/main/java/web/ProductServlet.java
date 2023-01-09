@@ -5,6 +5,7 @@
 
 package web;
 
+import model.Product;
 import dao.ProductDAO;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,6 +24,7 @@ public class ProductServlet extends HttpServlet {
     private ProductDAO productDAO;
 
     public ProductServlet() {
+    	this.productDAO = new ProductDAO();
     }
 
     public void init() {
@@ -40,11 +42,11 @@ public class ProductServlet extends HttpServlet {
                 case "/product-detail":
                     this.showProductDetail(request, response);
                     break;
-                case "/list-product":
-                    this.listUser(request, response);
+                case "/list":
+                    this.listProduct(request, response);
                     break;
                 default:
-                    this.listUser(request, response);
+                    this.listProduct(request, response);
             }
 
         } catch (SQLException var5) {
@@ -52,10 +54,10 @@ public class ProductServlet extends HttpServlet {
         }
     }
     
-    private void listUser(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-        List<Product> productList = this.productDAO.selectAllProducts();
-        request.setAttribute("productList", productList);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");
+    private void listProduct(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+        ArrayList<Product> products = this.productDAO.selectAllProducts();
+        request.setAttribute("productList", products);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
 
