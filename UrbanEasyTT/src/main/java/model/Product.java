@@ -11,17 +11,27 @@ public class Product {
     private String city;
     private String country;
     private double stars;
+    private double lng;
+    private double lat;
     private String url;
     private double price;
-
-    public Product(int id, String district, String city, String country, double stars, String url, double price) {
+    public Product(int id, String district, String city, String country, double stars, double lng, double lat) {
         this.id = id;
         this.district = district;
         this.city = city;
         this.country = country;
         this.stars = stars;
-        this.url = url;
+        this.lng = lng;
+        this.lat = lat;
+    }
+    public Product(int id, String district, String city, String country, double stars, double price , String url) {
+        this.id = id;
+        this.district = district;
+        this.city = city;
+        this.country = country;
+        this.stars = stars;
         this.price = price;
+        this.url = url;
     }
 
     public int getId() {
@@ -64,21 +74,32 @@ public class Product {
         this.stars = stars;
     }
 
+	public double getLng() {
+		return lng;
+	}
+
+	public void setLng(double lng) {
+		this.lng = lng;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
+	}
 	public String getUrl() {
 		return url;
 	}
-
-	public double getPrice() {
-		return price;
-	}
-
 	public void setUrl(String url) {
 		this.url = url;
 	}
-
+	public double getPrice() {
+		return price;
+	}
 	public void setPrice(double price) {
 		this.price = price;
 	}
-    
-    
+	
 }

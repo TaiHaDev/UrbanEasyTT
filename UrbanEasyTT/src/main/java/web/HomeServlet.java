@@ -7,6 +7,7 @@ package web;
 
 import dao.ProductDAO;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,12 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Product;
 
-@WebServlet({"/product-detail"})
-public class ProductServlet extends HttpServlet {
+@WebServlet({"/home"})
+public class HomeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProductDAO productDAO;
 
-    public ProductServlet() {
+    public HomeServlet() {
     }
 
     public void init() {
@@ -32,23 +33,17 @@ public class ProductServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
         try {
-        	int id = Integer.parseInt(request.getParameter("id"));
-        	Product product = productDAO.selectProduct(id);
-        
-        	request.setAttribute("product", product);
-        	String[] urlArray = productDAO.selectAssets(id);
-        	request.setAttribute("assets", urlArray);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("product-detail.jsp");
+        	List<Product> products = this.productDAO.selectAllProducts2();
+            System.out.print(products);
+            request.setAttribute("products", products);
+            RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
             dispatcher.forward(request, response);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
-
 
 
 }
