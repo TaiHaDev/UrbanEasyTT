@@ -20,7 +20,7 @@ import model.Product;
 
 public class ProductDAO {
     private String jdbcURL = "jdbc:mysql://localhost:3306/urbaneasyv2?allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    private String jdbcUsername = "root";
+    private String jdbcUsername = "tindev";
     private String jdbcPassword = "370291";
     private static final String SELECT_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat FROM property p join\t(SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId; ";
     private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
