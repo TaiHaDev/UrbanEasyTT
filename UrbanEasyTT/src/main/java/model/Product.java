@@ -15,6 +15,7 @@ public class Product {
     private double lat;
     private String url;
     private double price;
+    private int categoryID;
     public Product(int id, String district, String city, String country, double stars, double lng, double lat) {
         this.id = id;
         this.district = district;
@@ -24,7 +25,7 @@ public class Product {
         this.lng = lng;
         this.lat = lat;
     }
-    public Product(int id, String district, String city, String country, double stars, double price , String url) {
+    public Product(int id, String district, String city, String country, double stars, double price , String url, int categoryID) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -32,6 +33,7 @@ public class Product {
         this.stars = stars;
         this.price = price;
         this.url = url;
+        this.categoryID = categoryID;
     }
 
     public int getId() {
@@ -100,6 +102,12 @@ public class Product {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public int getCategoryID() {
+		return categoryID;
+	}
+	public void setCategoryID(int categoryID) {
+		this.categoryID = categoryID;
 	}
 	
 }

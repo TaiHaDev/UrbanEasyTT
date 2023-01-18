@@ -658,15 +658,21 @@ input[type="text"]:focus{
 
 /* product card */
 .product-card{
-  display: grid;  
-  grid-template-columns: repeat(auto-fit, 320px);
-  grid-template-rows: repeat(none, 320px);
-  grid-gap: 50px;
+  
   align-items: center;
   justify-content: center;
   margin-top: 100px;
+  margin-bottom: 100px;
 }
-
+.gridd{
+	display: grid; 
+  grid-template-columns: repeat(auto-fit, 320px);
+  grid-template-rows: repeat(none, 320px);
+  grid-gap: 50px;
+}
+.hiddenn{
+	display: none;
+}
 .card2 {
   max-width: 320px;
   margin: auto;
