@@ -5,18 +5,34 @@
 
 package model;
 
+import java.math.BigDecimal;
+
 public class Product {
-    private int id;
-    private String district;
+    private long id;
+    private String name;
+    public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	private String district;
     private String city;
     private String country;
     private double stars;
     private double lng;
     private double lat;
     private String url;
-    private double price;
+    private BigDecimal price;
+    private long userId;
     private int categoryID;
-    public Product(int id, String district, String city, String country, double stars, double lng, double lat) {
+    public Product(long id, String district, String city, String country, double stars, double lng, double lat, long userId) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -24,8 +40,9 @@ public class Product {
         this.stars = stars;
         this.lng = lng;
         this.lat = lat;
+        this.userId = userId;
     }
-    public Product(int id, String district, String city, String country, double stars, double price , String url, int categoryID) {
+    public Product(long id, String district, String city, String country, double stars, BigDecimal price , String url, int categoryId) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -33,13 +50,16 @@ public class Product {
         this.stars = stars;
         this.price = price;
         this.url = url;
-        this.categoryID = categoryID;
+        this.categoryID= categoryId;
+    }
+    public Product(long id, String name, String url, double stars) {
+    	this.id = id;
+    	this.name = name;
+    	this.url = url;
+    	this.stars = stars;
     }
 
-    public int getId() {
-        return this.id;
-    }
-
+    
     public void setId(int id) {
         this.id = id;
     }
@@ -97,10 +117,16 @@ public class Product {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public double getPrice() {
+	public long getId() {
+		return id;
+	}
+	public void setId(long id) {
+		this.id = id;
+	}
+	public BigDecimal getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 	public int getCategoryID() {
@@ -109,5 +135,6 @@ public class Product {
 	public void setCategoryID(int categoryID) {
 		this.categoryID = categoryID;
 	}
+	
 	
 }

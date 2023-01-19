@@ -5,6 +5,7 @@
 
 package dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import util.Connector;
 import java.sql.DriverManager;
@@ -21,8 +22,9 @@ import model.Category;
 import model.Product;
 
 public class ProductDAO {
-	private static final String SELECT_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat FROM property p join\t(SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId; ";
+	private static final String SELECT_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id FROM property p join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";	
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
+
 	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
 			+ "			    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
 			+ "			    								FROM UrbanEasyV2.review\r\n"
@@ -39,51 +41,75 @@ public class ProductDAO {
 	public ProductDAO() {
 	}
 
-	public Product selectProduct(int id) {
-		Product result = null;
-		Connection connection = Connector.makeConnection();
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_PRODUCT);
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				int propertyId = rs.getInt("id");
-				String district = rs.getString("district");
-				String city = rs.getString("city");
-				String country = rs.getString("country");
-				double lng = rs.getDouble("lng");
-				double lat = rs.getDouble("lat");
-				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
-				result = new Product(propertyId, district, city, country, avg_rating, lng, lat);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
+	public Product selectProduct(long id) {
+    	Product result = null;
+    	Connection connection = Connector.makeConnection();
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	try {
+    		ps = connection.prepareStatement(SELECT_PRODUCT);
+    		ps.setLong(1, id);
+    		rs = ps.executeQuery();
+    	
+    		while(rs.next()) {
+    			long propertyId = rs.getLong("id");
+    			String district = rs.getString("district");
+    			String city = rs.getString("city");
+    			String country = rs.getString("country");
+    			double lng = rs.getDouble("lng");
+    			double lat = rs.getDouble("lat");
+    			double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0; 
+    			long userId = rs.getLong("user_id");
+    			result = new Product(propertyId, district, city, country, avg_rating, lng, lat, userId);
+    		}
+    		
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return result;
+    	
+    }
 
-	}
+	 public String[] selectAssets(long id) {
+	    	String[] result = new String[5];
+	    	Connection connection = Connector.makeConnection();
+	    	PreparedStatement ps = null;
+	    	ResultSet rs = null;
+	    	try {
+	    		ps = connection.prepareStatement(SELECT_ASSET_BY_ID);
+	    		ps.setLong(1, id);
+	    		rs = ps.executeQuery();
+	    		while (rs.next()) {
+	    			String name = rs.getString("name");
+	    			String url = rs.getString("url");
+	    			for (int i = 1; i <= 5; i++) {
 
-	public String[] selectAssets(int id) {
-		String[] result = new String[5];
-		Connection connection = Connector.makeConnection();
-		try {
-			PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ASSET_BY_ID);
-			preparedStatement.setInt(1, id);
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				String name = rs.getString("name");
-				String url = rs.getString("url");
-				for (int i = 1; i <= 5; i++) {
-					if (name.contains("" + i)) {
-						result[i - 1] = url;
-						break;
+	    				if (name.contains("" + i)) {
+	    					result[i-1] = url;
+	    					break;
+	    				}
+	    			}
+	    	}
+	    	} catch (SQLException e) {
+	    		e.printStackTrace();
+	    	} finally {
+				try {
+					if (rs != null) {
+						rs.close();
 					}
+					if (ps != null) {
+						ps.close();
+					}
+					if (connection != null) {
+						connection.close();
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
+	    	return result;
+	    }
 
 	public List<Product> selectAllProducts2() {
 		List<Product> products = new ArrayList<>();
@@ -95,15 +121,15 @@ public class ProductDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				int id = rs.getInt("id");
+				long propertyId = rs.getLong("id");
 				String district = rs.getString("district");
 				String city = rs.getString("city");
 				String country = rs.getString("country");
 				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
 				String url = rs.getString("url");
-				double price = rs.getDouble("price");
+				BigDecimal price = rs.getBigDecimal("price");
 				int category_id = rs.getInt("category_id");
-				products.add(new Product(id, district, city, country, avg_rating, price, url, category_id));
+				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,15 +195,15 @@ public class ProductDAO {
 				rs = ps.executeQuery();
 
 				while (rs.next()) {
-					int id = rs.getInt("id");
+					long propertyId = rs.getLong("id");
 					String district = rs.getString("district");
 					String city = rs.getString("city");
 					String country = rs.getString("country");
 					double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
 					String url = rs.getString("url");
-					double price = rs.getDouble("price");
+					BigDecimal price = rs.getBigDecimal("price");
 					int category_id = rs.getInt("category_id");
-					products.get(i).add(new Product(id, district, city, country, avg_rating, price, url, category_id));
+					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
 
 				}
 				try {

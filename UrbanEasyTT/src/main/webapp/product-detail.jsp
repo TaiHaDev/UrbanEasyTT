@@ -542,7 +542,6 @@
 <script>
 const lng = "<c:out value="${product.lng}"/>";
 const lat = "<c:out value="${product.lat}"/>";
-console.log(lat);
 mapboxgl.accessToken = 'pk.eyJ1IjoiYXBpZXhwbG9yZXIiLCJhIjoiY2xiZzJ4ZmEyMGFrejN2bXV1YXRucnRkMCJ9.3KIUk-IF5zhcKaaPNEyQjQ';
 const map = new mapboxgl.Map({
 container: 'map', // container ID

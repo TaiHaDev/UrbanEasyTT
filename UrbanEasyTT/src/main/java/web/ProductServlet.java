@@ -34,9 +34,9 @@ public class ProductServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
         try {
-        	int id = Integer.parseInt(request.getParameter("id"));
+        	long id = Long.parseLong(request.getParameter("id"));
         	Product product = productDAO.selectProduct(id);
-        
+        	
         	request.setAttribute("product", product);
         	String[] urlArray = productDAO.selectAssets(id);
         	request.setAttribute("assets", urlArray);
