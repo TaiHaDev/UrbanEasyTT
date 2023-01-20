@@ -22,7 +22,6 @@ import model.User;
 @WebServlet("/user")
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ProductDAO productDAO;
 	private UserDAO userDAO;
     /**
      * @see HttpServlet#HttpServlet()
@@ -34,7 +33,7 @@ public class UserServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
     	// TODO Auto-generated method stub
-    	this.productDAO = new ProductDAO();
+    	this.userDAO = new UserDAO();
     }
 
 	/**
