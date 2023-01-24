@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.ProductDAO;
+import dao.ReviewDAO;
 import dao.UserDAO;
 import model.Product;
 import model.Review;
@@ -23,6 +24,7 @@ import model.User;
 public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
+	private ReviewDAO reviewDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -34,6 +36,7 @@ public class UserServlet extends HttpServlet {
     public void init() throws ServletException {
     	// TODO Auto-generated method stub
     	this.userDAO = new UserDAO();
+    	this.reviewDAO = new ReviewDAO();
     }
 
 	/**
@@ -47,7 +50,7 @@ public class UserServlet extends HttpServlet {
 			request.setAttribute("userInfo", chosenUser);
 			List<Product> userOwnedProperty = userDAO.selectPropertyOwnedByUser(userId);
 			request.setAttribute("propertyList", userOwnedProperty);
-			List<Review> reviewsFromUser = userDAO.selectReviewsFromUserToOwner(userId);
+			List<Review> reviewsFromUser = reviewDAO.selectReviewsFromUserToOwner(userId);
 			request.setAttribute("reviewList", reviewsFromUser);
 			request.setAttribute("totalReviews", reviewsFromUser.size());
 			RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");

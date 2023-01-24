@@ -10,18 +10,6 @@ import java.math.BigDecimal;
 public class Product {
     private long id;
     private String name;
-    public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public long getUserId() {
-		return userId;
-	}
-	public void setUserId(long userId) {
-		this.userId = userId;
-	}
 	private String district;
     private String city;
     private String country;
@@ -32,7 +20,13 @@ public class Product {
     private BigDecimal price;
     private long userId;
     private int categoryID;
-    public Product(long id, String district, String city, String country, double stars, double lng, double lat, long userId) {
+    private int bedroom;
+    private int guest;
+    private int bed;
+    private int bath;
+
+    // contrustor for product-detail
+    public Product(long id, String name, String district, String city, String country, double stars, double lng, double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -41,8 +35,38 @@ public class Product {
         this.lng = lng;
         this.lat = lat;
         this.userId = userId;
+        this.guest = guest;
+        this.bedroom = bedroom;
+        this.bed = bed;
+        this.bath = bath;
+        this.name = name;
+        this.price = price;
     }
-    public Product(long id, String district, String city, String country, double stars, BigDecimal price , String url, int categoryId) {
+    public int getBedroom() {
+		return bedroom;
+	}
+	public void setBedroom(int bedroom) {
+		this.bedroom = bedroom;
+	}
+	public int getGuest() {
+		return guest;
+	}
+	public void setGuest(int guest) {
+		this.guest = guest;
+	}
+	public int getBed() {
+		return bed;
+	}
+	public void setBed(int bed) {
+		this.bed = bed;
+	}
+	public int getBath() {
+		return bath;
+	}
+	public void setBath(int bath) {
+		this.bath = bath;
+	}
+	public Product(long id, String district, String city, String country, double stars, BigDecimal price , String url, int categoryId) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -134,6 +158,24 @@ public class Product {
 	}
 	public void setCategoryID(int categoryID) {
 		this.categoryID = categoryID;
+	}
+    public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	@Override
+	public String toString() {
+		return "Product [id=" + id + ", name=" + name + ", district=" + district + ", city=" + city + ", country="
+				+ country + ", stars=" + stars + ", lng=" + lng + ", lat=" + lat + ", url=" + url + ", price=" + price
+				+ ", userId=" + userId + ", categoryID=" + categoryID + "]";
 	}
 	
 	

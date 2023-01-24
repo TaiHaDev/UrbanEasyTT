@@ -1,19 +1,32 @@
 package model;
 
 public class User {
-
-	private final String name;
-	private final String about;
-	private final String year;
-	private final boolean isHost;
-	private final String avatarURL;
-	public User( String name, String about, String year, boolean isHost, String avatarURL) {
-	
+	private Long id;
+	private String name;
+	private String about;
+	private String year;
+	private boolean isHost;
+	private String avatarURL;
+	private Integer totalReview;
+	public User( String name, String about, boolean isHost, String year, String avatarURL) {
 		this.name = name;
 		this.year = year;
-		this.isHost = isHost;
 		this.about = about;
 		this.avatarURL = avatarURL;
+		this.isHost = isHost;
+		
+	}
+	public boolean isHost() {
+		return isHost;
+	}
+	public void setHost(boolean isHost) {
+		this.isHost = isHost;
+	}
+	public User(long id, String name, String url, int totalReview) {
+		this.id = id;
+		this.name = name;
+		this.avatarURL = url;
+		this.totalReview = totalReview;
 	}
 	
 
@@ -26,8 +39,29 @@ public class User {
 	public String getYear() {
 		return year;
 	}
-	public boolean isHost() {
-		return isHost;
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Integer getTotalReview() {
+		return totalReview;
+	}
+	public void setTotalReview(Integer totalReview) {
+		this.totalReview = totalReview;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setAbout(String about) {
+		this.about = about;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public void setAvatarURL(String avatarURL) {
+		this.avatarURL = avatarURL;
 	}
 	public String getAvatarURL() {
 		return avatarURL;

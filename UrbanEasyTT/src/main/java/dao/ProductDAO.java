@@ -22,7 +22,7 @@ import model.Category;
 import model.Product;
 
 public class ProductDAO {
-	private static final String SELECT_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id FROM property p join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";	
+	private static final String SELECT_PRODUCT = "SELECT p.id, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";	
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
 
 	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
@@ -50,7 +50,6 @@ public class ProductDAO {
     		ps = connection.prepareStatement(SELECT_PRODUCT);
     		ps.setLong(1, id);
     		rs = ps.executeQuery();
-    	
     		while(rs.next()) {
     			long propertyId = rs.getLong("id");
     			String district = rs.getString("district");
@@ -60,7 +59,13 @@ public class ProductDAO {
     			double lat = rs.getDouble("lat");
     			double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0; 
     			long userId = rs.getLong("user_id");
-    			result = new Product(propertyId, district, city, country, avg_rating, lng, lat, userId);
+    			int totalGuest = rs.getInt("total_guest");
+    			int bedroom = rs.getInt("bedroom");
+    			int bed = rs.getInt("bed");
+    			int bath = rs.getInt("bath");
+    			String name = rs.getString("name");
+    			BigDecimal price = rs.getBigDecimal("default_price");
+    			result = new Product(propertyId, name, district, city, country, avg_rating, lng, lat, userId, totalGuest, bedroom, bed, bath, price);
     		}
     		
     	} catch (SQLException e) {
@@ -181,8 +186,7 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
-		
-		System.out.println("category_amount: "+categoriesAmount);
+	
 		
 		for (int i = 0; i < 21; i++) {
 			Connection connection = Connector.makeConnection();
@@ -219,8 +223,7 @@ public class ProductDAO {
 				}
 				rs = null;
 				ps = null;
-				// System.out.println("Category "+ i+": " + products.get(i));
-
+	
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
