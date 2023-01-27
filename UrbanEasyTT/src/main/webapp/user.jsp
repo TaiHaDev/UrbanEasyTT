@@ -16,7 +16,9 @@
 <title>${userInfo.getName()}</title>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
+<jsp:include page="header.jsp" >
+		<jsp:param name="userId" value="${sessionScope.userId}"/>
+	</jsp:include>
 <div class="mx-8  lg:mx-40 xl:mx-80 my-12">
   <div class="flex justify-between">
 <div>

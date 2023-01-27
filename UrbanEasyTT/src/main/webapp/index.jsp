@@ -44,7 +44,9 @@
 
 <body>
 
-	<jsp:include page="header.jsp" />
+	<jsp:include page="header.jsp" >
+		<jsp:param name="userId" value="${sessionScope.userId}"/>
+	</jsp:include>
 
 	<!-- slider categories -->
 	<div class="wrapper">

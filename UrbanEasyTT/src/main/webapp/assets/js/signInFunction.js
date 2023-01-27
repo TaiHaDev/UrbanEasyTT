@@ -1,26 +1,65 @@
 const button = document.getElementById("remove-button");
-const modal = document.querySelector(".sign-in-modal");
-const loginButton = document.querySelector('.login-button');
-const backDrop = document.querySelector('.backdrop');
+
+const modal = document.getElementById("modal");
+const loginButton = document.getElementById("login-button");
 const body = document.getElementsByTagName('body')[0];
+const upper = document.getElementById("upper");
+const signupButton = document.getElementById("signup-button");
 
 const showModalHandler = () => {
-    modal.style.display = "block";
-    body.style.overflow = 'hidden';
+   modal.classList.remove("hidden");
+    body.classList.add("overflow-hidden");
+  
 }
-
-loginButton.addEventListener('click', showModalHandler);
-
 const hideModalHandler = () => {
-    modal.style.display = "none";
-    body.style.overflow = 'auto';
+    modal.classList.add("hidden");
+    body.classList.remove("overflow-hidden");
+} 
+
+// change login form to sign up form
+const loginForm = document.getElementById("login-form");
+const signupForm = document.getElementById("signup-form");
+const loginFormTab = document.getElementById("login-tab");
+const signupTab = document.getElementById("signup-tab");
+const onClickLoginTabHandler = event => {
+	loginFormTab.classList.add("bg-blue-600", "text-white");
+	signupTab.classList.remove("bg-blue-600", "text-white");
+	loginForm.classList.remove("hidden");
+	signupForm.classList.add("hidden");
 }
 
-backDrop.addEventListener('click', hideModalHandler);
-
+const onClickSignupTabHandler = event => {
+	loginFormTab.classList.remove("bg-blue-600", "text-white");
+	signupTab.classList.add("bg-blue-600", "text-white");
+	loginForm.classList.add("hidden");
+	signupForm.classList.remove("hidden");
+}
+signupButton.addEventListener("click", event => {
+	showModalHandler();
+	onClickSignupTabHandler();
+})
+loginButton.addEventListener('click', event => {
+	showModalHandler();
+	onClickLoginTabHandler();
+});
 button.addEventListener('click', hideModalHandler);
+signupTab.addEventListener("click", onClickSignupTabHandler);
+loginFormTab.addEventListener("click", onClickLoginTabHandler);
 
-//
+const reopenLoginForm = () => {
+	const currentUrl = new URL(window.location.href);
+	// Get the search parameters from the URL
+	const searchParams = new URLSearchParams(currentUrl.search);
+	// Get the value of a specific parameter
+	const reValue = searchParams.get("re");
+	if (reValue == "true") {
+		showModalHandler();
+		onClickLoginTabHandler();
+	}
+}
+reopenLoginForm();
+
+/*
 var usernameLogIn = document.querySelector('#exampleInputEmail1');
 var passwordLogIn = document.querySelector('#exampleInputPassword1');
 
@@ -135,4 +174,5 @@ formRegister.addEventListener('submit', function(e){
     else {
         // backend handle
     }
-})
+}) 
+*/
