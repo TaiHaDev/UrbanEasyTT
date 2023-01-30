@@ -5,13 +5,17 @@
 
 package web;
 
+import dao.BookingDAO;
 import dao.ProductDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import util.ReviewerUltilities;
+import util.Ultilities;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,6 +32,7 @@ public class ProductServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ProductDAO productDAO;
     private UserDAO userDAO;
+    private BookingDAO bookingDAO;
     private ReviewDAO reviewDAO;
 
     public ProductServlet() {
@@ -38,6 +43,7 @@ public class ProductServlet extends HttpServlet {
         this.productDAO = new ProductDAO();
         this.userDAO = new UserDAO();
         this.reviewDAO = new ReviewDAO();
+        this.bookingDAO = new BookingDAO();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -61,9 +67,11 @@ public class ProductServlet extends HttpServlet {
         	request.setAttribute("averageRatings", averageRatings);
         	request.setAttribute("ratingsPercentage", ratingsPercentage);
         	request.setAttribute("averageReview", averageReview);
-        	System.out.println(reviewsList.size());
         	String[] urlArray = productDAO.selectAssets(id);
         	request.setAttribute("assets", urlArray);
+        	List<Date> bookedDates = bookingDAO.selectBookingDates(id);
+        	List<String> reformatDates = Ultilities.reformatDates(bookedDates);
+        	request.setAttribute("bookedDates", reformatDates);
             RequestDispatcher dispatcher = request.getRequestDispatcher("product-detail.jsp");
             dispatcher.forward(request, response);
 

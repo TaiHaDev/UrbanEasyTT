@@ -517,7 +517,8 @@
 		}
 		let night;
 		let totalPrice;
-        const disabledDates = [];
+		const dateString = "${bookedDates}"
+        const disabledDates = dateString.slice(1, -1).split(", ");
         const elem = document.getElementById('final-check-in');
         const elem2 = document.getElementById('final-check-out');
         const config = {

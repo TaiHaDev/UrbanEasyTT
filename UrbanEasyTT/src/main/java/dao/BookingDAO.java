@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import util.Connector;
+import util.Ultilities;
 
 public class BookingDAO {
 	private static final String INSERT_BOOKING = "INSERT INTO booking (property_id, user_id, date_start, date_end) VALUES(?,?, str_to_date(?, '%d/%m/%Y'), str_to_date(?, '%d/%m/%Y'));";
@@ -56,10 +57,7 @@ public class BookingDAO {
 			if (rs.next()) {
 				Date dateStart = rs.getDate("date_start");
 				Date dateEnd = rs.getDate("date_end");
-				while (dateStart.before(dateEnd)) {
-					result.add(dateStart);
-
-				}
+				result = Ultilities.getDatesBetween(dateStart, dateEnd);
 			}
 
 		} catch (SQLException e) {
