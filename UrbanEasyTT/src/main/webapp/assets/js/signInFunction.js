@@ -1,3 +1,6 @@
+const HTTP_URL = "http://localhost:8080/UrbanEasyTT/";
+
+
 const button = document.getElementById("remove-button");
 
 const modal = document.getElementById("modal");
@@ -58,6 +61,85 @@ const reopenLoginForm = () => {
 	}
 }
 reopenLoginForm();
+const checkEmail = async (email, password, name) => {
+	let data = {
+		email,
+		name,
+		password,
+	}
+	const response = await fetch("http://localhost:8080/UrbanEasyTT/SignupServlet", {
+		method: 'POST',
+		headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+	});
+	const json = await response.json();
+	return json;
+}
+signupFormOnSubmitHandler = async event => {
+	event.preventDefault();
+	const email = document.getElementById("signup-email");
+	const password = document.getElementById("signup-password");
+	const name = document.getElementById("name");
+	const confirmedPassword = document.getElementById("signup-confirmed-password");
+	const passwordError = document.getElementById("password-error");
+	const emailError = document.getElementById("email-error");
+	const response = await checkEmail(email.value, password.value, name.value);
+	let isErrored = false;
+	emailError.classList.add("hidden");
+	passwordError.classList.add("hidden");
+	if (response == "email false") {
+		emailError.classList.remove("hidden");
+		isErrored = true;
+	}
+	if (password.value !== confirmedPassword.value) {
+		passwordError.classList.remove("hidden");
+		isErrored = true;
+	}
+	if (!isErrored) {
+		console.log(response);
+		const verificationEmail = document.getElementById("verification-email");
+		verificationEmail.innerText = email.value;
+		upper.classList.add("hidden");
+		const container = document.getElementById("email-verification");
+		container.classList.remove("hidden");
+		addSubmitVerificationHandler(response, email.value, password.value);
+	}
+}
+
+signupForm.addEventListener("submit", signupFormOnSubmitHandler);
+
+const addSubmitVerificationHandler = (verificationId, email, password) => {
+	const container = document.getElementById("email-verification")
+const verificationCodes = document.querySelectorAll(".verification-code")
+container.addEventListener("keydown", async event => {
+	if (event.key === "Enter") {
+		let numbers = '';
+		let isNotEmpty = true;
+		verificationCodes.forEach(node => {
+			if (node.value == '') {
+				isNotEmpty = false;
+			} 
+			numbers += node.value
+		})
+		if (isNotEmpty) {
+			const uri = HTTP_URL + "VerificationServlet" + "?id=" + verificationId + "&codes=" + numbers;
+			const rawResponse = await fetch(uri);
+			const response = await rawResponse.json();
+			if (response == "ok") {
+				const signinEmail = document.getElementById("email");
+				const signinPassword = document.getElementById("password");
+				signinEmail.value = email;	
+				signinPassword.value = password;
+				loginForm.submit()
+			}	
+		}
+	}
+})
+}
+
 
 /*
 var usernameLogIn = document.querySelector('#exampleInputEmail1');

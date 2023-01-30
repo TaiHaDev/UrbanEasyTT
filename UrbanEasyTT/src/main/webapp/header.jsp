@@ -2,14 +2,18 @@
     pageEncoding="ISO-8859-1"%>
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
+<link rel="stylesheet" href="assets/css/email-verification.css">
 	  <!--Sign-in section -->
   <header
 		class="bg-white px-4 sm:px-10 lg:px-24 border-b shadow-sm transition duration-1000">
 		<div class="flex h-20 justify-between items-center">
-			<img src="https://i.postimg.cc/8cdjfvRm/black-logo.png" alt="logo"
+			<a href="<%=request.getContextPath()%>/home">
+							<img src="https://i.postimg.cc/8cdjfvRm/black-logo.png" alt="logo"
 				class="hidden h-12 lg:block" /> <img
 				src="https://i.postimg.cc/8cdjfvRm/black-logo.png" alt="logo"
 				class="hidden w-12 sm:block lg:hidden" />
+			</a>
+
 			<div id="search-bar-small"
 				class="border rounded-full py-1 px-2 w-3/4 flex items-center md:w-[24rem] shadow-sm hover:shadow-md">
 				<div
@@ -177,32 +181,44 @@
           <form class="flex flex-col hidden" id="signup-form">
             <h5 class="font-medium text-lg mb-4">Welcome to UrbanEasy</h5>
             <div class="mb-3 flex flex-col space-y-1">
-              <label for="phone" >Phone number</label>
-              <input type="password" id="phone" name="phone" class="w-96 h-10  bg-gray-200 rounded-md pl-2 ">
-            </div>
-            <div class="mb-3 flex flex-col space-y-1">
               <label for="email">Email address</label>
-              <input type="email"  id="email" name="email" class="w-96 h-10 bg-gray-200 rounded-md pl-2">
+              <input type="email"  id="signup-email" name="email" class="w-96 h-10 bg-gray-200 rounded-md pl-2" required>
+               <p class="text-sm text-red-400 font-medium hidden" id="email-error">This is an existing email, please log in instead</p>
             </div>
             <div class="mb-3 flex flex-col space-y-1">
               <label for="name" >Name</label>
-              <input   id="name" name="name" class="w-96 h-10 bg-gray-200 rounded-md pl-2">
+              <input id="name" name="signup-name" class="w-96 h-10 bg-gray-200 rounded-md pl-2" required>
             </div>
             <div class="mb-3 flex flex-col space-y-1">
               <label for="password" >Password</label>
-              <input type="password" id="password" name="password" class="w-96 h-10  bg-gray-200 rounded-md pl-2 ">
+              <input type="password" id="signup-password" name="password" class="w-96 h-10  bg-gray-200 rounded-md pl-2 " required>
             </div>
             <div class="mb-3 flex flex-col space-y-1">
               <label for="confirmed-password" >Confirm Password</label>
-              <input type="password" id="confirmed-password" name="confirmed-password" class="w-96 h-10  bg-gray-200 rounded-md pl-2 ">
+              <input type="password" id="signup-confirmed-password" name="confirmed-password" class="w-96 h-10  bg-gray-200 rounded-md pl-2 " required>
+              <p class="text-sm text-red-400 font-medium hidden" id="password-error">Two passwords are not the same, please try again!</p>
             </div>
            <div class="p-3 border-t self-end">
         <button type="submit" class="bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-600">Submit</button>
     </div>
           </form>
+
     </div>
     
+    
   </div>
+            <div id="email-verification" class="elative mx-auto  max-w-xl rounded-lg overflow-y-auto p-4 bg-white verification-container hidden">
+      <h2 class="text-2xl font-medium">Verify Your Account</h2>
+      <p>We emailed you the six digit verification-code to <span class="font-medium" id="verification-email"></span> <br/> Enter the verification-code below to confirm your email address.</p>
+      <div class="verification-code-container">
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+        <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
+      </div>
+    </div>
 </div>
 <script src="./assets/js/signInFunction.js"></script>
 <script src="./assets/js/ultilities.js"></script>

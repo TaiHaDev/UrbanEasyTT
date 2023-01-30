@@ -259,14 +259,14 @@
 						<div class="flex ">
 							<div class="inset-x-0 flex flex-col w-1/2 border-r border-b p-2">
 								<label class="font-medium text-xs" for="final-check-in">CHECK-IN</label>
-								<input type="text" id="final-check-in"
+								<input type="text" id="final-check-in" name="start-date"
 									class="w-3/4 outline-none text-sm font-light"
 									placeholder="date in"
 									name="">
 							</div>
 							<div class="flex flex-col w-1/2 border-b pt-2 pl-3">
 								<label class="font-medium text-xs" for="final-check-out">CHECK-OUT</label>
-								<input type="text" id="final-check-out"
+								<input type="text" id="final-check-out" name="end-date"
 									class="outline-none text-sm font-light" placeholder="date out">
 							</div>
 						</div>
@@ -278,10 +278,13 @@
 							</div>
 						</div>
 					</div>
+				
 					
 						<input type="hidden" name="name" value="${product.getName()}"> 
 						<input type="hidden" name="image" value="${assets[0]}">
 						<input type="hidden" name="price" id="price-param" >
+						<input type="hidden" name="propertyId" value="${product.id}">
+				
 						<button type="submit"
 							class="text-white bg-gray-500 w-full py-2.5 rounded-md">
 							Reserve</button>
@@ -558,6 +561,12 @@
     	  } else {
     		  const priceElem = document.getElementById("price-param");
     		  priceElem.value = totalPrice * 100;
+    		  const userId = "${sessionScope.userId}";
+    		  if (!userId) {
+    				showModalHandler();
+    				onClickLoginTabHandler();
+    				event.preventDefault();
+    		  }
     		  
     	  }
       })

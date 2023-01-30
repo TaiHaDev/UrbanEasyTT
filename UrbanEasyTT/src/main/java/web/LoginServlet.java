@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.LoginDAO;
+import dao.AuthenticationDAO;
 import dao.ProductDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
@@ -21,7 +21,7 @@ import dao.UserDAO;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private LoginDAO loginDAO;
+    private AuthenticationDAO loginDAO;
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     public void init() {
-        this.loginDAO = new LoginDAO();
+        this.loginDAO = new AuthenticationDAO();
     }
 
 	/**
@@ -49,7 +49,7 @@ public class LoginServlet extends HttpServlet {
 		
 		String userName = request.getParameter("email");
 		String password = request.getParameter("password");
-		Integer userId = loginDAO.authenticateUser(userName, password);
+		Long userId = loginDAO.authenticateUser(userName, password);
 		String referrer = request.getHeader("referer");
 		if (userId == -1) {
 			if (referrer.contains("?")) {

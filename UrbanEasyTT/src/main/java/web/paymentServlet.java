@@ -41,15 +41,19 @@ public class paymentServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		String propertyName = request.getParameter("name");
 		String propertyImageUrl = request.getParameter("image");
-		System.out.println(propertyImageUrl);
-		long propertyPrice = Long.parseLong(request.getParameter("price")) ;
+		long propertyId = Long.parseLong(request.getParameter("propertyId"));
+		long userId = (Long) request.getSession().getAttribute("userId");
+		long propertyPrice = Long.parseLong(request.getParameter("price"));
+		String dateStart = request.getParameter("start-date");
+		String dateEnd = request.getParameter("end-date");
+		String queryParam = "?propId=" + propertyId + "&userId=" + userId + "&startDate=" + dateStart + "&endDate=" + dateEnd; 
 		try {
 			Stripe.apiKey = STRIPE_API_KEY;
 			SessionCreateParams params =
 			        SessionCreateParams.builder()
 			          .setMode(SessionCreateParams.Mode.PAYMENT)
-			          .setSuccessUrl("http://localhost:3030/success")
-			          .setCancelUrl("http://localhost:3030/cancel")
+			          .setSuccessUrl("http://localhost:8080/UrbanEasyTT/SuccessfulPayment" + queryParam)
+			          .setCancelUrl("http://localhost:8080/UrbanEasyTT/SuccessfulPayment")
 			          .addLineItem(
 			          SessionCreateParams.LineItem.builder()
 			          	.addTaxRate("txr_1MTmF2GOzIM2uC94PVx6VqyQ")
