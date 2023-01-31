@@ -160,9 +160,11 @@ public class ProductDAO {
 		PreparedStatement ps0 = null;
 		ResultSet rs0 = null;
 		try {
-			ps0 = connection0.prepareStatement("select count(*) as category_amount from category;");
+			ps0 = connection0.prepareStatement("select count(id) as category_amount from category;");
 			rs0 = ps0.executeQuery();
-			categoriesAmount = rs0.getInt("category_amount");
+			while (rs0.next()) {
+				categoriesAmount = rs0.getInt("category_amount");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -183,9 +185,9 @@ public class ProductDAO {
 		}
 		
 		System.out.println("category_amount: "+categoriesAmount);
-		
-		for (int i = 0; i < 21; i++) {
-			Connection connection = Connector.makeConnection();
+		Connection connection = Connector.makeConnection();
+		for (int i = 0; i < categoriesAmount; i++) {
+			
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			products.add(new ArrayList<Product>());
@@ -231,13 +233,20 @@ public class ProductDAO {
 					if (ps != null) {
 						ps.close();
 					}
-					if (connection != null) {
-						connection.close();
-					}
+					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+			
+		}
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		return products;

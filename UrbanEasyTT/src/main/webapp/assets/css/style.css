@@ -1,0 +1,333 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+html, body {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  background-color: #fff;
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.nav-rent-home{
+    position: fixed;
+    top: 0;
+    z-index: 1;
+    background-color: white;
+    width: 100%;
+    color: #222222;
+}
+.nav-rent-home a img{
+    margin: 15px 40px;
+}
+.nav-button-rent-home{
+    margin: 15px 40px;
+    display: inline-block;
+    float: right;
+    right: 0;
+}
+.button-nav-rent {
+    background-color: white;
+    color: #222222;
+    border-radius: 19px;
+    height: 40px;
+    width: 115px;
+    font-size: 0.85em;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #e9e9e9;
+    cursor: pointer;
+    margin: 0 10px;
+}
+.button-nav-rent:hover{
+    border: 2px solid #222222;
+
+}
+.rent-home-content{
+    display: flex;
+    align-items: center;
+    display: center;
+    margin-left:100px;
+    margin-right:100px;
+    margin-top:120px;
+    color: #222222;
+}
+.rent-sub-home-content{
+    padding:5px;
+    font-size: 20px;
+    margin-right: 30px;
+}
+.rent-sub-home-content p{
+    padding: 10px;
+}
+.rent-sub-home-content h1{
+    padding: 10px;
+}
+
+.foot-rent-home{
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
+    background-color: white;
+    width: 100%;
+    height: 90px;
+    border-top: 2px solid #585858;
+}
+.foot-rent-back{
+    margin-top: 20px;
+    padding: 15px 40px;
+    float:left;
+    text-decoration: none;
+    color: #222222;
+}
+.foot-rent-back button{
+    background-color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 17px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+.foot-rent-home-button{
+    float: right;
+    margin: 15px 40px;
+    background-color: rgb(39, 39, 39);
+    color: rgb(255, 255, 255);
+    border-radius: 8px;
+    height: 60px;
+    width: 110px;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    border: 2px solid #e9e9e9;
+    cursor: pointer;
+}
+.foot-rent-home-button:hover{
+    background-color: #050505;
+}
+.structure-content{
+    justify-content: center;
+    margin: 100px 40px;
+    width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.structure-content h1{
+    text-align: left;
+    font-weight: bold;
+    padding-bottom: 10px;
+}
+.type-rent-house{
+    padding-top: 20px;
+
+}
+.type-rent-house-button {
+    height: 99px;
+    width: 200px;
+    border-radius: 9px;
+    background-color: white;
+    border: 2px solid #e9e9e9;
+    cursor: pointer;
+    margin: 5px;
+    padding: 10px 25px;
+    text-align: left;
+    font-size: 24px;
+    font-weight: 500;
+}
+.type-rent-house-button:hover{
+    border: 2px solid #222222;
+
+}
+.type-rent-house-button.selected {
+    background-color: rgb(231, 231, 231);
+    border: 2px solid #222222;
+}
+.type-rent-house-button img{
+    width: 30px;
+    padding-bottom: 5px;
+}
+.type-rent-house-button p {
+    font-size: 17px;
+    padding-top: 5px;
+    /* text-decoration:none;
+    display: block; */
+}
+
+.amenities-button svg{
+    height: 50px !important;
+    padding-right: 100px;
+}
+.amenities-button p{
+    padding-top: 0px !important;
+}
+
+.location-message{
+    margin-top: 120px;
+    justify-content: center;
+    width: 670px;
+    color: #222222;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+.location-message h1{
+    text-align: left;
+}
+.location-message span{
+    text-align: left;
+
+}
+.location-api{
+    width: 670px;
+    height:527px;
+    margin:auto;
+    margin-top: 20px;
+    border-radius: 17px;
+}
+#map {
+    height: 100%;
+    width: 100%;
+}
+.location-api{
+    position: relative;
+}
+.location-input{
+    display: flex;  
+    padding-top: 20px;
+    justify-content: space-between;
+}
+.input-map-search{
+    border: 1px solid #5f5f5f !important;
+    border-radius: 15px;
+    height: 50px;
+    width: 540px;
+    padding-left: 20px !important;
+    margin-right: auto;
+    font-size: 18px;
+}
+.input-map-search::placeholder{
+    font-size: 18px;
+}
+.button-map-search {
+    width: 100px;
+    height: 50px;
+    border-radius: 15px;
+    border: none;
+    background-color: #272727;
+    color: #e9e9e9;
+    font-weight: 500;
+    font-size: 16px;
+    float: right;
+    
+}
+.button-map-search:hover{
+    background-color: #0e0e0e;
+}
+.button-map-search:active{
+    font-size: 15px;
+}
+#map {
+    height: 370px;
+    width: 670px;
+    border-radius: 15px;
+    margin: 10px 0px;
+}
+.amount-room{
+    height: 120px;
+    min-width: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFF;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+.amount-room span{
+    width: 100%;
+    text-align: center;
+    font-size: 55px;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+}
+.amount-room span.num{
+    font-size: 50px;
+    border-right: 2px solid rgba(0,0,0,0.2);
+    border-left: 2px solid rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+.container-floor-plan{
+    height: 500px;
+    position: fixed;
+    width: 100%;
+    padding: 150px;
+}
+.text-floor-plan{
+    height: 100px;
+    width: 560px;
+    position: relative;
+    margin: 0px auto auto auto;
+}
+.text-floor-plan h1{
+    padding-bottom: 5px;
+}
+.amount-floor-plan{
+    width: 560px;
+    position: relative;
+    margin: auto;
+}
+.amount-floor-plan div span{
+    align-self: center;
+}
+.amount-floor-plan div button{
+    background-color: white;
+    border-radius: 75%;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    border: #d8d8d8 solid 1px;
+    margin: 0px 10px;
+    font-size: larger;
+}
+.amount-floor-plan div button:hover{
+    border: #2e2e2e solid 1px;
+
+}
+.amount-guest{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+.amount-bedrooms{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.amount-beds{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+.amount-bathrooms{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+hr{
+    height: 1px;
+    background-color: #e9e9e9;
+    border: none;
+}
