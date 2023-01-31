@@ -36,8 +36,8 @@ public class ProductDAO {
 			+ "    		   		                        GROUP BY propertyId) r\r\n"
 			+ "    		   		ON p.id = r.propertyId\r\n"
 			+ "    		  		join asset a on p.id = a.property_id\r\n"
-			+ "					where a.name='1' and p.category_id="; // + 1
-
+			+ "					where a.name='1' and p.category_id=? ORDER BY view DESC LIMIT 100;"; // + 1
+	private static final String UPDATE_PROPERTY_VIEW = "UPDATE PROPERTY SET view = view + 1 WHERE id = ?;";
 	public ProductDAO() {
 	}
 
@@ -45,8 +45,12 @@ public class ProductDAO {
     	Product result = null;
     	Connection connection = Connector.makeConnection();
     	PreparedStatement ps = null;
+    	PreparedStatement ps2 = null;
     	ResultSet rs = null;
     	try {
+    		ps2 = connection.prepareStatement(UPDATE_PROPERTY_VIEW);
+    		ps2.setLong(1, id);
+    		ps2.execute();
     		ps = connection.prepareStatement(SELECT_PRODUCT);
     		ps.setLong(1, id);
     		rs = ps.executeQuery();
@@ -70,6 +74,24 @@ public class ProductDAO {
     		
     	} catch (SQLException e) {
     		e.printStackTrace();
+    	} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (ps2 != null) {
+					ps2.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     	return result;
     	
@@ -167,7 +189,9 @@ public class ProductDAO {
 		try {
 			ps0 = connection0.prepareStatement("select count(*) as category_amount from category;");
 			rs0 = ps0.executeQuery();
-			categoriesAmount = rs0.getInt("category_amount");
+			if (rs0.next()) {
+				categoriesAmount = rs0.getInt("category_amount");
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -195,7 +219,8 @@ public class ProductDAO {
 			products.add(new ArrayList<Product>());
 			try {
 
-				ps = connection.prepareStatement((SELECT_ALL_PRODUCT_BY_CATEGORY + Integer.toString(i + 1) + ";"));
+				ps = connection.prepareStatement(SELECT_ALL_PRODUCT_BY_CATEGORY );
+				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
 
 				while (rs.next()) {

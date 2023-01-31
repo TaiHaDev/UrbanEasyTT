@@ -8,9 +8,9 @@
 		class="bg-white px-4 sm:px-10 lg:px-24 border-b shadow-sm transition duration-1000">
 		<div class="flex h-20 justify-between items-center">
 			<a href="<%=request.getContextPath()%>/home">
-							<img src="https://i.postimg.cc/8cdjfvRm/black-logo.png" alt="logo"
+							<img src="assets/images/black-logo.png" alt="logo"
 				class="hidden h-12 lg:block" /> <img
-				src="https://i.postimg.cc/8cdjfvRm/black-logo.png" alt="logo"
+				src="assets/images/black-logo.png" alt="logo"
 				class="hidden w-12 sm:block lg:hidden" />
 			</a>
 
@@ -74,10 +74,7 @@
 											<div class="border-b">
 						<a href="#"
 							class="block px-4 py-2 text-sm text-gray-700 font-medium">Your
-							Account</a> <a href="#"
-							class="block px-4 py-2 text-sm text-gray-700 font-medium">Messages</a>
-						<a href="#"
-							class="block px-4 py-2 text-sm text-gray-700 font-medium">Notification</a>
+							Account</a>
 						<a href="#"
 							class="block px-4 py-2 text-sm text-gray-700 font-medium">Trips</a>
 						<a href="#"

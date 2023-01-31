@@ -35,7 +35,8 @@ allTabs.forEach(tab => {
             if(cateType==type){
                 pro.classList.remove("hiddenn")
                 pro.classList.add("gridd")
-                console.log("show")
+                
+                console.log(pro);
             }else{
                 pro.classList.add("hiddenn")
                 console.log("hide")

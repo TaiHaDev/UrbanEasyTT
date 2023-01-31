@@ -29,7 +29,7 @@
 		<div id="search-bar-back-drop"
 			class="hidden absolute z-5 w-full h-screen bg-slate-800/30"></div>
 		<div class="px-4 md:mx-10 lg:mx-20 xl:mx-40 2xl:mx-80 lg:px-24">
-			<div class="font-medium text-3xl">${product.getName()}</div>
+			<div class="font-medium text-3xl mt-6">${product.getName()}</div>
 			<div class="flex space-x-1 items-center mt-3 mb-5">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
 					fill="currentColor" class="w-5 h-5">
@@ -334,7 +334,20 @@
 								style : 'mapbox://styles/apiexplorer/clccutn42000914o552o67bpk', // style URL
 								center : [ lng, lat ], // starting position [lng, lat]
 								zoom : 12, // starting zoom
+								scrollZoom: false,
 							});
+					var rightClickCount = 0;
+
+					map.on('contextmenu', function (e) {
+					  rightClickCount += 1;
+					  setTimeout(function () {
+					    rightClickCount = 0;
+					  }, 500);
+
+					  if (rightClickCount === 2) {
+					    map.zoomTo(map.getZoom() - 1, {duration: 500});
+					  }
+					});
 					const marker1 = new mapboxgl.Marker().setLngLat(
 							[ lng, lat ]).addTo(map);
 				</script>
@@ -450,7 +463,7 @@
 				</c:if>
 
 			</div>
-			<div>
+			<div class="pb-12">
 				<div class="text-lg font-medium">Things to know</div>
 				<div class="w-full flex justify-between my-4">
 					<div class="flex flex-col space-y-2 items-start">
@@ -504,7 +517,9 @@
 					</div>
 				</div>
 			</div>
+			
 	</main>
+	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript">
 	function daysBetween(date1, date2) {
 		  // Convert both dates to milliseconds

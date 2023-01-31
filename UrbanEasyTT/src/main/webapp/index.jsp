@@ -90,7 +90,7 @@
 				<a
 					href="<%=request.getContextPath()%>/product-detail?id=${p.getId()}">
 					<div class="flexing">
-						<img src="${p.getUrl()}" alt="${p.getId()}"> <a><img
+						<img data-src="${p.getUrl()}" src="assets/images/placeholding.jpeg" onerror="this.style.display='none'" alt="${p.getId()}" class="lazy"> <a><img
 							class="layer-hi liked" id="like"
 							src="assets/images/favorite-icon.png" alt="heart"
 							style="width: 22px; height: 22px"></a>
@@ -135,7 +135,7 @@
 					<a
 						href="<%=request.getContextPath()%>/product-detail?id=${p.getId()}">
 						<div class="flexing">
-							<img src="${p.getUrl()}" alt="${p.getId()}"> <a><img
+							<img data-src="${p.getUrl()}" alt="${p.getId()}" class="lazy"> <a><img
 								class="layer-hi liked" id="like"
 								src="assets/images/favorite-icon.png" alt="heart"
 								style="width: 22px; height: 22px"></a>
@@ -174,7 +174,33 @@
 
 	<jsp:include page="footer.jsp" />
 
+	 <script>
+	const lazyFetch = async (index) => {
+		const rawReponse = await fetch("localhost:8080/UrbanEasyTT/home");
+		console.log(rawResponse);
+		const response = await rawResponse.json();
+		console.log(response);
+	}
+	lazyFetch();
+  const images = document.querySelectorAll('.lazy');
+  const options = {
+    rootMargin: '0px 0px 50px 0px'
+  };
 
+  const observer = new IntersectionObserver(function(entries, observer) {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+    	  console.log()
+        const image = entry.target;
+        image.src = image.dataset.src;
+        observer.unobserve(image);
+      }
+    });
+  }, options);
+  images.forEach(image => {
+    observer.observe(image);
+  });
+</script>
 
 	<!-- Scripts -->
 	<script src="vendor/jquery/jquery.min.js"></script>
