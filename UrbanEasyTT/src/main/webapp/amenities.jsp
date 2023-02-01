@@ -14,23 +14,15 @@
     <title>Choose your amenities</title>
 </head>
 <body>
-    <!-- header -->
-    <div class="nav-rent-home">
-        <img src="./assets/images/black-logo.png" alt="logo" height="45px"/>
-        <div class="nav-button-rent-home ">
-            <button class="button-nav-rent ">Questions?</button>
-            <button class="button-nav-rent ">Save & exit</button>
-        </div>
-    </div>
-    <!-- header -->
+    <jsp:include page="header-rent-home.jsp" />
 
     <div class="structure-content">
         <h1>Tell guests what your place has to offer</h1>
         <span>You can add more amenities after you publish your listing.</span>
         <div class="type-rent-house">
         	<c:forEach var="fa" items="${facilities}">
-	            <button class="type-rent-house-button amenities-button" data-value="${ca.getId()}">
-	                ${ca.getSvg()}
+	            <button class="type-rent-house-button amenities-button" data-value="${fa.getId()}">
+	                <i class="${fa.getIcon()}"></i>
 	                <p>${fa.getName()}</p>
 	            </button>
 	         </c:forEach>
@@ -40,18 +32,18 @@
     
     <!-- footer -->
     <div class="foot-rent-home">
-        <a href="<%=request.getContextPath()%>/rent-house-step2" class="foot-rent-back">
+        <a href="step2.jsp" class="foot-rent-back">
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/image-upload">
-            <button type="submit" id="submit-selections2" disabled class="foot-rent-home-button">Next</button>
+            <button type="submit" id="verify-amenities" class="foot-rent-home-button">Next</button>
         </a>
 
     </div>
     <!-- footer -->
 
 
-    <script src="asset/js/map.js"></script>
+    <script src="assets/js/amenities.js"></script>
 
 </body>
 </html>

@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.png">
     <title>Select total guests</title>
 </head>
 <body>
@@ -58,7 +59,22 @@
         
     </div>
 
-    <script>
+    
+
+
+    <!-- footer -->
+    <div class="foot-rent-home">
+        <a href="<%=request.getContextPath()%>/location" class="foot-rent-back">
+            <button>Back</button>
+        </a>
+        <a href="step2.jsp">
+            <button class="foot-rent-home-button" id="verify-floor-plan">Next</button>
+        </a>
+
+    </div>
+    <!-- footer -->
+	
+	<script>
         const plus1 = document.querySelector(".plus1"),
         minus1 = document.querySelector(".minus1"),
         num1 = document.querySelector(".num1");
@@ -142,22 +158,28 @@
 
         }
         });
-    
-    
+    	
+        
+        
+        var el = document.getElementById("verify-floor-plan");
+
+        el.addEventListener('click', function() {
+        	let floorPlan ={};
+        	floorPlan.guest=a;
+            floorPlan.bedroom=b;
+            floorPlan.bed=c;
+            floorPlan.bathroom=d;
+        	
+        	fetch("http://localhost:8080/UrbanEasy_temp/floor-plan", {
+				method: 'POST',
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(floorPlan)
+			});
+        });
     </script>
-
-
-    <!-- footer -->
-    <div class="foot-rent-home">
-        <a href="<%=request.getContextPath()%>/location" class="foot-rent-back">
-            <button>Back</button>
-        </a>
-        <a href="<%=request.getContextPath()%>/rent-house-step2">
-            <button class="foot-rent-home-button">Next</button>
-        </a>
-
-    </div>
-    <!-- footer -->
-
+	
 </body>
 </html>
