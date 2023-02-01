@@ -8,6 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.png">
     <title>Enter the location</title>
 </head>
 <body>
@@ -37,7 +38,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/floor-plan">
-            <button class="foot-rent-home-button">Next</button>
+            <button class="foot-rent-home-button" id="verify-location">Next</button>
         </a>
         
     </div>

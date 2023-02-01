@@ -26,7 +26,7 @@
         </div>
         <div class="rent-sub-home-content" id="vid-rent">
             <video width="500" autoplay muted>
-                <source src="https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4" type="video/mp4">
+                <source src="https://stream.media.muscache.com/zFaydEaihX6LP01x8TSCl76WHblb01Z01RrFELxyCXoNek.mp4?v_q=high" type="video/mp4">
             </video>
         </div>
     </div>

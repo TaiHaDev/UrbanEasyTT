@@ -9,19 +9,18 @@
 </head>
 <body>
 	<!-- header -->
-        <div class="nav-rent-home">
-        	<a href="<%=request.getContextPath()%>/home">
-            	<img src="./assets/images/black-logo.png" alt="logo" height="45px"/>
+    <div class="nav-rent-home">
+    	<a href="<%=request.getContextPath()%>/home">
+        	<img src="./assets/images/black-logo.png" alt="logo" height="45px"/>
+        </a>
+        <div class="nav-button-rent-home ">
+        	<a href="question.html">
+            	<button class="button-nav-rent ">Questions?</button></a>
+            <a href="<%=request.getContextPath()%>/home">
+            	<button class="button-nav-rent ">Exit</button>
             </a>
-            <div class="nav-button-rent-home">
-            	<a href="question.jsp">
-                	<button class="button-nav-rent">Questions?</button>
-                </a>
-                <a href="<%=request.getContextPath()%>/home">
-                	<button class="button-nav-rent">Exit</button>
-                </a>
-            </div>
         </div>
-        <!-- header -->
+    </div>
+    <!-- header -->
 </body>
 </html>

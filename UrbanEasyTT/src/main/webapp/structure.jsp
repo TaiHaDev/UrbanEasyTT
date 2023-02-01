@@ -19,7 +19,7 @@
         <h1>Which of these best describes your place?</h1>
         <div class="type-rent-house">
         	<c:forEach var="ca" items="${categories}">
-	            <button type="button" class="type-rent-house-button" data-value="house">
+	            <button type="button" class="type-rent-house-button" data-value="${ca.getId()}">
 	                <img src="${ca.getUrl()}" alt="${ca.getId()}">
 	                <p>${ca.getName()}</p>
 	            </button>
@@ -33,12 +33,12 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/location">
-            <button type="submit" id="submit-selections" disabled class="foot-rent-home-button">Next</button>
+            <button type="submit" id="verify-structure" class="foot-rent-home-button">Next</button>
         </a>
 
     </div>
     <!-- footer -->
 
-    <script src="assets/js/map.js"></script>
+    <script src="assets/js/structure.js"></script>
 </body>
 </html>
