@@ -162,12 +162,11 @@ html, body {
     display: block; */
 }
 
-.amenities-button svg{
-    height: 50px !important;
-    padding-right: 100px;
+.amenities-button i{
+    height: 30px !important;
 }
 .amenities-button p{
-    padding-top: 0px !important;
+    padding-top: 8px ;
 }
 
 .location-message{
@@ -330,4 +329,62 @@ hr{
     height: 1px;
     background-color: #e9e9e9;
     border: none;
+}
+
+
+.container-upload{
+    background-color: #f2f2f2;
+    width: 450px;
+    margin: 0 auto;
+    padding: 15px;
+    margin-top: 130px;
+    margin-bottom: 100px;
+}
+.upload {
+    
+    padding: 20px 0;
+    text-align: center;
+}
+
+.upload input[type="file"] {
+    background-color: #f2f2f2;
+    border: none;
+    margin-top: 20px;
+}
+
+.upload input[type="submit"] {
+    background-color: #353535;
+    border: none;
+    color: white;
+    padding: 12px 30px;
+    margin: 20px 0;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.upload input[type="submit"]:hover {
+    background-color: #000000;
+}
+
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px;
+    margin-bottom: 10px;
+}
+
+.photo-container img {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.name-title{
+    padding-top: 20px;
+}
+.name-title .input-map-search{
+    width: 520px;
+}
+.price-input{
+  padding: 10px;
+  font: 20px Arial;
+  width: 70%;
 }
