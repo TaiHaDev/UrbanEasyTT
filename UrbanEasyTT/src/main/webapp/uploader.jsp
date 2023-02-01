@@ -7,17 +7,24 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/favicon.png">
     <title>Photo Uploader</title>
 </head>
 <body>
-	<form method="post" action="image-upload" enctype="multipart/form-data">
-		<input type="file" name="file"/>
-		<input type="submit" value="Upload"/>
-	</form>
 
-	<!-- HTML5 Input Form Elements -->
-	  <input id="ajaxfile" type="file"/> <br/>
-	  <button onclick="uploadFile()"> Upload </button>
+	<jsp:include page="header-rent-home.jsp" />
+	
+	
+	<div class="container-upload">
+		<div class="upload">
+			<form method="post" action="image-upload" enctype="multipart/form-data">
+			<input type="file" name="file" multiple accept=".png,.jpeg,.gif,.jpg"/>
+			<input type="submit" value="Upload"/>
+			</form>
+		</div>
+		<div class="photo-container"></div>
+	</div>
 	
 	  <!-- Ajax to Java File Upload Logic -->
 	  <script>
@@ -31,5 +38,16 @@
 	    alert('The file upload with Ajax and Java was a success!');
 	  }
 	  </script>
+	 <!-- footer -->
+    <div class="foot-rent-home">
+        <a href="<%=request.getContextPath()%>/amenities" class="foot-rent-back">
+            <button>Back</button>
+        </a>
+        <a href="<%=request.getContextPath()%>/title">
+            <button type="submit" id="submit-selections" class="foot-rent-home-button">Next</button>
+        </a>
+
+    </div>
+    <!-- footer -->
 </body>
 </html>
