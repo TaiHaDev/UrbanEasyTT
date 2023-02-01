@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
    
     <!-- Additional CSS Files -->
-    <script src="https://cdn.tailwindcss.com"></script>
+   <script src="assets/js/tailwind.js"></script>
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <link rel="stylesheet" href="assets/css/templatemo-plot-listing.css">
     <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
@@ -16,8 +16,9 @@
 <title>${userInfo.getName()}</title>
 </head>
 <body>
-<jsp:include page="header.jsp" >
+	<jsp:include page="header.jsp" >
 		<jsp:param name="userId" value="${sessionScope.userId}"/>
+		<jsp:param name="avatar" value="${sessionScope.avatar }"/>
 	</jsp:include>
 <div class="mx-8  lg:mx-40 xl:mx-80 my-12">
   <div class="flex justify-between">

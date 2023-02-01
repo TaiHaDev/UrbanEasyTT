@@ -11,12 +11,12 @@ public class Review {
 	private String city;
 	private String country;
 	private String userUrl;
-	private int cleanliness;
-	private int communication;
-	private int checkin;
-	private int accuracy;
-	private int location;
-	private int value;
+	private double cleanliness;
+	private double communication;
+	private double checkin;
+	private double accuracy;
+	private double location;
+	private double value;
 	
 
 	public Review(String propertyName, String date, String comment, String propertyUrl, String userUrl, long propertyId,
@@ -33,8 +33,8 @@ public class Review {
 		this.userUrl = userUrl;
 	}
 
-	public Review(long reviewerId, String userName, String userUrl, String comment, String date, int cleanliness,
-			int communication, int checkin, int accuracy, int location, int value) {
+	public Review(long reviewerId, String userName, String userUrl, String comment, String date, double cleanliness,
+			double communication, double checkin, double accuracy, double location, double value) {
 		this.reviewerId = reviewerId;
 		this.userName = userName;
 		this.userUrl = userUrl;
@@ -48,51 +48,55 @@ public class Review {
 		this.value = value;
 	}
 	
-	public int getCleanliness() {
+
+
+
+
+	public double getCleanliness() {
 		return cleanliness;
 	}
 
-	public void setCleanliness(int cleanliness) {
+	public void setCleanliness(double cleanliness) {
 		this.cleanliness = cleanliness;
 	}
 
-	public int getCommunication() {
+	public double getCommunication() {
 		return communication;
 	}
 
-	public void setCommunication(int communication) {
+	public void setCommunication(double communication) {
 		this.communication = communication;
 	}
 
-	public int getCheckin() {
+	public double getCheckin() {
 		return checkin;
 	}
 
-	public void setCheckin(int checkin) {
+	public void setCheckin(double checkin) {
 		this.checkin = checkin;
 	}
 
-	public int getAccuracy() {
+	public double getAccuracy() {
 		return accuracy;
 	}
 
-	public void setAccuracy(int accuracy) {
+	public void setAccuracy(double accuracy) {
 		this.accuracy = accuracy;
 	}
 
-	public int getLocation() {
+	public double getLocation() {
 		return location;
 	}
 
-	public void setLocation(int location) {
+	public void setLocation(double location) {
 		this.location = location;
 	}
 
-	public int getValue() {
+	public double getValue() {
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(double value) {
 		this.value = value;
 	}
 

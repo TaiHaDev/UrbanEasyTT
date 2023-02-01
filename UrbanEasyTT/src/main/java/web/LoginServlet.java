@@ -14,6 +14,7 @@ import dao.AuthenticationDAO;
 import dao.ProductDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
+import model.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -49,9 +50,9 @@ public class LoginServlet extends HttpServlet {
 		
 		String userName = request.getParameter("email");
 		String password = request.getParameter("password");
-		Long userId = loginDAO.authenticateUser(userName, password);
+		User user = loginDAO.authenticateUser(userName, password);
 		String referrer = request.getHeader("referer");
-		if (userId == -1) {
+		if (user == null) {
 			if (referrer.contains("?")) {
 				referrer += "&re=true";
 			} else {
@@ -60,7 +61,8 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect(referrer);
 		} else {
 			HttpSession session =  request.getSession();
-			session.setAttribute("userId", userId);
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("avatar", user.getAvatarURL());
 			session.setMaxInactiveInterval(60 * 60); // user sẽ bị log out ra nếu không hoạt động trong một tiếng
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
 			referrer = referrer.replace("&re=true", "");

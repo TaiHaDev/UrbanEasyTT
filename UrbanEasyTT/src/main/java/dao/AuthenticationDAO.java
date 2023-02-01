@@ -9,7 +9,7 @@ import model.User;
 import util.Connector;
 
 public class AuthenticationDAO {
-	private final String AUTHENTICATE_USER_AND_RETURN_ID = "SELECT id FROM user WHERE email = ? AND password = ?;";
+	private final String AUTHENTICATE_USER_AND_RETURN_ID = "SELECT id, avatar_url FROM user WHERE email = ? AND password = ?;";
 	private final String CHECK_IF_EMAIL_IS_REGISTERED = "SELECT * FROM user WHERE email = ?;";
 	private final String INSERT_TEMPORARY_USER_INFO = "INSERT INTO verification_detail ( name, password, email, code) values (?, ?, ?, ?);";
 	private final String DELETE_ROW_VERIFICATION = "DELETE FROM verification_detail WHERE id = ?;";
@@ -18,8 +18,8 @@ public class AuthenticationDAO {
 	private final String INSERT_SIGNUP_USER = "INSERT INTO user(user_name, password, email)\n"
 			+ "SELECT name, password, email FROM verification_detail WHERE id = ?;";
 
-	public long authenticateUser(String email, String password) {
-		long result = -1;
+	public User authenticateUser(String email, String password) {
+		User result = null;
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -29,7 +29,9 @@ public class AuthenticationDAO {
 			ps.setString(2, password);
 			rs = ps.executeQuery();
 			if (rs.next()) {
-				result = rs.getLong("id");
+				long id = rs.getLong("id");
+				String avatarUrl = rs.getString("avatar_url");
+				result = new User(id, avatarUrl);
 			}
 
 		} catch (SQLException e) {

@@ -32,6 +32,7 @@ public class SignupServlet extends HttpServlet {
     }
     public void init() {
         this.authenticationDAO = new AuthenticationDAO();
+        
     }
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,8 +46,9 @@ public class SignupServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		Gson gson = new Gson();
-		var type = new TypeToken<Map<String,String>>(){}.getType();
+		var type = new TypeToken<Map<String, String>>(){}.getType();
 		Map<String,String> myMap = gson.fromJson(request.getReader(), type);
 		response.setContentType("application/json");	
 		String email = myMap.get("email");

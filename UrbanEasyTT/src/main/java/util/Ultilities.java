@@ -13,7 +13,12 @@ public class Ultilities {
         List<Date> dates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(startDate);
-        calendar.add(Calendar.DATE, 1);
+        if (calendar.getTime().equals(endDate)) {
+        	dates.add(startDate);
+        	return dates;
+        } else {
+        	calendar.add(Calendar.DATE, 1);
+        }
         while (calendar.getTime().before(endDate)) {
             Date result = new Date(calendar.getTimeInMillis());
             dates.add(result);
@@ -24,5 +29,9 @@ public class Ultilities {
     public static List<String> reformatDates(List<Date> dates) {
     	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
     	return dates.stream().map(elem -> format.format(elem)).collect(Collectors.toList());
+    }
+    public static String reformatDate(Date date) {
+    	SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+    	return format.format(date);
     }
 }

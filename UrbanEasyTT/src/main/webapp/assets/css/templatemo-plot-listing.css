@@ -39,7 +39,6 @@ s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, 
 figure, header, nav, section, article, aside, footer, figcaption {
   margin: 0;
   padding: 0;
-  border: 0;
   outline: 0;
 }
 
@@ -661,8 +660,8 @@ input[type="text"]:focus{
   
   align-items: center;
   justify-content: center;
-  margin-top: 100px;
-  margin-bottom: 100px;
+  margin-top: 0.5rem;
+  margin-bottom: 4rem;
 }
 .gridd{
 	display: grid; 

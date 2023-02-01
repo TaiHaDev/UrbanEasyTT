@@ -3,9 +3,12 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <link rel="stylesheet" href="assets/css/email-verification.css">
-	  <!--Sign-in section -->
   <header
 		class="bg-white px-4 sm:px-10 lg:px-24 border-b shadow-sm transition duration-1000">
+		<script type="text/javascript">
+			const a = "${param.avatar}"
+			console.log("avatar", a);
+		</script>
 		<div class="flex h-20 justify-between items-center">
 			<a href="<%=request.getContextPath()%>/home">
 							<img src="assets/images/black-logo.png" alt="logo"
@@ -60,12 +63,17 @@
 			<div class="relative">
 				<button
 					class="w-8 cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 rounded-full">
-					<svg xmlns="http://www.w3.org/2000/svg" fill="none"
+					<c:if test="${param.avatar == \"\" }"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
 						viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
 						class="w-8 h-8" id="user">
+						>
               <path stroke-linecap="round" stroke-linejoin="round"
 							d="M17.982 18.725A7.488 7.488 0 0012 15.75a7.488 7.488 0 00-5.982 2.975m11.963 0a9 9 0 10-11.963 0m11.963 0A8.966 8.966 0 0112 21a8.966 8.966 0 01-5.982-2.275M15 9.75a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
+            </svg></c:if>
+            	<c:if test="${param.avatar != \"\" }">
+            	<img id="user" src="${param.avatar} " class="w-8 h-8 rounded-full"/>
+            	</c:if>
+					
 				</button>
 				<div id="drop-down-menu"
 					class="absolute hidden right-0 z-10 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
@@ -75,8 +83,8 @@
 						<a href="#"
 							class="block px-4 py-2 text-sm text-gray-700 font-medium">Your
 							Account</a>
-						<a href="#"
-							class="block px-4 py-2 text-sm text-gray-700 font-medium">Trips</a>
+						<a href="<%=request.getContextPath()%>/bookings"
+							class="block px-4 py-2 text-sm text-gray-700 font-medium">Your Bookings</a>
 						<a href="#"
 							class="block px-4 py-2 text-sm text-gray-700 font-medium">Wish
 							Lists</a>
@@ -207,7 +215,7 @@
             <div id="email-verification" class="elative mx-auto  max-w-xl rounded-lg overflow-y-auto p-4 bg-white verification-container hidden">
       <h2 class="text-2xl font-medium">Verify Your Account</h2>
       <p>We emailed you the six digit verification-code to <span class="font-medium" id="verification-email"></span> <br/> Enter the verification-code below to confirm your email address.</p>
-      <div class="verification-code-container">
+      <div class="verification-code-contain	r">
         <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
         <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
         <input type="number" class="verification-code placeholder:text-2xl" min="0" max="9" required>
@@ -217,6 +225,8 @@
       </div>
     </div>
 </div>
+		<div id="search-bar-back-drop"
+			class="hidden absolute z-1000 w-full h-screen bg-slate-800/30"></div>
 <script src="./assets/js/signInFunction.js"></script>
-<script src="./assets/js/ultilities.js"></script>
+
   <!-- ***** Header Area End ***** -->

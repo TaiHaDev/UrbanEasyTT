@@ -19,6 +19,7 @@ public class User {
 	public boolean isHost() {
 		return isHost;
 	}
+	
 	public void setHost(boolean isHost) {
 		this.isHost = isHost;
 	}
@@ -27,6 +28,11 @@ public class User {
 		this.name = name;
 		this.avatarURL = url;
 		this.totalReview = totalReview;
+	}
+	
+	public User(long id, String avatarUrl) {
+		this.id = id;
+		this.avatarURL = avatarUrl;
 	}
 	
 

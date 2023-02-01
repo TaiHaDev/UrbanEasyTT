@@ -17,11 +17,10 @@
 <link rel="icon" href="assets/images/favicon.png">
 <title>UrbanEasy: Your Urban Agency</title>
 
-<!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
 
 <!-- Additional CSS Files -->
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind.js"></script>
 <link rel="stylesheet" href="assets/css/fontawesome.css">
 <link rel="stylesheet" href="assets/css/templatemo-plot-listing.css">
 <script src="https://kit.fontawesome.com/c14056925e.js"
@@ -46,6 +45,7 @@
 
 	<jsp:include page="header.jsp" >
 		<jsp:param name="userId" value="${sessionScope.userId}"/>
+		<jsp:param name="avatar" value="${sessionScope.avatar }"/>
 	</jsp:include>
 
 	<!-- slider categories -->
@@ -90,7 +90,7 @@
 				<a
 					href="<%=request.getContextPath()%>/product-detail?id=${p.getId()}">
 					<div class="flexing">
-						<img data-src="${p.getUrl()}" src="assets/images/placeholding.jpeg" onerror="this.style.display='none'" alt="${p.getId()}" class="lazy"> <a><img
+						<img data-src="${p.getUrl()}" src="assets/images/placeholding.jpg" onerror="this.style.display='none'" alt="${p.getId()}" class="lazy"> <a><img
 							class="layer-hi liked" id="like"
 							src="assets/images/favorite-icon.png" alt="heart"
 							style="width: 22px; height: 22px"></a>
@@ -113,9 +113,9 @@
 						<div class="price-info">
 							<p class="price">
 								$
-								<c:out value="${p.getPrice()}" />
+					  				<c:out value="${p.getPrice()}" /> AUD
 							</p>
-							<p>night</p>
+							<p>&nbsp night</p>
 						</div>
 					</div>
 				</a>
@@ -135,7 +135,7 @@
 					<a
 						href="<%=request.getContextPath()%>/product-detail?id=${p.getId()}">
 						<div class="flexing">
-							<img data-src="${p.getUrl()}" alt="${p.getId()}" class="lazy"> <a><img
+							<img data-src="${p.getUrl()}" alt="${p.getId()}" src="assets/images/placeholding.jpg" class="lazy"> <a><img
 								class="layer-hi liked" id="like"
 								src="assets/images/favorite-icon.png" alt="heart"
 								style="width: 22px; height: 22px"></a>
@@ -158,9 +158,9 @@
 							<div class="price-info">
 								<p class="price">
 									$
-									<c:out value="${p.getPrice()}" />
+									<c:out value="${p.getPrice()}" /> AUD
 								</p>
-								<p>night</p>
+								<p>&nbsp night</p>
 							</div>
 						</div>
 					</a>
@@ -175,13 +175,6 @@
 	<jsp:include page="footer.jsp" />
 
 	 <script>
-	const lazyFetch = async (index) => {
-		const rawReponse = await fetch("localhost:8080/UrbanEasyTT/home");
-		console.log(rawResponse);
-		const response = await rawResponse.json();
-		console.log(response);
-	}
-	lazyFetch();
   const images = document.querySelectorAll('.lazy');
   const options = {
     rootMargin: '0px 0px 50px 0px'
@@ -202,15 +195,14 @@
   });
 </script>
 
-	<!-- Scripts -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 	<script src="assets/js/owl-carousel.js"></script>
 	<script src="assets/js/animation.js"></script>
 	<script src="assets/js/imagesloaded.js"></script>
 	<script src="assets/js/custom.js"></script>
 	<script src="assets/js/signInFunction.js"></script>
 	<script src="assets/js/slider.js"></script>
+		<script src="./assets/js/ultilities.js"></script>
 </body>
 
 </html>

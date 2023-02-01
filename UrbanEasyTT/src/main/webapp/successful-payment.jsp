@@ -11,6 +11,7 @@
 <body>
 	<jsp:include page="header.jsp" >
 		<jsp:param name="userId" value="${sessionScope.userId}"/>
+		<jsp:param name="avatar" value="${sessionScope.avatar }"/>
 	</jsp:include>
 	<div class="bg-gray-100 h-screen">
       <div class="bg-white p-6  md:mx-auto">

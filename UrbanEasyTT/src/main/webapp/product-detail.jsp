@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Document</title>
-<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind.js"></script>
 
 
 
@@ -24,12 +24,12 @@
 <body>
 	<jsp:include page="header.jsp" >
 		<jsp:param name="userId" value="${sessionScope.userId}"/>
+		<jsp:param name="avatar" value="${sessionScope.avatar }"/>
 	</jsp:include>
 	<main class="h-screen">
-		<div id="search-bar-back-drop"
-			class="hidden absolute z-5 w-full h-screen bg-slate-800/30"></div>
+		
 		<div class="px-4 md:mx-10 lg:mx-20 xl:mx-40 2xl:mx-80 lg:px-24">
-			<div class="font-medium text-3xl mt-6">${product.getName()}</div>
+			<div class="font-medium text-3xl pt-6">${product.getName()}</div>
 			<div class="flex space-x-1 items-center mt-3 mb-5">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
 					fill="currentColor" class="w-5 h-5">
@@ -317,9 +317,15 @@
 					</div>
 				</form>
 			</div>
-			<div class="my-3">
-				<span class="font-medium">Location</span>
-				<div class="font-medium text-sm">Binh Thanh, HCM, Vietnam</div>
+			<div class="py-4 border-b flex flex-col space-y-2">
+				<span class="font-medium text-xl">About this</span>
+					<p>${product.description}</p>
+			</div>
+			<div class="my-3 space-y-3">
+				<span class="font-medium text-xl">Location</span>
+				<div class="font-medium">${product.getDistrict()},
+					${product.getCity()}, ${product.getCountry()}</div>
+				<div class="text-sm">${product.neighbourhoodOverview}</div>
 				<div id='map' class="mt-3" style='width: full; height: 450px;'></div>
 
 
@@ -521,6 +527,7 @@
 	</main>
 	<jsp:include page="footer.jsp"></jsp:include>
 	<script type="text/javascript">
+
 	function daysBetween(date1, date2) {
 		  // Convert both dates to milliseconds
 		  var date1_ms = date1.getTime();
@@ -536,6 +543,24 @@
         const disabledDates = dateString.slice(1, -1).split(", ");
         const elem = document.getElementById('final-check-in');
         const elem2 = document.getElementById('final-check-out');
+    	const modifyDisableDates = date => {
+    		console.log(disabledDates);
+    		for (let i = 0; i < disabledDates.length; i++) {
+    			const d = disabledDates[i];
+    			const parts = d.split("/");
+    			const day = parts[0];
+    			const month = parts[1] - 1;
+    			const year = parts[2];
+    			const date2 = new Date(year, month, day);
+    			if (date < date2) {
+    				disabledDates.splice(i, 1);
+    				date2.setDate(date2.getDate() + 1);
+    				disabledDates.push(date2);
+    				return 
+    			}
+    			console.log(disabledDates)
+    		}
+    	}
         const config = {
                 mode: "range",
                 dateFormat: "d/m/Y",
@@ -544,9 +569,15 @@
                 disable: disabledDates,
                 onChange: function(selectedDates, dateStr, instance) {
                 	elem.value = selectedDates[0].toLocaleDateString();
-                    elem2.value = selectedDates[1].toLocaleDateString();
-                   	night = daysBetween(selectedDates[0], selectedDates[1]);
-                    calculateAndRenderFee(night);
+                	if (selectedDates[1]) {
+                        elem2.value = selectedDates[1].toLocaleDateString();
+                       	night = daysBetween(selectedDates[0], selectedDates[1]);
+                        calculateAndRenderFee(night);
+                	} else {
+                		modifyDisableDates(selectedDates[0]);
+                    	instance.config.disable = disabledDates;
+                    	instance.redraw();
+                	}
                 },
           
               };

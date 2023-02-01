@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/hosting")
+@WebFilter(urlPatterns = {"/hosting", "/bookings", "/booking"})
 public class LogFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {

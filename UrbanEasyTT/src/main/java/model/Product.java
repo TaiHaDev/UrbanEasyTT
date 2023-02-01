@@ -19,14 +19,28 @@ public class Product {
     private String url;
     private BigDecimal price;
     private long userId;
-    private int categoryID;
+    public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getNeighbourhoodOverview() {
+		return neighbourhoodOverview;
+	}
+	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
+		this.neighbourhoodOverview = neighbourhoodOverview;
+	}
+	private int categoryID;
     private int bedroom;
     private int guest;
     private int bed;
     private int bath;
+    private String description;
+    private String neighbourhoodOverview;
 
     // contrustor for product-detail
-    public Product(long id, String name, String district, String city, String country, double stars, double lng, double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price) {
+    public Product(long id, String name, String district, String city, String country, double stars, double lng, double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price, String description, String neighbourhoodOverview) {
         this.id = id;
         this.district = district;
         this.city = city;
@@ -41,6 +55,8 @@ public class Product {
         this.bath = bath;
         this.name = name;
         this.price = price;
+        this.description = description;
+        this.neighbourhoodOverview = neighbourhoodOverview;
     }
     public int getBedroom() {
 		return bedroom;
