@@ -24,7 +24,7 @@ let amen = document.getElementById("verify-amenities");
 
 amen.addEventListener('click', function() {
 	console.log("nho doi url project thanh _TT");
-	fetch("http://localhost:8080/UrbanEasy_TT/amenities", {
+	fetch("http://localhost:8080/UrbanEasyTT/amenities", {
 	method: 'POST',
 	headers: {
 		'Accept': 'application/json',
