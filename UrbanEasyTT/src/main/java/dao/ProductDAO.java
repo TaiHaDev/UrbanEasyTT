@@ -38,6 +38,8 @@ public class ProductDAO {
 			+ "    		  		join asset a on p.id = a.property_id\r\n"
 			+ "					where a.name='1' and p.category_id=? ORDER BY view DESC LIMIT 100;"; // + 1
 	private static final String UPDATE_PROPERTY_VIEW = "UPDATE PROPERTY SET view = view + 1 WHERE id = ?;";
+	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (name, description,neighborhood_overview, total_guest, bedroom, bed, bath, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
+			+ "VALUES (";
 	public ProductDAO() {
 	}
 
@@ -281,4 +283,37 @@ public class ProductDAO {
 		}
 		return products;
 	}
+	public boolean insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom, 
+			String bed, String bathroom, String district, String city, String country, String streetAddress, String longtitude, 
+			String latitude, String price, String category) {
+		
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		try {
+			String executeString =INSERT_INTO_PRODUCT+"'"+houseTitle+"','"+description+"','"+neighborhood+"',"+guest+","+bedroom+","
+					+bed+","+bathroom+",'"+district+"','"+city+"','"+country+"','"+streetAddress+"',"+longtitude+","+latitude+","
+					+price+","+category+");";
+			System.out.println(executeString);
+			ps = connection.prepareStatement(executeString);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return true;
+	}
+
+
 }

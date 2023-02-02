@@ -23,8 +23,8 @@ public class FacilityDAO {
 			while (rs.next()) {
 	        	int id = rs.getInt("id");
                 String name = rs.getString("facility_name");
-                String svg = rs.getString("facility_icon");
-                facilityList.add(new Facility(id, name, svg));
+                String icon = rs.getString("facility_icon");
+                facilityList.add(new Facility(id, name, icon));
 	        }
 		} catch (Exception e) {
 			e.printStackTrace();
