@@ -22,7 +22,7 @@ import model.Category;
 import model.Product;
 
 public class ProductDAO {
-	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";	
+	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
 
 	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
@@ -54,6 +54,7 @@ public class ProductDAO {
     		ps = connection.prepareStatement(SELECT_PRODUCT);
     		ps.setLong(1, id);
     		rs = ps.executeQuery();
+    	
     		while(rs.next()) {
     			long propertyId = rs.getLong("id");
     			String district = rs.getString("district");
@@ -189,9 +190,9 @@ public class ProductDAO {
 		PreparedStatement ps0 = null;
 		ResultSet rs0 = null;
 		try {
-			ps0 = connection0.prepareStatement("select count(*) as category_amount from category;");
+			ps0 = connection0.prepareStatement("select count(id) as category_amount from category;");
 			rs0 = ps0.executeQuery();
-			if (rs0.next()) {
+			while (rs0.next()) {
 				categoriesAmount = rs0.getInt("category_amount");
 			}
 		} catch (Exception e) {
@@ -212,10 +213,11 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
-	
 		
-		for (int i = 0; i < 21; i++) {
-			Connection connection = Connector.makeConnection();
+		System.out.println("category_amount: "+categoriesAmount);
+		Connection connection = Connector.makeConnection();
+		for (int i = 0; i < categoriesAmount; i++) {
+
 			PreparedStatement ps = null;
 			ResultSet rs = null;
 			products.add(new ArrayList<Product>());
@@ -250,7 +252,7 @@ public class ProductDAO {
 				}
 				rs = null;
 				ps = null;
-	
+
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -261,13 +263,20 @@ public class ProductDAO {
 					if (ps != null) {
 						ps.close();
 					}
-					if (connection != null) {
-						connection.close();
-					}
+
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}
+
+		}
+		if (connection != null) {
+			try {
+				connection.close();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		return products;
