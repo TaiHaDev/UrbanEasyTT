@@ -42,7 +42,6 @@
 </head>
 
 <body>
-
 	<jsp:include page="header.jsp" >
 		<jsp:param name="userId" value="${sessionScope.userId}"/>
 		<jsp:param name="avatar" value="${sessionScope.avatar }"/>

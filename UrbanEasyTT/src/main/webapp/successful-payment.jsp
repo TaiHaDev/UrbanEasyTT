@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Successful Payment</title>
+<script src="assets/js/tailwind.js"></script>
+
 </head>
 <body>
 	<jsp:include page="header.jsp" >

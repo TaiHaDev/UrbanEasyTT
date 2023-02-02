@@ -3,12 +3,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <link rel="stylesheet" href="assets/css/email-verification.css">
+
   <header
 		class="bg-white px-4 sm:px-10 lg:px-24 border-b shadow-sm transition duration-1000">
-		<script type="text/javascript">
-			const a = "${param.avatar}"
-			console.log("avatar", a);
-		</script>
 		<div class="flex h-20 justify-between items-center">
 			<a href="<%=request.getContextPath()%>/home">
 							<img src="assets/images/black-logo.png" alt="logo"
@@ -16,7 +13,6 @@
 				src="assets/images/black-logo.png" alt="logo"
 				class="hidden w-12 sm:block lg:hidden" />
 			</a>
-
 			<div id="search-bar-small"
 				class="border rounded-full py-1 px-2 w-3/4 flex items-center md:w-[24rem] shadow-sm hover:shadow-md">
 				<div
@@ -54,7 +50,7 @@
 				<button id="search-button-small">
 					<svg xmlns="http://www.w3.org/2000/svg" fill="none"
 						viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-						class="w-7 h-7 p-1.5 cursor-pointer inline bg-gray-500 text-white rounded-full">
+						class="cursor-pointer w-7 h-7 p-1.5 cursor-pointer inline bg-gray-500 text-white rounded-full">
               <path stroke-linecap="round" stroke-linejoin="round"
 							d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
@@ -76,7 +72,7 @@
 					
 				</button>
 				<div id="drop-down-menu"
-					class="absolute hidden right-0 z-10 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+					class="drop absolute hidden right-0 z-10 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 					<c:if test="${param.userId != \"\"}">
 											<div class="in">
 											<div class="border-b">
@@ -99,9 +95,9 @@
 						<div class="border-b">
 							<a
 							id="login-button"
-							class="block px-4 py-2 text-sm text-gray-700 font-medium">Log in</a> 
+							class="block px-4 py-2 text-sm text-gray-700 font-medium cursor-pointer">Log in</a> 
 							<a id="signup-button"
-							class="block px-4 py-2 text-sm text-gray-700">Sign up</a>
+							class="block px-4 py-2 text-sm text-gray-700 cursor-pointer">Sign up</a>
 						</div>
 					</div>
 					</c:if>

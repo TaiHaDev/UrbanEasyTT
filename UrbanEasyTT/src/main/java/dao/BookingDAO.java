@@ -58,10 +58,10 @@ public class BookingDAO {
 			ps = connection.prepareStatement(SELECT_BOOKING_BY_PROPERTY_ID);
 			ps.setLong(1, propertyId);
 			rs = ps.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 				Date dateStart = rs.getDate("date_start");
 				Date dateEnd = rs.getDate("date_end");
-				result = Ultilities.getDatesBetween(dateStart, dateEnd);
+				result.addAll(Ultilities.getDatesBetween(dateStart, dateEnd));
 			}
 
 		} catch (SQLException e) {
