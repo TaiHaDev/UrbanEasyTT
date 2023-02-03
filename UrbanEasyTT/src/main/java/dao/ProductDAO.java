@@ -38,9 +38,9 @@ public class ProductDAO {
 			+ "    		  		join asset a on p.id = a.property_id\r\n"
 			+ "					where a.name='1' and p.category_id=? ORDER BY view DESC LIMIT 100;"; // + 1
 	private static final String UPDATE_PROPERTY_VIEW = "UPDATE PROPERTY SET view = view + 1 WHERE id = ?;";
-	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (name, description,neighborhood_overview, total_guest, bedroom, bed, bath, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
-			+ "			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String LAST_INSERT_ID = "SELECT last_insert_id() as id;";
+	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (id, name, description,neighborhood_overview, total_guest, bedroom, bed, bath, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
+			+ "			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String CREATE_NEW_AUTO_INCREMENT_ID = "SELECT id+1 as id FROM property ORDER BY id DESC LIMIT 0, 1;";
 	
 	public ProductDAO() {
 	}
@@ -285,36 +285,50 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	public boolean insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom, 
+	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom, 
 			String bed, String bathroom, String district, String city, String country, String streetAddress, String longtitude, 
 			String latitude, String price, String category) {
 		
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String id="";
 		try {
+			ps = connection.prepareStatement(CREATE_NEW_AUTO_INCREMENT_ID);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				id = rs.getString("id");
+			}
+			
 			ps = connection.prepareStatement(INSERT_INTO_PRODUCT);
-			ps.setString(1, houseTitle);
-			ps.setString(2, description);
-			ps.setString(3, neighborhood);
-			ps.setString(4, guest);
-			ps.setString(5, bedroom);
-			ps.setString(6, bed);
-			ps.setString(7, bathroom);
-			ps.setString(8, district);
-			ps.setString(9, city);
-			ps.setString(10, country);
-			ps.setString(11, streetAddress);
-			ps.setString(12, longtitude);
-			ps.setString(13, latitude);
-			ps.setString(14, price);
-			ps.setString(15, category);
+			ps.setString(1, id);
+			ps.setString(2, houseTitle);
+			ps.setString(3, description);
+			ps.setString(4, neighborhood);
+			ps.setString(5, guest);
+			ps.setString(6, bedroom);
+			ps.setString(7, bed);
+			ps.setString(8, bathroom);
+			ps.setString(9, district);
+			ps.setString(10, city);
+			ps.setString(11, country);
+			ps.setString(12, streetAddress);
+			ps.setString(13, longtitude);
+			ps.setString(14, latitude);
+			ps.setString(15, price);
+			ps.setString(16, category);
 			System.out.println(ps);
 			ps.executeUpdate();
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
 				if (ps != null) {
+					ps.close();
+				}
+				if (rs != null) {
 					ps.close();
 				}
 				if (connection != null) {
@@ -323,11 +337,12 @@ public class ProductDAO {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				return "";
 			}
 		}
 		
-		return true;
+		return id;
 	}
-
-
+	
+	
 }

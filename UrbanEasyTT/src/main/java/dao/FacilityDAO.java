@@ -11,6 +11,8 @@ import model.Facility;
 
 public class FacilityDAO {
 	private static final String SELECT_ALL_FACILITIES= "SELECT * FROM facility;";
+	private static final String INSERT_INTO_FACILITY_DETAIL = "INSERT INTO falcility_detail "
+			+ "(falcility_id, apartment_id) VALUES (?, ?);";
 	
 	public List<Facility> selectAllFacility() {
 		List<Facility> facilityList = new ArrayList<Facility>();
@@ -46,5 +48,38 @@ public class FacilityDAO {
 		} 
 		 		
 		return facilityList;
+	}
+	
+	public boolean insertIntoFacilityDetail(ArrayList<String> amenities, String productId) {
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps=null;
+		System.out.println(amenities.toString()+"\n"+ productId);
+		try {
+			for (String faci : amenities)
+	        { 		      
+				ps = connection.prepareStatement(INSERT_INTO_FACILITY_DETAIL);
+				ps.setString(1, faci);
+				ps.setString(2, productId);
+				ps.executeUpdate();
+				System.out.println("fal: "+ps);
+	        }
+            
+            
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null) {
+					ps.close();
+				}
+				if(connection!=null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} 
+		return true;
 	}
 }

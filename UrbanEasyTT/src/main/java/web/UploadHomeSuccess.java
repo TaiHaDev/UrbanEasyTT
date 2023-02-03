@@ -1,6 +1,7 @@
 package web;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.FacilityDAO;
 import dao.ProductDAO;
 
 /**
@@ -19,6 +21,7 @@ import dao.ProductDAO;
 public class UploadHomeSuccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDAO productDAO;
+	private FacilityDAO facilityDAO;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -30,6 +33,7 @@ public class UploadHomeSuccess extends HttpServlet {
 
 	public void init() {
 		this.productDAO = new ProductDAO();
+		this.facilityDAO = new FacilityDAO();
 	}
 
 	/**
@@ -69,6 +73,10 @@ public class UploadHomeSuccess extends HttpServlet {
 				response.sendRedirect("floor-plan");
 			}
 
+			ArrayList<String> amenities = (ArrayList<String>) session.getAttribute("amenities");
+			if(amenities.isEmpty()) {
+				response.sendRedirect("amenities");
+			}
 			
 			String title = (String) session.getAttribute("houseTitle");
 			if (title == null) {
@@ -124,6 +132,8 @@ public class UploadHomeSuccess extends HttpServlet {
 			String bed = (String) session.getAttribute("bed");
 			String bathroom = (String) session.getAttribute("bathroom");
 			
+			ArrayList<String> amenities = (ArrayList<String>) session.getAttribute("amenities");
+			
 			String title = (String) session.getAttribute("houseTitle");
 			String description = (String) session.getAttribute("description");
 			String neighborhood = (String) session.getAttribute("neighborhood");
@@ -132,10 +142,12 @@ public class UploadHomeSuccess extends HttpServlet {
 
 			String price = (String) session.getAttribute("price");
 
-			this.productDAO.insertIntoProduct(title, description, neighborhood, guest, bedroom, bed, bathroom, district,
+			String idInserted = this.productDAO.insertIntoProduct(title, description, neighborhood, guest, bedroom, bed, bathroom, district,
 					city, country, streetAddress, longitude, latitude, price, category);
+
+			System.out.println("id inserted: "+ idInserted);
+			this.facilityDAO.insertIntoFacilityDetail(amenities, idInserted);
 			
-			System.out.println("Insert database done");
 			response.sendRedirect("home");
 		} catch (Exception e) {
 			e.printStackTrace();

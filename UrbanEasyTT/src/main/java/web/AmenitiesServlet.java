@@ -65,7 +65,9 @@ public class AmenitiesServlet extends HttpServlet {
 		
 		HttpSession session = request.getSession();
         session.setAttribute("amenities", myMap);
-		System.out.println("after json " + myMap.get(0));
+		for(String amen: myMap) {
+			System.out.println(amen);
+		}
 	}
 
 }
