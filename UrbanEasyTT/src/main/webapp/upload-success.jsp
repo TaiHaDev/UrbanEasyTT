@@ -20,7 +20,7 @@
         <br>
         <span>Submit your information by clicking the Finish button.</span>
         <form action="congratulation" method="post" class="name-title" id="insert-database">
-        	<input type="text" name="sendpost" value="insert-database"/>
+        	<input type="text" name="sendpost" value="insert-database" style="display:none;"/>
         </form>
     </div>
   

@@ -17,7 +17,7 @@
     <div class="structure-content">
         <h1>Confirm your place address</h1>
         <span>Street number must be correct.</span>
-        <form action="location-confirm" method="post" class="name-title" id="location-confirm-form">
+        <form action="location-confirm" method="post" class="location-input" id="location-confirm-form">
         	<div class="address-info">
         		<label>Street number</label>
 	        	<input type="text" name="streetNumber" class="input-map-search" value="${streetNumber}" placeholder="Enter your true street number"/>

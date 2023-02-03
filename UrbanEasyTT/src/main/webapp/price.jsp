@@ -17,8 +17,8 @@
     <div class="structure-content">
         <h1>Now, set your price</h1>
         <span>You can change it anytime.</span>
-        <form action="price" method="get" class="name-title" id="form-price">
-            <input type="number" min="1" step="any" name="price" class="input-map-search" value="priceSaved" placeholder="USD per night"/>
+        <form action="price" method="post" class="name-title" id="form-price">
+            <input type="number" min="1"  max="10000" name="price" class="input-map-search" value="${priceSaved}" placeholder="USD per night"/>
 
         </form>
     </div>

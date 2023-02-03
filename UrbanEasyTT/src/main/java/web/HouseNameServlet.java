@@ -42,10 +42,6 @@ public class HouseNameServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("name-your-house.jsp");
             dispatcher.forward(request, response);
             
-            String houseTitle = request.getParameter("name");
-            
-            session.setAttribute("houseTitle", houseTitle);
-            
             //PrintWriter writer = response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -59,7 +55,20 @@ public class HouseNameServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request,response);
+		try {
+			String houseTitle = request.getParameter("name");
+			System.out.println("title: "+houseTitle);
+			if(houseTitle!="") {
+				HttpSession session = request.getSession();
+	            session.setAttribute("houseTitle", houseTitle);
+	            response.sendRedirect("description");
+			}
+	        else {
+	        	doGet(request,response);
+	        }
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}
 

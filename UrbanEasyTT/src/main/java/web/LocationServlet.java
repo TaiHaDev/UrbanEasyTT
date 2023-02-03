@@ -39,16 +39,10 @@ public class LocationServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		try {
 			HttpSession session = request.getSession();
-			String streetNumber = (String) session.getAttribute("streetNumber");
-			String route = (String) session.getAttribute("route");
-			String district = (String) session.getAttribute("district");
-			String city = (String) session.getAttribute("city");
-			String country = (String) session.getAttribute("country");
-			
-			request.setAttribute("address", streetNumber+" "+route +" "+district +" "+city+" "+country);
             
 			RequestDispatcher dispatcher = request.getRequestDispatcher("location.jsp");
             dispatcher.forward(request, response);
+
             
             
 		} catch (Exception e) {

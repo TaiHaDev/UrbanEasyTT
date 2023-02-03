@@ -55,7 +55,20 @@ public class PriceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request,response);
+		try {
+			String price = request.getParameter("price");
+	        if(price!="") {
+		        HttpSession session = request.getSession();
+		        session.setAttribute("price", price);
+		        response.sendRedirect("congratulation");
+	        }
+	        else {
+	        	doGet(request,response);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
 	}
 
 }

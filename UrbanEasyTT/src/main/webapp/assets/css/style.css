@@ -204,6 +204,9 @@ html, body {
     padding-top: 20px;
     justify-content: space-between;
 }
+#location-confirm-form{
+	flex-direction: column;
+}
 .input-map-search{
     border: 1px solid #5f5f5f !important;
     border-radius: 15px;

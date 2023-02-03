@@ -31,20 +31,18 @@ public class DescriptionServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			HttpSession session = request.getSession();
+            String description = (String) session.getAttribute("description");
+            request.setAttribute("description", description);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("description.jsp");
             dispatcher.forward(request, response);
-            
-            String description = request.getParameter("description");
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("description", description);
-            
+     
             //PrintWriter writer = response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		
 	}
 
 	/**
@@ -52,7 +50,21 @@ public class DescriptionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request,response);
+		try {
+			String description = request.getParameter("description");
+			if(description!="") {
+		        HttpSession session = request.getSession();
+		        session.setAttribute("description", description);
+		        response.sendRedirect("neighborhood");
+			}
+	        else {
+	        	doGet(request,response);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		
 		
 	}
 

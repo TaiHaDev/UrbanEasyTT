@@ -17,7 +17,7 @@
     <div class="structure-content">
         <h1>Now, let's give your apartment a title</h1>
         <span>Short titles work best. Have fun with it, you can always change it later.</span>
-        <form action="title" method="get" class="name-title" id="name-house-form">
+        <form action="title" method="post" class="name-title" id="name-house-form">
             <input type="text" name="name" class="input-map-search" value="${title}" placeholder="Write a cool title here"/>
         </form>
     </div>

@@ -74,8 +74,11 @@ public class LocationConfirmServlet extends HttpServlet {
             session.setAttribute("district", districtReal);
             
             System.out.println(streetNumberReal+", "+ routeReal+", "+ districtReal);
+            
+            response.sendRedirect("floor-plan");
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
