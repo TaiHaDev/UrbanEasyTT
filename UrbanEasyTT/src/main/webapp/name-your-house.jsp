@@ -17,9 +17,8 @@
     <div class="structure-content">
         <h1>Now, let's give your apartment a title</h1>
         <span>Short titles work best. Have fun with it, you can always change it later.</span>
-        <form action="title" method="post" class="name-title">
-            <input type="text" name="name" class="input-map-search" placeholder="Write a cool title here"/>
-            <input type="submit" value="Submit" class="button-map-search"/>
+        <form action="title" method="get" class="name-title" id="name-house-form">
+            <input type="text" name="name" class="input-map-search" value="${title}" placeholder="Write a cool title here"/>
         </form>
     </div>
   
@@ -29,7 +28,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/description">
-            <button type="submit" class="foot-rent-home-button">Next</button>
+            <button type="submit" class="foot-rent-home-button" form="name-house-form">Next</button>
         </a>
 
     </div>

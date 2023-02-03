@@ -17,8 +17,8 @@
     <div class="structure-content">
         <h1>Neighborhood Overview</h1>
         <span>Short titles work best. Have fun with it, you can always change it later.</span>
-        <form action="neighborhood" method="post" class="name-title">
-            <input type="text" name="neighborhood" class="input-map-search" placeholder="Write some description"/>
+        <form action="neighborhood" method="get" class="name-title">
+            <input type="text" name="neighborhood" class="input-map-search" value="neighborhoodSaved" placeholder="Write some description"/>
             <input type="submit" value="Submit" class="button-map-search"/>
         </form>
   

@@ -17,28 +17,24 @@ function codeAddress() {
 			var latitude = results[0].geometry.location.lat();
 			var longitude = results[0].geometry.location.lng();
 
-			var fullName = results[0].formatted_address;
-
+			var district = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_2")?.long_name;
 			var city = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_1")?.long_name;
 			var country = results[0].address_components.find((add) => add.types[0] == "country").long_name;
+			
 			var streetNumber = results[0].address_components.find((add) => add.types[0] == "street_number")?.long_name;
 			var route = results[0].address_components.find((add) => add.types[0] == "route")?.long_name;
-			var streetAddress = streetNumber + ' '+ route;
-			var district = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_2")?.long_name;
 
-			var myLatLng = {lat: latitude, lng: longitude};
+			var myLatLng = {lat: latitude, lng: longitude};			
 
 			propertyAddress.latitude=latitude;
 			propertyAddress.longitude=longitude;
-
-			propertyAddress.streetAddress=streetAddress;
+			
 			propertyAddress.district=district;
-			propertyAddress.fullName=fullName;
-
 			propertyAddress.city=city;
 			propertyAddress.country=country;
 			
-			
+			propertyAddress.streetNumber=streetNumber;
+			propertyAddress.route=route;
 
 			console.log(propertyAddress);
 			// Initialize the map

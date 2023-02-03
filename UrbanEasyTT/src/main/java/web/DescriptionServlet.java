@@ -30,14 +30,6 @@ public class DescriptionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("description.jsp");
             dispatcher.forward(request, response);
@@ -52,6 +44,16 @@ public class DescriptionServlet extends HttpServlet {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request,response);
+		
 	}
 
 }

@@ -388,3 +388,27 @@ hr{
   font: 20px Arial;
   width: 70%;
 }
+#location-confirm-form{
+    height: 400px;
+    margin-top: 40px;
+}
+#location-confirm-form .address-info{
+    display: flex;
+	margin-bottom: 25px;
+    align-items: center;
+    justify-content: space-between;
+}
+#location-confirm-form .address-info label{
+    font-size: 16px;
+    color: #7c7c7c;
+    font-weight: 600;
+    padding-right: 10px;
+}
+#location-confirm-form .address-info input{
+    margin-right: 0;
+  
+}
+.blur-input{
+    background-color: #f3f3f3;
+    color: #8f8f8f;
+}

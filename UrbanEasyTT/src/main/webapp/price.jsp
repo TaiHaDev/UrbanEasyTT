@@ -17,9 +17,9 @@
     <div class="structure-content">
         <h1>Now, set your price</h1>
         <span>You can change it anytime.</span>
-        <form action="price" method="post" class="name-title">
-            <input type="number" min="1" step="any" name="price" class="input-map-search" placeholder="USD per night"/>
-            <input type="submit" value="Submit" class="button-map-search"/>
+        <form action="price" method="get" class="name-title" id="form-price">
+            <input type="number" min="1" step="any" name="price" class="input-map-search" value="priceSaved" placeholder="USD per night"/>
+
         </form>
     </div>
   
@@ -29,7 +29,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/congratulation">
-            <button type="submit" class="foot-rent-home-button">Next</button>
+            <button type="submit" class="foot-rent-home-button" form="form-price">Next</button>
         </a>
 
     </div>

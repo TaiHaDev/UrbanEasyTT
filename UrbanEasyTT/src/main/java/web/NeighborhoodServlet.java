@@ -30,21 +30,16 @@ public class NeighborhoodServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
+			HttpSession session = request.getSession();
+            String neighborhoodSaved = (String) session.getAttribute("neighborhood");
+            request.setAttribute("neighborhoodSaved", neighborhoodSaved);
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("neighborhood.jsp");
             dispatcher.forward(request, response);
             
             String neighborhood = request.getParameter("neighborhood");
             
-            HttpSession session = request.getSession();
             session.setAttribute("neighborhood", neighborhood);
             
             //PrintWriter writer = response.getWriter();
@@ -52,6 +47,15 @@ public class NeighborhoodServlet extends HttpServlet {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request,response);
 	}
 
 }

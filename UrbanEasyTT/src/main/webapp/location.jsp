@@ -21,7 +21,7 @@
         </div>
         <div class="location-api">
             <div class="location-input">
-                <input id="address" type="text" class="input-map-search" size="60">
+                <input id="address" type="text" class="input-map-search" value="${address}" size="60">
                 <input type="button" value="Search" class="button-map-search" onclick="codeAddress()">
             </div>
             <div class="location-map">
@@ -37,7 +37,7 @@
         <a href="<%=request.getContextPath()%>/structure" class="foot-rent-back">
             <button>Back</button>
         </a>
-        <a href="<%=request.getContextPath()%>/floor-plan">
+        <a href="<%=request.getContextPath()%>/location-confirm">
             <button class="foot-rent-home-button" id="verify-location" disabled>Next</button>
         </a>
         
