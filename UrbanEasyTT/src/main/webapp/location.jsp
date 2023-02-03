@@ -38,7 +38,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/floor-plan">
-            <button class="foot-rent-home-button" id="verify-location">Next</button>
+            <button class="foot-rent-home-button" id="verify-location" disabled>Next</button>
         </a>
         
     </div>
