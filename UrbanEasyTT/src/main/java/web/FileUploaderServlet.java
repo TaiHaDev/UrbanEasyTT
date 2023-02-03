@@ -1,7 +1,10 @@
 package web;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -21,16 +24,34 @@ import javax.servlet.http.Part;
 		)
 public class FileUploaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+	}
+	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	    /* Receive file uploaded to the Servlet from the HTML5 form */
-	    Part filePart = request.getPart("file");
-	    String fileName = filePart.getSubmittedFileName();
-	    for (Part part : request.getParts()) {
-	    	part.write(fileName);
-	    }
-	    response.getWriter().print("The file uploaded sucessfully.");
+		try {
+			RequestDispatcher dispatcher = request.getRequestDispatcher("uploader.jsp");
+            dispatcher.forward(request, response);
+            
+			Part filePart = request.getPart("file");
+		    String fileName = filePart.getSubmittedFileName();
+		    for (Part part : request.getParts()) {
+		    	part.write(fileName);
+		    }
+		    
+//		    System.out.println(fileName);
+//		    Path path = Paths.get(fileName);
+//		    String absolutePath = path.toRealPath().toString();
+//		    System.out.println(absolutePath);
+//			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	    
 	  }
 
 	}

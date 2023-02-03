@@ -3,13 +3,13 @@ package model;
 public class Facility {
 	private int id;
 	private String name;
-	private String svg;
+	private String icon;
 	
-	public Facility(int id, String name, String svg) {
+	public Facility(int id, String name, String icon) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.svg = svg;
+		this.icon = icon;
 	}
 
 	public int getId() {
@@ -28,13 +28,15 @@ public class Facility {
 		this.name = name;
 	}
 
-	public String getSvg() {
-		return svg;
+	public String getIcon() {
+		return icon;
 	}
 
-	public void setSvg(String svg) {
-		this.svg = svg;
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
+
+	
 	
 	
 }

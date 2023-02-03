@@ -170,7 +170,7 @@
             floorPlan.bed=c;
             floorPlan.bathroom=d;
         	
-        	fetch("http://localhost:8080/UrbanEasy_temp/floor-plan", {
+        	fetch("http://localhost:8080/UrbanEasyTT/floor-plan", {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',
