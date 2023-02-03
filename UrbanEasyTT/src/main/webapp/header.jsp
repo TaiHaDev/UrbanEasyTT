@@ -56,7 +56,8 @@
             </svg>
 				</button>
 			</div>
-			<div class="relative">
+			<div class="relative ">
+				<a href="<%=request.getContextPath()%>/step1.jsp"><button class="font-medium">Host Property</button></a>
 				<button
 					class="w-8 cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 rounded-full">
 					<c:if test="${param.avatar == \"\" }"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -111,6 +112,7 @@
 				class="md:w-[35%] ml-2 items-center md:items-stretch flex flex-col space-y-2 md:border-r mb-1">
 				<label class="text-xs font-medium" for="destination">Your
 					next destination</label> <input
+					id="destination"
 					class="w-full text-center outline-none text-sm placeholder:text-sm border md:text-left border-slate-800/50 rounded-md py-1.5 md:border-none md:py-0"
 					placeholder="Search destination" type="text" />
 			</div>
@@ -224,5 +226,8 @@
 		<div id="search-bar-back-drop"
 			class="hidden absolute z-1000 w-full h-screen bg-slate-800/30"></div>
 <script src="./assets/js/signInFunction.js"></script>
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
+</script>
 
   <!-- ***** Header Area End ***** -->
