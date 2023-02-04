@@ -38,7 +38,6 @@ public class LocationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			HttpSession session = request.getSession();
             
 			RequestDispatcher dispatcher = request.getRequestDispatcher("location.jsp");
             dispatcher.forward(request, response);

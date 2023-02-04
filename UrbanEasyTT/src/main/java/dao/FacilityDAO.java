@@ -61,7 +61,6 @@ public class FacilityDAO {
 				ps.setString(1, faci);
 				ps.setString(2, productId);
 				ps.executeUpdate();
-				System.out.println("fal: "+ps);
 	        }
             
             

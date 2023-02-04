@@ -16,7 +16,7 @@
 	
     <div class="structure-content">
         <h1>Create your description</h1>
-        <span>Short titles work best. Have fun with it, you can always change it later.</span>
+        <span>Describe some about your place. Have fun with it, you can always change it later.</span>
         <form action="description" method="post" class="name-title" id="description-form">
             <input type="text" name="description" class="input-map-search" value="${description}" placeholder="Write some description"/>
         </form>
