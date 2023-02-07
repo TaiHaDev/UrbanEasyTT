@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -22,6 +23,8 @@
       <!-- <form action="congratulation" method="post" class="name-title" id="insert-database">
         	<input type="text" name="sendpost" value="insert-database" style="display:none;"/>
         </form>  -->  
+        
+        <img src="${savePath}">
     </div>
   
     <!-- footer -->
