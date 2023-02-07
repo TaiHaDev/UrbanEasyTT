@@ -28,7 +28,7 @@
         <a href="step3.jsp" class="foot-rent-back">
             <button>Back</button>
         </a>
-        <a href="<%=request.getContextPath()%>/congratulation">
+        <a href="<%=request.getContextPath()%>/image-upload">
             <button type="submit" class="foot-rent-home-button" form="form-price">Next</button>
         </a>
 

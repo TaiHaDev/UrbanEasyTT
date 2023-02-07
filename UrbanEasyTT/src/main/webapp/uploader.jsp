@@ -16,6 +16,7 @@
 	<jsp:include page="header-rent-home.jsp" />
 	
 	<div class="uploader-div">
+		<h1>Final step</h1>
 		<h1>Upload as least 5 images</h1>
 	    <span>Images should show the overview and details of your place</span>
 		<div class="container-upload">

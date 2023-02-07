@@ -60,7 +60,7 @@ public class PriceServlet extends HttpServlet {
 	        if(price!="") {
 		        HttpSession session = request.getSession();
 		        session.setAttribute("price", price);
-		        response.sendRedirect("congratulation");
+		        response.sendRedirect("image-upload");
 	        }
 	        else {
 	        	doGet(request,response);

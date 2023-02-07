@@ -24,7 +24,7 @@
   
     <!-- footer -->
     <div class="foot-rent-home">
-        <a href="<%=request.getContextPath()%>/image-upload" class="foot-rent-back">
+        <a href="<%=request.getContextPath()%>/amenities" class="foot-rent-back">
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/description">

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import dao.AssetDAO;
+import dao.FacilityDAO;
+import dao.ProductDAO;
 /**
  * Servlet implementation class FileUploaderServlet
  */
@@ -28,14 +32,80 @@ import javax.servlet.http.Part;
 public class FileUploaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String SAVE_DIR = "userUploadFiles";
+	private ProductDAO productDAO;
+	private FacilityDAO facilityDAO;
+	private AssetDAO assetDAO;
+	
+	public void init() {
+		this.productDAO = new ProductDAO();
+		this.facilityDAO = new FacilityDAO();
+		this.assetDAO = new AssetDAO();
+	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
+			HttpSession session = request.getSession();
+
+			String category = (String) session.getAttribute("structure");
+			if (category == null) {
+				response.sendRedirect("structure");
+			}
+
+			// String district = (String) session.getAttribute("district");
+			String city = (String) session.getAttribute("city");
+			String country = (String) session.getAttribute("country");
+			String streetNumber = (String) session.getAttribute("streetNumber");
+			String route = (String) session.getAttribute("route");
+			// String streetAddress = streetNumber + " " + route;
+			String longitude = (String) session.getAttribute("longitude");
+			String latitude = (String) session.getAttribute("latitude");
+
+			if (city == null || country == null || streetNumber == null || route == null || longitude == null
+					|| latitude == null) {
+				response.sendRedirect("location");
+			}
+
+			String guest = (String) session.getAttribute("guest");
+			String bedroom = (String) session.getAttribute("bedroom");
+			String bed = (String) session.getAttribute("bed");
+			String bathroom = (String) session.getAttribute("bathroom");
+
+			if (guest == null || bedroom == null || bed == null || bathroom == null) {
+				response.sendRedirect("floor-plan");
+			}
+
+			ArrayList<String> amenities = (ArrayList<String>) session.getAttribute("amenities");
+			if (amenities.isEmpty()) {
+				response.sendRedirect("amenities");
+			}
+
+
+			String title = (String) session.getAttribute("houseTitle");
+			if (title == null) {
+				response.sendRedirect("title");
+			}
+
+			String description = (String) session.getAttribute("description");
+			if (description == null) {
+				response.sendRedirect("description");
+			}
+
+			String neighborhood = (String) session.getAttribute("neighborhood");
+			if (neighborhood == null) {
+				response.sendRedirect("neighborhood");
+			}
+
+			// String userId = (String) session.getAttribute("userId");
+
+			String price = (String) session.getAttribute("price");
+			if (price == null) {
+				response.sendRedirect("price");
+			}
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("uploader.jsp");
 			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -43,32 +113,74 @@ public class FileUploaderServlet extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		try {
-			ArrayList<Part> images = new ArrayList<>(request.getParts());
+			HttpSession session = request.getSession();
+
+			String category = (String) session.getAttribute("structure");
+
+			String district = (String) session.getAttribute("district");
+			String city = (String) session.getAttribute("city");
+			String country = (String) session.getAttribute("country");
+			String streetNumber = (String) session.getAttribute("streetNumber");
+			String route = (String) session.getAttribute("route");
+			String streetAddress = streetNumber + " " + route;
+			String longitude = (String) session.getAttribute("longitude");
+			String latitude = (String) session.getAttribute("latitude");
+
+			String guest = (String) session.getAttribute("guest");
+			String bedroom = (String) session.getAttribute("bedroom");
+			String bed = (String) session.getAttribute("bed");
+			String bathroom = (String) session.getAttribute("bathroom");
+
+			ArrayList<String> amenities = (ArrayList<String>) session.getAttribute("amenities");
+
+			String title = (String) session.getAttribute("houseTitle");
+			String description = (String) session.getAttribute("description");
+			String neighborhood = (String) session.getAttribute("neighborhood");
+
+			// String userId = (String) session.getAttribute("userId");
+
+			String price = (String) session.getAttribute("price");
+
+			String idInserted = this.productDAO.insertIntoProduct(title, description, neighborhood, guest, bedroom, bed,
+					bathroom, district, city, country, streetAddress, longitude, latitude, price, category);
+
+			this.facilityDAO.insertIntoFacilityDetail(amenities, idInserted);
+
+			// upload images to web server
+			String appPath = request.getServletContext().getRealPath("");
+			String savePath = appPath + "house_asset" + File.separator + idInserted; // path location of house
+
+			Collection<Part> images = request.getParts();
 			
-			if(!images.isEmpty()) {
-		        HttpSession session = request.getSession();
-		        session.setAttribute("images", images);
-		        response.sendRedirect("title");
+			if(images.isEmpty()) {
+		        doGet(request, response);
 			}
 	        else {
-	        	doGet(request,response);
+	        	
+				ArrayList<String> urls = new ArrayList<>();
+				String url = "-";
+	
+				File folderUpload = new File(savePath);
+				if (!folderUpload.exists()) {
+					folderUpload.mkdirs();
+				}
+				System.out.println("Path: " + savePath + File.separator + extractFileName(images.iterator().next()));
+		        
+		        for (Part part : images) {
+					String fileName = extractFileName(part);
+					fileName = new File(fileName).getName();
+					url=savePath+ File.separator + fileName;
+					part.write(url);
+					urls.add(url);
+				}
+		        this.assetDAO.insertToAsset(idInserted, urls);
+		        	        
+				response.sendRedirect("congratulation");
 	        }
-			
-			
-//			String appPath = request.getServletContext().getRealPath("");
-//	        String savePath = appPath + SAVE_DIR; //should replaced by user_id/house_id
-//	        
-//	        for (Part part : request.getParts()) {
-//				String fileName = extractFileName(part);
-//				fileName = new File(fileName).getName();
-//				part.write(savePath+ File.separator + fileName);
-//			}
-//			request.setAttribute("message", "Upload File Success!");
-//			getServletContext().getRequestDispatcher("/result.jsp").forward(request, response);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	private String extractFileName(Part part) {

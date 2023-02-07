@@ -16,12 +16,12 @@
 	
     <div class="structure-content">
         <h1>Congratulations</h1>
-        <span>Your house's upload was saved, thank you for using UrbanEasy.</span>
+        <span>Your house was uploaded, thank you for using UrbanEasy.</span>
         <br>
-        <span>Submit your information by clicking the Finish button.</span>
-        <form action="congratulation" method="post" class="name-title" id="insert-database">
+        <span>You will receive notification when someone rent your place.</span>
+      <!-- <form action="congratulation" method="post" class="name-title" id="insert-database">
         	<input type="text" name="sendpost" value="insert-database" style="display:none;"/>
-        </form>
+        </form>  -->  
     </div>
   
     <!-- footer -->
@@ -30,7 +30,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/home">
-            <button type="submit" class="foot-rent-home-button" form="insert-database">Finish</button>
+            <button type="submit" class="foot-rent-home-button" >Finish</button>
         </a>
 
     </div>
