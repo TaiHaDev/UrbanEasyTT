@@ -46,12 +46,11 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		String userName = request.getParameter("email");
 		String password = request.getParameter("password");
 		User user = loginDAO.authenticateUser(userName, password);
 		String referrer = request.getHeader("referer");
+		referrer = referrer.replaceFirst("[?, &]re=true", "");
 		if (user == null) {
 			if (referrer.contains("?")) {
 				referrer += "&re=true";
@@ -65,8 +64,13 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("avatar", user.getAvatarURL());
 			session.setMaxInactiveInterval(60 * 60); // user sẽ bị log out ra nếu không hoạt động trong một tiếng
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/home");
-			referrer = referrer.replace("&re=true", "");
-			response.sendRedirect(referrer);
+			Object intendedPageUrl = session.getAttribute("intendedPage");
+			if (intendedPageUrl != null) {
+				response.sendRedirect((String) intendedPageUrl);
+
+			} else {
+				response.sendRedirect(referrer);
+			}
 		}
 
 		

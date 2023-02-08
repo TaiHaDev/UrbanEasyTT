@@ -22,14 +22,14 @@ import com.stripe.model.Price;
  * Servlet implementation class paymentServlet
  */
 @WebServlet("/paymentServlet")
-public class paymentServlet extends HttpServlet {
+public class PaymentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String STRIPE_API_KEY = "sk_test_51MTf6qGOzIM2uC94dvvVH4OiAI1soPvUkiU6DS3KlyoXMWOljYRJWQWdh8WnIq43V2ono23OlaAqF2WmYHco1soG00G1Oj3jEC";
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public paymentServlet() {
+    public PaymentServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

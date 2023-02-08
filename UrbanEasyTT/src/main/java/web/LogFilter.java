@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter(urlPatterns = {"/hosting", "/bookings", "/booking"}) //step1.jsp
+@WebFilter(urlPatterns = {"/hosting", "/bookings", "/booking", "/step1.jsp", "/step2.jsp", "/step3.jsp"})
 public class LogFilter implements Filter {
 
     public void init(FilterConfig config) throws ServletException {
@@ -23,8 +23,9 @@ public class LogFilter implements Filter {
         HttpServletResponse res = (HttpServletResponse) response;
         HttpServletRequest req = (HttpServletRequest) request;
         HttpSession session = req.getSession();
-        System.out.println(req.getContextPath());
+        String uri = req.getRequestURL()+(req.getQueryString() == null ? "" : "?" + req.getQueryString());
         if (session.getAttribute("userId") == null) {
+        	session.setAttribute("intendedPage", uri);
         	res.sendRedirect("home?re=true");
         } else {
             chain.doFilter(request, response);
