@@ -148,10 +148,11 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(UPDATE_USER_BY_ID);
-			ps.setLong(1, id);
-			ps.setString(2,name);
-			ps.setString(3,phone);
-			ps.setString(4, email);
+			
+			ps.setString(1,name);
+			ps.setString(2,phone);
+			ps.setString(3, email);
+			ps.setLong(4, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -176,8 +177,9 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(UPDATE_AVATAR_BY_ID);
-			ps.setLong(1, id);
-			ps.setString(2,url);
+			
+			ps.setString(1,url);
+			ps.setLong(2, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

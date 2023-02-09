@@ -68,7 +68,7 @@ public class AccountServlet extends HttpServlet {
 			long userId = (long) session.getAttribute("userId");
 			
 			String userName = request.getParameter("userName");
-			if (userName!="") {
+			if (userName != null) {
 				String phoneNum = request.getParameter("phoneNum");
 				String email = request.getParameter("email");
 				
@@ -96,7 +96,9 @@ public class AccountServlet extends HttpServlet {
 				
 				userDAO.updateAvatarUser(userId, url);
 				
+				
 			}
+			doGet(request, response);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

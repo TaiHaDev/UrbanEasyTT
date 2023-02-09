@@ -20,7 +20,11 @@
   
             </div>
             <hr>
-            <h3>${user.name} confirmed</h3>
+            <div class='flexing'>
+            	<h3>${user.name}</h3>
+            	<h3>confirmed</h3>
+            </div>
+            
             <div class="email-confirm">
                 <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;height:16px;width:16px;fill:currentColor" aria-hidden="true" role="presentation" focusable="false">
                 <path d="M13.102 2.537L15.365 4.8l-9.443 9.443L.057 8.378 2.32 6.115l3.602 3.602z"></path></svg>
@@ -60,6 +64,8 @@
         </div>
         
     </div>
+    
+    <jsp:include page="footer.jsp" />
     <script src="assets/js/account.js"></script>
 
 </body>

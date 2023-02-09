@@ -13,6 +13,11 @@ html, body {
     -moz-osx-font-smoothing: grayscale;
     color:#141414;
 }
+h1,h2,h3,p{
+	overflow: hidden;
+	white-space: nowrap; /* Don't forget this one */
+	text-overflow: ellipsis;
+}
 
 .account-container{
     display: flex;
@@ -28,12 +33,15 @@ html, body {
     border-radius: 12px;
     padding: 50px;
     margin-bottom: 100px;
+    max-width:300px;
 }
 .avatar-info img{
     border-radius: 50%;
     border: 3px solid #3d3d3d;
     width: 200px;
-
+    height: 200px;
+	object-fit: cover;
+    background-position: center center;
 }
 .change-avatar{
     display: flex;
@@ -60,7 +68,18 @@ html, body {
 .email-confirm{
     display: flex;  
     padding-bottom: 50px;
+    padding-top:20px;
 
+}
+.flexing{
+	display:flex;
+	flex-wrap: wrap;
+	margin-top:20px;
+}
+.flexing h3{
+	padding:0px;
+	margin:0px;
+	
 }
 
 .info-user{
