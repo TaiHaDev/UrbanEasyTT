@@ -8,17 +8,11 @@ package dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import util.Connector;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
-import model.Category;
 import model.Product;
 
 public class ProductDAO {
@@ -41,6 +35,7 @@ public class ProductDAO {
 	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (id, name, description,neighborhood_overview, total_guest, bedroom, bed, bath, user_id, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
 			+ "			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String CREATE_NEW_AUTO_INCREMENT_ID = "SELECT id+1 as id FROM property ORDER BY id DESC LIMIT 0, 1;";
+	
 	
 	public ProductDAO() {
 	}
@@ -153,7 +148,8 @@ public class ProductDAO {
 		try {
 			ps = connection.prepareStatement(SELECT_ALL_PRODUCT);
 			rs = ps.executeQuery();
-
+			BookingDAO bookingDAO = new BookingDAO();
+			
 			while (rs.next()) {
 				long propertyId = rs.getLong("id");
 				String district = rs.getString("district");
@@ -164,6 +160,7 @@ public class ProductDAO {
 				BigDecimal price = rs.getBigDecimal("price");
 				int category_id = rs.getInt("category_id");
 				int view = rs.getInt("view");
+				//List<String> dates = bookingDAO.getAvailableDate(propertyId);
 				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
 			}
 		} catch (Exception e) {
@@ -220,6 +217,7 @@ public class ProductDAO {
 		}
 		
 		Connection connection = Connector.makeConnection();
+		BookingDAO bookingDAO = new BookingDAO();
 		for (int i = 0; i < categoriesAmount; i++) {
 
 			PreparedStatement ps = null;
@@ -231,6 +229,7 @@ public class ProductDAO {
 				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
 
+				
 				while (rs.next()) {
 					long propertyId = rs.getLong("id");
 					String district = rs.getString("district");
@@ -241,6 +240,8 @@ public class ProductDAO {
 					BigDecimal price = rs.getBigDecimal("price");
 					int category_id = rs.getInt("category_id");
 					int view = rs.getInt("view");
+					// List<String> dates = bookingDAO.getAvailableDate(propertyId);
+					
 					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
 
 				}

@@ -20,6 +20,8 @@ public class Product {
 	private BigDecimal price;
 	private long userId;
 	private int view;
+	private String dateAvailableStart;
+	private String dateAvailableEnd;
 
 	public String getDescription() {
 		return description;
@@ -110,6 +112,21 @@ public class Product {
 		this.url = url;
 		this.categoryID = categoryId;
 		this.view = view;
+	}
+
+	public Product(long id, String district, String city, String country, double stars, BigDecimal price, String url,
+			int categoryId, int view, String start, String end) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.price = price;
+		this.url = url;
+		this.categoryID = categoryId;
+		this.view = view;
+		this.dateAvailableStart = start;
+		this.dateAvailableEnd = end;
 	}
 
 	public Product(long id, String name, String url, double stars) {
@@ -225,6 +242,22 @@ public class Product {
 
 	public void setView(int view) {
 		this.view = view;
+	}
+
+	public String getDateAvailableStart() {
+		return dateAvailableStart;
+	}
+
+	public void setDateAvailableStart(String dateAvailableStart) {
+		this.dateAvailableStart = dateAvailableStart;
+	}
+
+	public String getDateAvailableEnd() {
+		return dateAvailableEnd;
+	}
+
+	public void setDateAvailableEnd(String dateAvailableEnd) {
+		this.dateAvailableEnd = dateAvailableEnd;
 	}
 
 	@Override
