@@ -87,7 +87,9 @@ h1,h2,h3,p{
     width: 600px;
     
 }
-
+.info-user h1{
+	padding-bottom: 8px;
+}
 .info-user ul{
     padding-top: 40px;
     list-style: none;

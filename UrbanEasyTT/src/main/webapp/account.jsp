@@ -42,6 +42,7 @@
         
         <div class="info-user">
             <h1><b>Hi, I'm ${user.name}</b>  </h1>
+            <p>Join in ${user.year}</p>
             <ul>
                 <li><b>Phone number: ${user.phone}</b></li>
                 <li><b>Email: ${user.email}</b></li>

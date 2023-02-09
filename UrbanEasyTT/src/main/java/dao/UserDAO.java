@@ -20,7 +20,7 @@ import util.Connector;
 public class UserDAO {
 	private static final String SELECT_USER_BY_ID = "SELECT user_name, about, is_host, year(date) as year_join, avatar_url FROM USER WHERE id = ?;";
 	private static final String SELECT_PROPERTY_OWNED_BY_USER_ID = "SELECT property.id,url, avg_rating, property.name  FROM UrbanEasyV2.user join property on user.id = property.user_id join asset on asset.property_id = property.id LEFT join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) / 6 as avg_rating FROM review GROUP BY propertyId) r ON property.id = r.propertyId where user.id = ? AND asset.name = \"1\";";
-	private static final String SELECT_USER_BY_ID_TO_SHOW = "select user_name, phone_number, email, avatar_url from user where id=?;";
+	private static final String SELECT_USER_BY_ID_TO_SHOW = "select user_name, phone_number, email, avatar_url, YEAR(date) as year, about from user where id=?;";
 	private static final String UPDATE_USER_BY_ID ="UPDATE user SET user_name=?, phone_number=?, email=? WHERE id=?;";
 	private static final String UPDATE_AVATAR_BY_ID ="UPDATE user SET avatar_url=? WHERE id=?;";
 	
@@ -79,10 +79,12 @@ public class UserDAO {
 				String phone = rs.getString("phone_number");
 				String email = rs.getString("email");
 				String avatarURL = rs.getString("avatar_url");
+				String year = rs.getString("year");
+				String about = rs.getString("about");
 				if (avatarURL == null) {
 					avatarURL = "https://ui-avatars.com/api/?name=" + name + "&background=random&size=200";
 				}
-				result = new User(name, phone, email, avatarURL);
+				result = new User(name, phone, email, avatarURL, year, about);
 			}
 
 		} catch (SQLException e) {

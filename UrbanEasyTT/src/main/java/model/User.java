@@ -26,7 +26,25 @@ public class User {
 		this.isHost = isHost;
 		
 	}
+	public User(String name, String phone, String email, String url) {
+		this.name = name;
+		this.phone=phone;
+		this.email=email;
+		this.avatarURL = url;
+	}
+	public User(String name, String phone, String email, String url, String year, String about) {
+		this.name = name;
+		this.phone=phone;
+		this.email=email;
+		this.avatarURL = url;
+		this.year=year;
+		this.about=about;
+	}
 	
+	public User(long id, String avatarUrl) {
+		this.id = id;
+		this.avatarURL = avatarUrl;
+	}
 	public boolean isHost() {
 		return isHost;
 	}
@@ -34,17 +52,9 @@ public class User {
 	public void setHost(boolean isHost) {
 		this.isHost = isHost;
 	}
-	public User(String name, String phone, String email, String url) {
-		this.name = name;
-		this.phone=phone;
-		this.email=email;
-		this.avatarURL = url;
-	}
 	
-	public User(long id, String avatarUrl) {
-		this.id = id;
-		this.avatarURL = avatarUrl;
-	}
+	
+	
 	
 
 	public String getName() {
