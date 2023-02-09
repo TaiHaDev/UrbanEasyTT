@@ -107,7 +107,7 @@
 								</p>
 							</div>
 						</div>
-						<p>Viewed 22,424 times last week</p>
+						<p>Viewed ${p.view} times last week</p>
 						<p>Jul 30 - Aug 4</p>
 						<div class="price-info">
 							<p class="price">
@@ -148,11 +148,11 @@
 								<div class="icon-star">
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<p>
-										<c:out value="${p.getStars()} " />
+										&nbsp ${p.getStars()}
 									</p>
 								</div>
 							</div>
-							<p>Viewed 22,424 times last week</p>
+							<p>Viewed ${p.view} times last week</p>
 							<p>Jul 30 - Aug 4</p>
 							<div class="price-info">
 								<p class="price">

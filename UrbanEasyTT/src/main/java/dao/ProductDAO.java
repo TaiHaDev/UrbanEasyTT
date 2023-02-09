@@ -25,12 +25,12 @@ public class ProductDAO {
 	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
 
-	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
-			+ "			    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
-			+ "			    								FROM UrbanEasyV2.review\r\n"
-			+ "											GROUP BY propertyId) r    		ON p.id = r.propertyId\r\n"
-			+ "			   		join asset a on p.id = a.property_id            where a.name='1';";
-	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
+	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id, p.view\r\n"
+			+ "					    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
+			+ "						    								FROM UrbanEasyV2.review\r\n"
+			+ "														GROUP BY propertyId) r    		ON p.id = r.propertyId\r\n"
+			+ "						   		join asset a on p.id = a.property_id            where a.name='1';";
+	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id, p.view\r\n"
 			+ "    		 		FROM urbaneasyv2.property p left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
 			+ "    		   								FROM urbaneasyv2.review\r\n"
 			+ "    		   		                        GROUP BY propertyId) r\r\n"
@@ -163,7 +163,8 @@ public class ProductDAO {
 				String url = rs.getString("url");
 				BigDecimal price = rs.getBigDecimal("price");
 				int category_id = rs.getInt("category_id");
-				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
+				int view = rs.getInt("view");
+				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -239,7 +240,8 @@ public class ProductDAO {
 					String url = rs.getString("url");
 					BigDecimal price = rs.getBigDecimal("price");
 					int category_id = rs.getInt("category_id");
-					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
+					int view = rs.getInt("view");
+					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
 
 				}
 				try {
