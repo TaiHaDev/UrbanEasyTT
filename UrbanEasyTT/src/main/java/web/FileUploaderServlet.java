@@ -138,7 +138,7 @@ public class FileUploaderServlet extends HttpServlet {
 			String description = (String) session.getAttribute("description");
 			String neighborhood = (String) session.getAttribute("neighborhood");
 
-			String userId = (String) session.getAttribute("userId");
+			long userId = (long) session.getAttribute("userId");
 
 			String price = (String) session.getAttribute("price");
 
@@ -160,19 +160,15 @@ public class FileUploaderServlet extends HttpServlet {
 	        else {
 	        	
 				ArrayList<String> urls = new ArrayList<>();
-				String url = "-";
 	
 				File folderUpload = new File(savePath);
 				if (!folderUpload.exists()) {
 					folderUpload.mkdirs();
 				}
-				System.out.println("Path: " + savePath + File.separator + extractFileName(images.iterator().next()));
-		        
 		        for (Part part : images) {
 					String fileName = extractFileName(part);
 					fileName = new File(fileName).getName();
-					url=savePath+ File.separator + fileName;
-					part.write(url);
+					part.write(savePath+ File.separator + fileName);
 					urls.add("house_asset/"+idInserted+"/"+fileName);
 				}
 		        this.assetDAO.insertToAsset(idInserted, urls);

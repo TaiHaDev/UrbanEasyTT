@@ -22,6 +22,7 @@ public class UserDAO {
 	private static final String SELECT_PROPERTY_OWNED_BY_USER_ID = "SELECT property.id,url, avg_rating, property.name  FROM UrbanEasyV2.user join property on user.id = property.user_id join asset on asset.property_id = property.id LEFT join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) / 6 as avg_rating FROM review GROUP BY propertyId) r ON property.id = r.propertyId where user.id = ? AND asset.name = \"1\";";
 	private static final String SELECT_USER_BY_ID_TO_SHOW = "select user_name, phone_number, email, avatar_url from user where id=?;";
 	private static final String UPDATE_USER_BY_ID ="UPDATE user SET user_name=?, phone_number=?, email=? WHERE id=?;";
+	private static final String UPDATE_AVATAR_BY_ID ="UPDATE user SET avatar_url=? WHERE id=?;";
 	
 	public User selectUserById(long id) {
 		User result = null;
@@ -151,6 +152,32 @@ public class UserDAO {
 			ps.setString(2,name);
 			ps.setString(3,phone);
 			ps.setString(4, email);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		}
+	}
+	
+	public void updateAvatarUser(long id, String url) {
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		try {
+			ps = connection.prepareStatement(UPDATE_AVATAR_BY_ID);
+			ps.setLong(1, id);
+			ps.setString(2,url);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

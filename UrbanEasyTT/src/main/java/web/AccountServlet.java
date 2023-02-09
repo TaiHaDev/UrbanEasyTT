@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,10 @@ import dao.UserDAO;
  * Servlet implementation class Account
  */
 @WebServlet(name = "account", urlPatterns = { "/account" })
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+maxFileSize = 1024 * 1024 * 10, // 10 MB
+maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class AccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
@@ -77,11 +82,36 @@ public class AccountServlet extends HttpServlet {
 				
 				Part img = request.getPart("file");
 				
+				String url = "-";
+				
+				File folderUpload = new File(savePath);
+				if (!folderUpload.exists()) {
+					folderUpload.mkdirs();
+				}
+				
+				String fileName = extractFileName(img);
+				fileName = new File(fileName).getName();
+				img.write(savePath+ File.separator + fileName);
+				url = ("user_asset/"+userId+"/"+fileName);
+				
+				userDAO.updateAvatarUser(userId, url);
+				
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+	}
+	
+	private String extractFileName(Part part) {
+		String contentDisp = part.getHeader("content-disposition");
+		String[] items = contentDisp.split(";");
+		for (String s : items) {
+			if (s.trim().startsWith("filename")) {
+				return s.substring(s.indexOf("=") + 2, s.length() - 1);
+			}
+		}
+		return "";
 	}
 
 }

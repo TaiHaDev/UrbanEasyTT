@@ -285,7 +285,7 @@ public class ProductDAO {
 		return products;
 	}
 	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom, 
-			String bed, String bathroom, String userId, String district, String city, String country, String streetAddress, String longtitude, 
+			String bed, String bathroom, long userId, String district, String city, String country, String streetAddress, String longtitude, 
 			String latitude, String price, String category) {
 		
 		Connection connection = Connector.makeConnection();
@@ -308,14 +308,15 @@ public class ProductDAO {
 			ps.setString(6, bedroom);
 			ps.setString(7, bed);
 			ps.setString(8, bathroom);
-			ps.setString(9, district);
-			ps.setString(10, city);
-			ps.setString(11, country);
-			ps.setString(12, streetAddress);
-			ps.setString(13, longtitude);
-			ps.setString(14, latitude);
-			ps.setString(15, price);
-			ps.setString(16, category);
+			ps.setLong(9, userId);
+			ps.setString(10, district);
+			ps.setString(11, city);
+			ps.setString(12, country);
+			ps.setString(13, streetAddress);
+			ps.setString(14, longtitude);
+			ps.setString(15, latitude);
+			ps.setString(16, price);
+			ps.setString(17, category);
 			System.out.println(ps);
 			ps.executeUpdate();
 			
