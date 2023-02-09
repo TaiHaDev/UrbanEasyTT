@@ -137,12 +137,12 @@ public class FileUploaderServlet extends HttpServlet {
 			String description = (String) session.getAttribute("description");
 			String neighborhood = (String) session.getAttribute("neighborhood");
 
-			// String userId = (String) session.getAttribute("userId");
+			String userId = (String) session.getAttribute("userId");
 
 			String price = (String) session.getAttribute("price");
 
 			String idInserted = this.productDAO.insertIntoProduct(title, description, neighborhood, guest, bedroom, bed,
-					bathroom, district, city, country, streetAddress, longitude, latitude, price, category);
+					bathroom, userId, district, city, country, streetAddress, longitude, latitude, price, category);
 
 			this.facilityDAO.insertIntoFacilityDetail(amenities, idInserted);
 

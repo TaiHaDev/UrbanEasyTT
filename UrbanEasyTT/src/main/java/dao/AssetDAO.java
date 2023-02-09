@@ -19,14 +19,14 @@ public class AssetDAO {
 		PreparedStatement ps = null;
 		try {
 
-			for (int i = 1; i <= imgs.size(); i++) {
+			for (int i = 0; i < imgs.size(); i++) {
 				ps = connection.prepareStatement(INSERT_TO_ASSET);
 				ps.setString(1, insertedId);
-				ps.setInt(2, i);
+				ps.setInt(2, i+1);
 				ps.setString(3, imgs.get(i));
 				
 				ps.executeUpdate();
-				System.out.println("asset: " + insertedId+" "+i +" "+ imgs.get(i));
+				System.out.println("asset: " + insertedId+" "+i+1 +" "+ imgs.get(i));
 			}
 
 		} catch (Exception e) {
