@@ -71,6 +71,7 @@ public class FileUploaderServlet extends HttpServlet {
 			String bed = (String) session.getAttribute("bed");
 			String bathroom = (String) session.getAttribute("bathroom");
 
+			
 			if (guest == null || bedroom == null || bed == null || bathroom == null) {
 				response.sendRedirect("floor-plan");
 			}

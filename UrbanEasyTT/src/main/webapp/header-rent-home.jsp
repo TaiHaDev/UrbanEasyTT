@@ -14,7 +14,7 @@
         	<img src="./assets/images/black-logo.png" alt="logo" height="45px"/>
         </a>
         <div class="nav-button-rent-home ">
-        	<a href="question.html">
+        	<a href="about.jsp">
             	<button class="button-nav-rent ">Questions?</button></a>
             <a href="<%=request.getContextPath()%>/home">
             	<button class="button-nav-rent ">Exit</button>

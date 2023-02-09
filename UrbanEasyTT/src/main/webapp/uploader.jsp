@@ -23,7 +23,7 @@
 			
 			<div class="upload">
 				<form method="post" action="image-upload" enctype="multipart/form-data" id="upload-form">
-					<input type="file" name="file" multiple accept=".png,.jpeg,.gif,.jpg,.bmp,.webp,.pjeg"/>
+					<input type="file" name="file" multiple accept=".png,.jpeg,.jpg,.bmp,.webp,.pjeg"/>
 				</form>
 			</div>
 			<div class="photo-container"></div>

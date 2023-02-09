@@ -5,6 +5,8 @@ public class User {
 	private String name;
 	private String about;
 	private String year;
+	private String phone;
+	private String email;
 	private boolean isHost;
 	private String avatarURL;
 	private Integer totalReview;
@@ -16,6 +18,7 @@ public class User {
 		this.isHost = isHost;
 		
 	}
+	
 	public boolean isHost() {
 		return isHost;
 	}
@@ -23,11 +26,11 @@ public class User {
 	public void setHost(boolean isHost) {
 		this.isHost = isHost;
 	}
-	public User(long id, String name, String url, int totalReview) {
-		this.id = id;
+	public User(String name, String phone, String email, String url) {
 		this.name = name;
+		this.phone=phone;
+		this.email=email;
 		this.avatarURL = url;
-		this.totalReview = totalReview;
 	}
 	
 	public User(long id, String avatarUrl) {
@@ -73,4 +76,21 @@ public class User {
 		return avatarURL;
 	}
 
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	
 }
