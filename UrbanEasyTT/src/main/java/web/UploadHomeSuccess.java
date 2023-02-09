@@ -3,6 +3,7 @@ package web;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -45,11 +46,9 @@ public class UploadHomeSuccess extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			String appPath = request.getServletContext().getRealPath("");
-			String savePath = appPath + "house_asset" + File.separator + "709986109543860818/20210828_1227302.jpg";
-			request.setAttribute("savePath", savePath);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("upload-success.jsp");
 			dispatcher.forward(request, response);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

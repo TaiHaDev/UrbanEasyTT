@@ -218,7 +218,6 @@ public class ProductDAO {
 			}
 		}
 		
-		System.out.println("category_amount: "+categoriesAmount);
 		Connection connection = Connector.makeConnection();
 		for (int i = 0; i < categoriesAmount; i++) {
 

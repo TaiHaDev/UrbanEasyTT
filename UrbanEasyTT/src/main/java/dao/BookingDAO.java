@@ -183,7 +183,7 @@ public class BookingDAO {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {	
 			try {
 				if (ps != null) {
 					ps.close();

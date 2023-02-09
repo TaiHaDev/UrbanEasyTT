@@ -20,11 +20,11 @@
         <span>Your house was uploaded, thank you for using UrbanEasy.</span>
         <br>
         <span>You will receive notification when someone rent your place.</span>
-      <!-- <form action="congratulation" method="post" class="name-title" id="insert-database">
+       <form action="congratulation" method="post" class="name-title" id="insert-database">
         	<input type="text" name="sendpost" value="insert-database" style="display:none;"/>
-        </form>  -->  
+        </form> 
         
-        <img src="${savePath}">
+        <img src='house_asset/709986109543860819/unnamed.gif'>
     </div>
   
     <!-- footer -->
@@ -33,7 +33,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/home">
-            <button type="submit" class="foot-rent-home-button" >Finish</button>
+            <button type="submit" class="foot-rent-home-button" form="insert-database">Finish</button>
         </a>
 
     </div>

@@ -154,6 +154,7 @@ public class FileUploaderServlet extends HttpServlet {
 			
 			if(images.isEmpty()) {
 		        doGet(request, response);
+		        return;
 			}
 	        else {
 	        	
@@ -171,7 +172,7 @@ public class FileUploaderServlet extends HttpServlet {
 					fileName = new File(fileName).getName();
 					url=savePath+ File.separator + fileName;
 					part.write(url);
-					urls.add(url);
+					urls.add("house_asset/"+idInserted+"/"+fileName);
 				}
 		        this.assetDAO.insertToAsset(idInserted, urls);
 		        	        
