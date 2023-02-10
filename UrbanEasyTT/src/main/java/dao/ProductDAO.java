@@ -8,23 +8,29 @@ package dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import util.Connector;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
+
+import model.Category;
 import model.Product;
 
 public class ProductDAO {
 	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
 
-	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id, p.view\r\n"
-			+ "					    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
-			+ "						    								FROM UrbanEasyV2.review\r\n"
-			+ "														GROUP BY propertyId) r    		ON p.id = r.propertyId\r\n"
-			+ "						   		join asset a on p.id = a.property_id            where a.name='1';";
-	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id, p.view\r\n"
+	private static final String SELECT_ALL_PRODUCT = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
+			+ "			    		FROM UrbanEasyV2.property p join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
+			+ "			    								FROM UrbanEasyV2.review\r\n"
+			+ "											GROUP BY propertyId) r    		ON p.id = r.propertyId\r\n"
+			+ "			   		join asset a on p.id = a.property_id            where a.name='1';";
+	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id\r\n"
 			+ "    		 		FROM urbaneasyv2.property p left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
 			+ "    		   								FROM urbaneasyv2.review\r\n"
 			+ "    		   		                        GROUP BY propertyId) r\r\n"
@@ -35,7 +41,6 @@ public class ProductDAO {
 	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (id, name, description,neighborhood_overview, total_guest, bedroom, bed, bath, user_id, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
 			+ "			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String CREATE_NEW_AUTO_INCREMENT_ID = "SELECT id+1 as id FROM property ORDER BY id DESC LIMIT 0, 1;";
-	
 	
 	public ProductDAO() {
 	}
@@ -148,8 +153,7 @@ public class ProductDAO {
 		try {
 			ps = connection.prepareStatement(SELECT_ALL_PRODUCT);
 			rs = ps.executeQuery();
-			BookingDAO bookingDAO = new BookingDAO();
-			
+
 			while (rs.next()) {
 				long propertyId = rs.getLong("id");
 				String district = rs.getString("district");
@@ -159,9 +163,7 @@ public class ProductDAO {
 				String url = rs.getString("url");
 				BigDecimal price = rs.getBigDecimal("price");
 				int category_id = rs.getInt("category_id");
-				int view = rs.getInt("view");
-				//List<String> dates = bookingDAO.getAvailableDate(propertyId);
-				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
+				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -217,7 +219,6 @@ public class ProductDAO {
 		}
 		
 		Connection connection = Connector.makeConnection();
-		BookingDAO bookingDAO = new BookingDAO();
 		for (int i = 0; i < categoriesAmount; i++) {
 
 			PreparedStatement ps = null;
@@ -229,7 +230,6 @@ public class ProductDAO {
 				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
 
-				
 				while (rs.next()) {
 					long propertyId = rs.getLong("id");
 					String district = rs.getString("district");
@@ -239,10 +239,7 @@ public class ProductDAO {
 					String url = rs.getString("url");
 					BigDecimal price = rs.getBigDecimal("price");
 					int category_id = rs.getInt("category_id");
-					int view = rs.getInt("view");
-					// List<String> dates = bookingDAO.getAvailableDate(propertyId);
-					
-					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
+					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id));
 
 				}
 				try {
