@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -24,8 +25,7 @@ public class BookingDAO {
 	private static final String CANCEL_BOOKING = "UPDATE booking SET status = 'CANCELLED' WHERE id = ?;";
 	private static final String BOOK_DATE_AVAILABLE = "\r\n"
 			+ "select s.dateAvailable, adddate(dateAvailable, INTERVAL (SELECT FLOOR(RAND()*(10-5+1)+5)) DAY) as dateEnd\r\n"
-			+ "			 from (SELECT adddate(IF(current_date() > date_end, current_date(), date_end), INTERVAL 1 DAY) as dateAvailable  FROM booking WHERE property_id= ? ORDER BY date_end desc LIMIT 1) s;\r\n"
-			+ "";
+			+ "					 from (SELECT adddate(IF(current_date() > date_end, current_date(), date_end), INTERVAL 1 DAY) as dateAvailable  FROM booking WHERE property_id= 50523 ORDER BY date_end desc LIMIT 1) s;";
 
 	private static Map<Integer, String> month = new HashMap<Integer, String>() {
 		{
@@ -229,52 +229,53 @@ public class BookingDAO {
 		}
 	}
 
-//	public List<String> getAvailableDate(long propertyId) {
-//		
-//		List<String> result = new ArrayList<>();
-//		Connection connection = Connector.makeConnection();
-//		PreparedStatement ps = null;
-//		ResultSet rs = null;
-//		try {
-//			ps = connection.prepareStatement(BOOK_DATE_AVAILABLE);
-//			ps.setLong(1, propertyId);
-//			rs = ps.executeQuery();
-//	
-//			if(rs.next()) {
-//				String start = Ultilities.reformatDate(rs.getDate("dateAvailable"));
-//				String end = Ultilities.reformatDate(rs.getDate("dateEnd"));
-//				
-//				System.out.println("get ok: "+start +" "+end);
-//				String dateAvailableStart = month.get(Integer.parseInt(start.substring(3, 5))) + " " + start.substring(0,2);
-//				String dateAvailableEnd = month.get(Integer.parseInt(end.substring(3, 5))) + " " + end.substring(0, 2);
-//				System.out.println("Hello: "+dateAvailableStart+" "+dateAvailableEnd);
-//				result.add(dateAvailableStart);
-//				result.add(dateAvailableEnd);
-//				
-//			}else {
-//				LocalDate currentDate = LocalDate.now();
-//				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
-//				currentDate=currentDate.plusDays(5);
-//				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			try {
-//				if (rs != null) {
-//					rs.close();
-//				}
-//				if (ps != null) {
-//					ps.close();
-//				}
-//				if (connection != null) {
-//					connection.close();
-//				}
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		return result;
-//	}
+	public List<String> getAvailableDate(long propertyId) {
+		
+		List<String> result = new ArrayList<>();
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(BOOK_DATE_AVAILABLE);
+			ps.setLong(1, propertyId);
+			rs = ps.executeQuery();
+	
+			if(rs.next()) {
+				String start = Ultilities.reformatDate(rs.getDate("dateAvailable"));
+				String end = Ultilities.reformatDate(rs.getDate("dateEnd"));
+				
+				String dateAvailableStart = month.get(Integer.parseInt(start.substring(3, 5))) + " " + start.substring(0,2);
+				String dateAvailableEnd = month.get(Integer.parseInt(end.substring(3, 5))) + " " + end.substring(0, 2);
+				System.out.println("Hello: "+dateAvailableStart+" "+dateAvailableEnd);
+				result.add(dateAvailableStart);
+				result.add(dateAvailableEnd);
+				
+			}else {
+				Random rand= new Random();
+				
+				LocalDate currentDate = LocalDate.now();
+				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
+				currentDate=currentDate.plusDays(rand.nextInt((10 - 4) + 1) + 4);
+				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 }

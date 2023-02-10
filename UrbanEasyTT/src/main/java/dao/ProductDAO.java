@@ -21,6 +21,8 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import model.Category;
 import model.Product;
 
+import dao.BookingDAO;
+
 public class ProductDAO {
 	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
@@ -229,6 +231,7 @@ public class ProductDAO {
 		}
 		
 		Connection connection = Connector.makeConnection();
+		BookingDAO bookingDAO = new BookingDAO();
 		for (int i = 0; i < categoriesAmount; i++) {
 
 			PreparedStatement ps = null;
@@ -239,7 +242,7 @@ public class ProductDAO {
 				ps = connection.prepareStatement(SELECT_ALL_PRODUCT_BY_CATEGORY );
 				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
-
+				
 				while (rs.next()) {
 					long propertyId = rs.getLong("id");
 					String district = rs.getString("district");
@@ -371,10 +374,10 @@ public class ProductDAO {
 				String name = rs.getString("name");
 				String status = rs.getString("status");
 				if(status==null) {
-					status= "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp Free";
+					status= "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp Available";
 				}
 				else {
-					status= "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp"+status;
+					status= "<i class=\"fa-solid fa-circle-check grey-dot\"></i>&nbsp Booked";
 				}
 				int guest = rs.getInt("total_guest");
 				int bedroom = rs.getInt("bedroom");
@@ -416,7 +419,6 @@ public class ProductDAO {
 			ps = connection.prepareStatement(DELETE_PRODUCT_BY_ID);
 			ps.setString(1, id);
 			ps.executeUpdate();
-		
 			
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -83,7 +83,6 @@
 
 	<div class="product-card gridd"
 		id="${firstProduct.get(0).getCategoryID()}">
-
 		<c:forEach var="p" items="${firstProduct}">
 			<div class="card2">
 				<a

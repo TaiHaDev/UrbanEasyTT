@@ -21,6 +21,8 @@ public class Product {
 	private long userId;
 	private int view;
 	private String status;
+	private String dayAvailable;
+	private String dayAvailableNext;
 	
 	public String getDescription() {
 		return description;
@@ -111,6 +113,21 @@ public class Product {
 		this.url = url;
 		this.categoryID = categoryId;
 		this.view = view;
+	}
+	
+	public Product(long id, String district, String city, String country, double stars, BigDecimal price, String url,
+			int categoryId, int view, String dayAvailable, String dayAvailableNext) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.price = price;
+		this.url = url;
+		this.categoryID = categoryId;
+		this.view = view;
+		this.dayAvailable=dayAvailable;
+		this.dayAvailableNext=dayAvailableNext;
 	}
 
 	public Product(long id, String district, String city, String country, double stars, BigDecimal price, String url,
@@ -266,6 +283,22 @@ public class Product {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getDayAvailable() {
+		return dayAvailable;
+	}
+
+	public void setDayAvailable(String dayAvailable) {
+		this.dayAvailable = dayAvailable;
+	}
+
+	public String getDayAvailableNext() {
+		return dayAvailableNext;
+	}
+
+	public void setDayAvailableNext(String dayAvailableNext) {
+		this.dayAvailableNext = dayAvailableNext;
 	}
 
 	@Override

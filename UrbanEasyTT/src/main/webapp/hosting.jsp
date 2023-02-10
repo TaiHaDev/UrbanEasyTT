@@ -36,9 +36,9 @@
                 </tr>
                 <c:forEach var="p" items="${products}">
 	                <tr>
-	                    <td class="img-hosting-contain"><img class="img-hosting" src="${p.url}" alt="${p.id}"></td>
+	                    <td class="img-hosting-contain more-space"><img class="img-hosting" src="${p.url}" alt="${p.id}"></td>
 	                    <td>${p.name}</td>
-	                    <td>${p.status}</td>
+	                    <td class="more-space">${p.status}</td>
 	                    <td>${p.guest}</td>
 	                    <td>${p.bedroom}</td>
 	                    <td>${p.bed}</td>
@@ -47,13 +47,16 @@
 	                    <td>${p.view}</td>
 	                    <td class="edit-listing"><i class="fa-regular fa-pen-to-square"></i></td>
 	                    <td class="erase-listing">
-	                    	<a href="#confirm-popup"><i class="fa-regular fa-trash-can"></i></a>
-		                    <form action="hosting" method="post" class="name-title hiddenn" id="${p.url}">  
-			                    <input type="text" class="hiddenn" name="delete" value="${p.id}"/>
-		                   	</form> 
-			                <div id="confirm-popup" class="popup" href="#">
+	                    	<i class="delete-icon fa-regular fa-trash-can"></i>
+		                    
+			                <div class="confirm-popup popup hiddenn" href="#">
 					            <div class="popup-content">
-					                <button class="button-danger" type="submit" form="${p.url}" >Yeah I'm sure</button>
+					            	<h4>Are you sure delete this house? Cannot recover renting history, and ratings.</h4>
+					            	<form action="hosting" method="post" class="name-title hiddenn" id="${p.id}" name="${p.id}">  
+			                    		<input type="text" class="hiddenn" name="delete" value="${p.id}" form="${p.id}"/>
+					                	
+					                </form> 
+					                <button type="submit" class="button-danger" form="${p.id}" >Yeah I'm sure</button>
 					                <a href="#" class="close">x</a>
 					        	</div>
 					        </div>
@@ -66,7 +69,16 @@
             </table>
         </div>
     </div>
-    
+    <script>
+		let btns = document.querySelectorAll('.delete-icon');
+
+		btns.forEach(function(btn){
+		btn.addEventListener('click', function(){
+			let nextDiv = btn.nextElementSibling;
+			nextDiv.classList.remove('hiddenn');
+		});
+		});
+	</script>
     <jsp:include page="footer.jsp" />
     
   
