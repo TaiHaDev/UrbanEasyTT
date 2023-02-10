@@ -13,11 +13,11 @@
     <title>Hosing house management</title>
 </head>
 <body>
-	<jsp:include page="header.jsp" />
+	<jsp:include page="header-rent-home.jsp" />
 
     <div class="container-listing">
         <div class="head-listing">
-            <h2>27 listings</h2>
+            <h2>${houseAmount} listings</h2>
         </div>
         <div class="table-container">
             <table class="table-listing">
@@ -30,37 +30,45 @@
                     <th class="small-size-col">Beds</th>
                     <th class="small-size-col">Baths</th>
                     <th>Location</th>
+                    <th>View</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
-                <tr>
-                    <td></td>
-                    <td>Wonderful house 933</td>
-                    <td><i class="fa-solid fa-circle-check green-dot"></i>&nbsp Free</td>
-                    <td>4</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>Sydney, Australia</td>
-                    <td class="edit-listing"><i class="fa-regular fa-pen-to-square"></i></td>
-                    <td class="erase-listing"><i class="fa-regular fa-trash-can"></i></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>Wonderful house 851</td>
-                    <td><i class="fa-solid fa-circle-check grey-dot"></i>&nbsp Booked</td>
-                    <td>4</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>1</td>
-                    <td>Saigon, Vietnam</td>
-                    <td class="edit-listing"><i class="fa-regular fa-pen-to-square"></i></td>
-                    <td class="erase-listing"><i class="fa-regular fa-trash-can"></i></td>
-                </tr>
+                <c:forEach var="p" items="${products}">
+	                <tr>
+	                    <td class="img-hosting-contain"><img class="img-hosting" src="${p.url}" alt="${p.id}"></td>
+	                    <td>${p.name}</td>
+	                    <td>${p.status}</td>
+	                    <td>${p.guest}</td>
+	                    <td>${p.bedroom}</td>
+	                    <td>${p.bed}</td>
+	                    <td>${p.bath}</td>
+	                    <td>${p.city}, ${p.country}</td>
+	                    <td>${p.view}</td>
+	                    <td class="edit-listing"><i class="fa-regular fa-pen-to-square"></i></td>
+	                    <td class="erase-listing">
+	                    	<a href="#confirm-popup"><i class="fa-regular fa-trash-can"></i></a>
+		                    <form action="hosting" method="post" class="name-title hiddenn" id="${p.url}">  
+			                    <input type="text" class="hiddenn" name="delete" value="${p.id}"/>
+		                   	</form> 
+			                <div id="confirm-popup" class="popup" href="#">
+					            <div class="popup-content">
+					                <button class="button-danger" type="submit" form="${p.url}" >Yeah I'm sure</button>
+					                <a href="#" class="close">x</a>
+					        	</div>
+					        </div>
+	                    </td>
+	                	
+	                </tr>
+                </c:forEach>
+                
+                
             </table>
         </div>
     </div>
     
     <jsp:include page="footer.jsp" />
+    
+  
 </body>
 </html>

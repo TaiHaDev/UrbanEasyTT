@@ -20,7 +20,8 @@ public class Product {
 	private BigDecimal price;
 	private long userId;
 	private int view;
-
+	private String status;
+	
 	public String getDescription() {
 		return description;
 	}
@@ -122,6 +123,26 @@ public class Product {
 		this.price = price;
 		this.url = url;
 		this.categoryID = categoryId;
+	}
+
+	
+	
+	public Product(long id, String name, String city, String country, double stars, String url, BigDecimal price,
+			int view, String status, int bedroom, int guest, int bed, int bath) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.url = url;
+		this.price = price;
+		this.view = view;
+		this.status = status;
+		this.bedroom = bedroom;
+		this.guest = guest;
+		this.bed = bed;
+		this.bath = bath;
 	}
 
 	public Product(long id, String name, String url, double stars) {
@@ -237,6 +258,14 @@ public class Product {
 
 	public void setView(int view) {
 		this.view = view;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override
