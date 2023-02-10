@@ -8,133 +8,164 @@ package model;
 import java.math.BigDecimal;
 
 public class Product {
-    private long id;
-    private String name;
+	private long id;
+	private String name;
 	private String district;
-    private String city;
-    private String country;
-    private double stars;
-    private double lng;
-    private double lat;
-    private String url;
-    private BigDecimal price;
-    private long userId;
-    public String getDescription() {
+	private String city;
+	private String country;
+	private double stars;
+	private double lng;
+	private double lat;
+	private String url;
+	private BigDecimal price;
+	private long userId;
+	private int view;
+
+	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getNeighbourhoodOverview() {
 		return neighbourhoodOverview;
 	}
+
 	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
 		this.neighbourhoodOverview = neighbourhoodOverview;
 	}
-	private int categoryID;
-    private int bedroom;
-    private int guest;
-    private int bed;
-    private int bath;
-    private String description;
-    private String neighbourhoodOverview;
 
-    // contrustor for product-detail
-    public Product(long id, String name, String district, String city, String country, double stars, double lng, double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price, String description, String neighbourhoodOverview) {
-        this.id = id;
-        this.district = district;
-        this.city = city;
-        this.country = country;
-        this.stars = stars;
-        this.lng = lng;
-        this.lat = lat;
-        this.userId = userId;
-        this.guest = guest;
-        this.bedroom = bedroom;
-        this.bed = bed;
-        this.bath = bath;
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.neighbourhoodOverview = neighbourhoodOverview;
-    }
-    public int getBedroom() {
+	private int categoryID;
+	private int bedroom;
+	private int guest;
+	private int bed;
+	private int bath;
+	private String description;
+	private String neighbourhoodOverview;
+
+	// contrustor for product-detail
+	public Product(long id, String name, String district, String city, String country, double stars, double lng,
+			double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price, String description,
+			String neighbourhoodOverview) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.lng = lng;
+		this.lat = lat;
+		this.userId = userId;
+		this.guest = guest;
+		this.bedroom = bedroom;
+		this.bed = bed;
+		this.bath = bath;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.neighbourhoodOverview = neighbourhoodOverview;
+	}
+
+	public int getBedroom() {
 		return bedroom;
 	}
+
 	public void setBedroom(int bedroom) {
 		this.bedroom = bedroom;
 	}
+
 	public int getGuest() {
 		return guest;
 	}
+
 	public void setGuest(int guest) {
 		this.guest = guest;
 	}
+
 	public int getBed() {
 		return bed;
 	}
+
 	public void setBed(int bed) {
 		this.bed = bed;
 	}
+
 	public int getBath() {
 		return bath;
 	}
+
 	public void setBath(int bath) {
 		this.bath = bath;
 	}
-	public Product(long id, String district, String city, String country, double stars, BigDecimal price , String url, int categoryId) {
-        this.id = id;
-        this.district = district;
-        this.city = city;
-        this.country = country;
-        this.stars = stars;
-        this.price = price;
-        this.url = url;
-        this.categoryID= categoryId;
-    }
-    public Product(long id, String name, String url, double stars) {
-    	this.id = id;
-    	this.name = name;
-    	this.url = url;
-    	this.stars = stars;
-    }
 
-    
-    public void setId(int id) {
-        this.id = id;
-    }
+	public Product(long id, String district, String city, String country, double stars, BigDecimal price, String url,
+			int categoryId, int view) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.price = price;
+		this.url = url;
+		this.categoryID = categoryId;
+		this.view = view;
+	}
 
-    public String getDistrict() {
-        return this.district;
-    }
+	public Product(long id, String district, String city, String country, double stars, BigDecimal price, String url,
+			int categoryId) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.price = price;
+		this.url = url;
+		this.categoryID = categoryId;
+	}
 
-    public void setDistrict(String district) {
-        this.district = district;
-    }
+	public Product(long id, String name, String url, double stars) {
+		this.id = id;
+		this.name = name;
+		this.url = url;
+		this.stars = stars;
+	}
 
-    public String getCity() {
-        return this.city;
-    }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+	public String getDistrict() {
+		return this.district;
+	}
 
-    public String getCountry() {
-        return this.country;
-    }
+	public void setDistrict(String district) {
+		this.district = district;
+	}
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
+	public String getCity() {
+		return this.city;
+	}
 
-    public double getStars() {
-        return this.stars;
-    }
+	public void setCity(String city) {
+		this.city = city;
+	}
 
-    public void setStars(double stars) {
-        this.stars = stars;
-    }
+	public String getCountry() {
+		return this.country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public double getStars() {
+		return this.stars;
+	}
+
+	public void setStars(double stars) {
+		this.stars = stars;
+	}
 
 	public double getLng() {
 		return lng;
@@ -151,48 +182,68 @@ public class Product {
 	public void setLat(double lat) {
 		this.lat = lat;
 	}
+
 	public String getUrl() {
 		return url;
 	}
+
 	public void setUrl(String url) {
 		this.url = url;
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public BigDecimal getPrice() {
 		return price;
 	}
+
 	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
+
 	public int getCategoryID() {
 		return categoryID;
 	}
+
 	public void setCategoryID(int categoryID) {
 		this.categoryID = categoryID;
 	}
-    public String getName() {
+
+	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public long getUserId() {
 		return userId;
 	}
+
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", district=" + district + ", city=" + city + ", country="
 				+ country + ", stars=" + stars + ", lng=" + lng + ", lat=" + lat + ", url=" + url + ", price=" + price
 				+ ", userId=" + userId + ", categoryID=" + categoryID + "]";
 	}
-	
-	
+
 }

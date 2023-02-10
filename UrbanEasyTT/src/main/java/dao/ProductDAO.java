@@ -30,7 +30,7 @@ public class ProductDAO {
 			+ "			    								FROM UrbanEasyV2.review\r\n"
 			+ "											GROUP BY propertyId) r    		ON p.id = r.propertyId\r\n"
 			+ "			   		join asset a on p.id = a.property_id            where a.name='1';";
-	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.view\r\n"
+	private static final String SELECT_ALL_PRODUCT_BY_CATEGORY = "SELECT p.id, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.category_id, p.view\r\n"
 			+ "    		 		FROM urbaneasyv2.property p left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
 			+ "    		   								FROM urbaneasyv2.review\r\n"
 			+ "    		   		                        GROUP BY propertyId) r\r\n"
