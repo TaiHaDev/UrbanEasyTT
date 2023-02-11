@@ -33,7 +33,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/location">
-            <button type="submit" id="verify-structure" class="foot-rent-home-button">Next</button>
+            <button type="submit" id="verify-structure" class="foot-rent-home-button" disabled>Next</button>
         </a>
 
     </div>

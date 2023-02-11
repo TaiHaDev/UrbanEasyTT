@@ -1,5 +1,3 @@
-var finalResult={};
-
 var geocoder;
 var map;
 function initAutocomplete() {
@@ -13,40 +11,31 @@ let propertyAddress={};
 function codeAddress() {
 	geocoder = new google.maps.Geocoder();
 	var address = document.getElementById('address').value;
-	
-	let retrievedData = localStorage.getItem("userData");
-	//Parse the object
-	let parsedData = JSON.parse(retrievedData);
-
-	//Output the parsed object
-	console.log(parsedData);
 
 	geocoder.geocode( { 'address': address}, function(results, status) {
 		if (status == 'OK') {
 			var latitude = results[0].geometry.location.lat();
 			var longitude = results[0].geometry.location.lng();
 
-
-			var fullName = results[0].formatted_address;
-
-			var city = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_1").long_name;
+			var district = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_2")?.long_name;
+			var city = results[0].address_components.find((add) => add.types[0] == "administrative_area_level_1")?.long_name;
 			var country = results[0].address_components.find((add) => add.types[0] == "country").long_name;
-			var streetAddress = results[0].address_components.find((add) => add.types[0] == "street_number").long_name;
-			var district = results[0].address_components.find((add) => add.types[0] == "route").long_name;
+			
+			var streetNumber = results[0].address_components.find((add) => add.types[0] == "street_number")?.long_name;
+			var route = results[0].address_components.find((add) => add.types[0] == "route")?.long_name;
 
-			var myLatLng = {lat: latitude, lng: longitude};
+			var myLatLng = {lat: latitude, lng: longitude};			
 
 			propertyAddress.latitude=latitude;
 			propertyAddress.longitude=longitude;
-
-			propertyAddress.streetAddress=streetAddress;
+			
 			propertyAddress.district=district;
-			propertyAddress.fullName=fullName;
-
 			propertyAddress.city=city;
 			propertyAddress.country=country;
 			
-			
+			propertyAddress.streetNumber=streetNumber;
+			propertyAddress.route=route;
+
 			console.log(propertyAddress);
 			// Initialize the map
 			map = new google.maps.Map(document.getElementById('map'), {
@@ -60,6 +49,15 @@ function codeAddress() {
 				map: map,
 				title: 'your place'
 			});
+			
+			console.log(typeof streetNumber !== 'undefined');
+			if(typeof propertyAddress.latitude!== 'undefined' && typeof propertyAddress.longitude !== 'undefined' && typeof streetNumber !== 'undefined' 
+				&& typeof route !== 'undefined' 
+				&& typeof propertyAddress.city!==  'undefined' && typeof propertyAddress.country!== 'undefined') {
+				   document.querySelector("#verify-location").disabled = false;
+			} else {
+				alert("Please input address in detail (street number, route)");
+			}
 		} else {
 			alert('Geocode was not successful for the following reason: ' + status);
 		}
@@ -73,8 +71,8 @@ function codeAddress() {
 let locate = document.getElementById("verify-location");
 
 locate.addEventListener('click', function() {
-	console.log("nho doi url project thanh _TT");
-	fetch("http://localhost:8080/UrbanEasy_TT/location", {
+	console.log("nho doi url project thanh TT");
+	fetch("http://localhost:8080/UrbanEasyTT/location", {
 	method: 'POST',
 	headers: {
 		'Accept': 'application/json',

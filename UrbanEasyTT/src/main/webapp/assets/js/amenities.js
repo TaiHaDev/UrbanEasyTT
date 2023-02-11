@@ -7,10 +7,10 @@ amenitiesButtons.forEach(button => {
 		const index = selectedAmenities.indexOf(e.target.dataset.value);
 		if(index > -1) {
 			selectedAmenities.splice(index, 1);
-			e.target.classList.remove('selected');
+			button.classList.remove('selected');
 		} else {
-			selectedAmenities.push(e.target.dataset.value);
-			e.target.classList.add('selected');
+			selectedAmenities.push(button.dataset.value);
+			button.classList.add('selected');
 		}
 		console.log(selectedAmenities);
 		submit2Selections.disabled = selectedAmenities.length > 0 ? false : true;
@@ -24,7 +24,7 @@ let amen = document.getElementById("verify-amenities");
 
 amen.addEventListener('click', function() {
 	console.log("nho doi url project thanh _TT");
-	fetch("http://localhost:8080/UrbanEasy_TT/amenities", {
+	fetch("http://localhost:8080/UrbanEasyTT/amenities", {
 	method: 'POST',
 	headers: {
 		'Accept': 'application/json',

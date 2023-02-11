@@ -18,6 +18,7 @@ public class Booking {
 	private String hostPhoneNumber;
 	private String bookingDate;
 	private String hostEmail;
+	
 	public long getPropertyId() {
 		return propertyId;
 	}
@@ -65,8 +66,6 @@ public class Booking {
 		this.name = name;
 	}
 	
-	
-
 
 	@Override
 	public String toString() {
@@ -208,7 +207,4 @@ public class Booking {
 		this.status = status;
 	}
 
-	
-
-	
 }

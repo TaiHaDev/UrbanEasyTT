@@ -64,7 +64,7 @@
 
     <!-- footer -->
     <div class="foot-rent-home">
-        <a href="<%=request.getContextPath()%>/location" class="foot-rent-back">
+        <a href="<%=request.getContextPath()%>/location-confirm" class="foot-rent-back">
             <button>Back</button>
         </a>
         <a href="step2.jsp">
@@ -170,7 +170,7 @@
             floorPlan.bed=c;
             floorPlan.bathroom=d;
         	
-        	fetch("http://localhost:8080/UrbanEasy_temp/floor-plan", {
+        	fetch("http://localhost:8080/UrbanEasyTT/floor-plan", {
 				method: 'POST',
 				headers: {
 					'Accept': 'application/json',

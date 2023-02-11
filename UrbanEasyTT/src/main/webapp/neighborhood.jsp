@@ -16,10 +16,9 @@
 	
     <div class="structure-content">
         <h1>Neighborhood Overview</h1>
-        <span>Short titles work best. Have fun with it, you can always change it later.</span>
-        <form action="neighborhood" method="post" class="name-title">
-            <input type="text" name="neighborhood" class="input-map-search" placeholder="Write some description"/>
-            <input type="submit" value="Submit" class="button-map-search"/>
+        <span>Describe some about your neighborhood. Have fun with it, you can always change it later.</span>
+        <form action="neighborhood" method="post" class="name-title" id="form-neighbor">
+            <input type="text" name="neighborhood" class="input-map-search" value="${neighborhoodSaved}" placeholder="Write some overview about your neighborhood"/>
         </form>
   
 	</div>
@@ -30,7 +29,7 @@
                 <button>Back</button>
             </a>
             <a href="step3.jsp">
-                <button class="foot-rent-home-button">Next</button>
+                <button type="submit" class="foot-rent-home-button" form="form-neighbor">Next</button>
             </a>
     
         </div>

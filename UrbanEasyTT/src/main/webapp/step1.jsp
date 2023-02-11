@@ -12,6 +12,14 @@
 	<link rel="icon" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/css/style.css">
     <title>Step 1: Tell us about your place</title>
+    
+    <style>
+		@media screen and (max-width: 1000px) {
+			.rent-home-content{
+				display: block;
+			}
+		}
+	</style>
 </head>
 <body>
 	<jsp:include page="header-rent-home.jsp" />

@@ -7,7 +7,7 @@ public class Connector {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/UrbanEasyV2?allowPublicKeyRetrieval=true&useSSL=false&useLegacyDatetimeCode=false&serverTimezone=UTC",
-					"root","15012003");
+					"root","370291");
 			return conn;
 		}catch(Exception e) {
 			e.printStackTrace();

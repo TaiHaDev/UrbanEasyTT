@@ -8,19 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class RentLocation
+ * Servlet implementation class DescriptionServlet
  */
-@WebServlet(name = "location", urlPatterns = { "/location" })
-public class RentLocation extends HttpServlet {
+@WebServlet("/description")
+public class DescriptionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RentLocation() {
+    public DescriptionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,9 +31,14 @@ public class RentLocation extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
+			HttpSession session = request.getSession();
+            String description = (String) session.getAttribute("description");
+            request.setAttribute("description", description);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("location.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("description.jsp");
             dispatcher.forward(request, response);
+     
+            //PrintWriter writer = response.getWriter();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -45,7 +50,22 @@ public class RentLocation extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		try {
+			String description = request.getParameter("description");
+			if(description!="") {
+		        HttpSession session = request.getSession();
+		        session.setAttribute("description", description);
+		        response.sendRedirect("neighborhood");
+			}
+	        else {
+	        	doGet(request,response);
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		
+		
 	}
 
 }

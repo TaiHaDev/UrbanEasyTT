@@ -16,10 +16,9 @@
 	
     <div class="structure-content">
         <h1>Create your description</h1>
-        <span>Short titles work best. Have fun with it, you can always change it later.</span>
-        <form action="description" method="post" class="name-title">
-            <input type="text" name="description" class="input-map-search" placeholder="Write some description"/>
-            <input type="submit" value="Submit" class="button-map-search"/>
+        <span>Describe some about your place. Have fun with it, you can always change it later.</span>
+        <form action="description" method="post" class="name-title" id="description-form">
+            <input type="text" name="description" class="input-map-search" value="${description}" placeholder="Write some description"/>
         </form>
     </div>
   
@@ -29,7 +28,7 @@
             <button>Back</button>
         </a>
         <a href="<%=request.getContextPath()%>/neighborhood">
-            <button type="submit" class="foot-rent-home-button">Next</button>
+            <button type="submit" class="foot-rent-home-button" form="description-form">Next</button>
         </a>
 
     </div>

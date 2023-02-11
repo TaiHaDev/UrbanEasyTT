@@ -33,7 +33,7 @@
         
         <!-- footer -->
         <div class="foot-rent-home">
-            <a href="<%=request.getContextPath()%>/description" class="foot-rent-back">
+            <a href="<%=request.getContextPath()%>/neighborhood" class="foot-rent-back">
                 <button>Back</button>
             </a>
             <a href="<%=request.getContextPath()%>/price">
