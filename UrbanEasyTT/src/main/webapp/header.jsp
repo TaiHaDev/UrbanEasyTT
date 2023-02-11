@@ -3,7 +3,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <link rel="stylesheet" href="assets/css/email-verification.css">
-
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <header
 		class="bg-white px-4 sm:px-10 lg:px-24 border-b shadow-sm transition duration-1000">
 		<div class="flex h-20 justify-between items-center">
@@ -106,7 +108,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="search-bar"
+		<form id="search-bar" action="<%=request.getContextPath()%>/result"
 			class="hidden md:border md:rounded-full w-3/4 mx-auto py-4 px-8 my-1 flex flex-col md:flex-row shadow-sm hover:shadow-md sm:my-4">
 			<div
 				class="md:w-[35%] ml-2 items-center md:items-stretch flex flex-col space-y-2 md:border-r mb-1">
@@ -133,13 +135,18 @@
 				</div>
 			</div>
 			<div
-				class="md:w-[25%] ml-2 items-center md:items-stretch flex flex-col space-y-2 mb-1">
+				class="md:w-[25%] ml-2 items-center md:items-stretch pr-4 flex flex-col space-y-2 mb-1">
 				<label class="text-xs font-medium" for="destination">Guests</label>
 				<input
+					id="guest-number"
+					name="guest"
 					class="text-center md:text-left md:w-full outline-none text-sm placeholder:text-sm border border-slate-800/50 rounded-md py-1.5 md:border-none md:py-0"
-					placeholder="Add guests" type="text" />
+					placeholder="Add guests" type="number" />
 			</div>
-			<button>
+			<input type="hidden" id="district">
+			<input type="hidden" id="city" name="city">
+			<input type="hidden" id="country" name="country">
+			<button type="submit" class="searching-button-big">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none"
 					viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
 					class="w-7 h-7 p-1.5 cursor-pointer inline bg-gray-500 text-white rounded-full">
@@ -147,7 +154,7 @@
 						d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
           </svg>
 			</button>
-		</div>
+		</form>
 	</header>
     <div id="modal" class="fixed top-0 left-0 h-full w-full bg-black bg-opacity-75 z-50 flex items-center hidden">
   <div id="upper" class="relative mx-auto  max-w-xl rounded-lg overflow-y-auto p-4 bg-white flex flex-col">
@@ -226,8 +233,9 @@
 		<div id="search-bar-back-drop"
 			class="hidden absolute z-1000 w-full h-screen bg-slate-800/30"></div>
 <script src="./assets/js/signInFunction.js"></script>
-<script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap">
-</script>
+<script src="./assets/js/ultilities.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBqxun3-xLRkE9DdmDb336V48R3iU0UWns&libraries=places&callback=initSearching" async defer></script>
+
+
 
   <!-- ***** Header Area End ***** -->

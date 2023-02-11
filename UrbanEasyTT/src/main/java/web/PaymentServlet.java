@@ -38,7 +38,6 @@ public class PaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		String propertyName = request.getParameter("name");
 		String propertyImageUrl = request.getParameter("image");
 		long propertyId = Long.parseLong(request.getParameter("propertyId"));

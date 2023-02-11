@@ -19,18 +19,6 @@ public class Product {
     private String url;
     private BigDecimal price;
     private long userId;
-    public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getNeighbourhoodOverview() {
-		return neighbourhoodOverview;
-	}
-	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
-		this.neighbourhoodOverview = neighbourhoodOverview;
-	}
 	private int categoryID;
     private int bedroom;
     private int guest;
@@ -58,6 +46,33 @@ public class Product {
         this.description = description;
         this.neighbourhoodOverview = neighbourhoodOverview;
     }
+    // constructor for searched property
+    public Product(long id, String name, int bed, String district, String city, String country, double stars, String url, BigDecimal price, double lng, double lat ) {
+    	this.id = id;
+    	this.name = name;
+    	this.bed = bed;
+    	this.district = district;
+    	this.city = city;
+    	this.country = country;
+    	this.stars = stars;
+    	this.url = url;
+    	this.price = price;
+    	this.lng = lng;
+    	this.lat = lat;
+    }
+    
+    public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	public String getNeighbourhoodOverview() {
+		return neighbourhoodOverview;
+	}
+	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
+		this.neighbourhoodOverview = neighbourhoodOverview;
+	}
     public int getBedroom() {
 		return bedroom;
 	}
