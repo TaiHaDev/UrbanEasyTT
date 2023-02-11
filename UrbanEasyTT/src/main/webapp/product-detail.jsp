@@ -57,7 +57,7 @@
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-2">
 				<img src=<c:out value="${assets[0]}"/> alt=""
-					class="h-full col-span-2 row-span-2 rounded" /> <img
+					class="h-full col-span-2 row-span-2 rounded object-cover bg-center" /> <img
 					src=<c:out value="${assets[1]}"/> alt=""
 					class="h-full hidden col-span-1 row-span-1 rounded md:block" /> <img
 					src=<c:out value="${assets[2]}"/> alt=""
@@ -354,6 +354,7 @@
 					    map.zoomTo(map.getZoom() - 1, {duration: 500});
 					  }
 					});
+					
 					const marker1 = new mapboxgl.Marker().setLngLat(
 							[ lng, lat ]).addTo(map);
 				</script>

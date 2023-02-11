@@ -21,8 +21,6 @@ import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 import model.Category;
 import model.Product;
 
-import dao.BookingDAO;
-
 public class ProductDAO {
 	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
@@ -52,7 +50,17 @@ public class ProductDAO {
 			+ "			                            left join booking b on p.id = b.property_id\r\n"
 			+ "			                            where a.name='1' and p.user_id=?;";
 	private static final String DELETE_PRODUCT_BY_ID ="DELETE FROM property WHERE id = ?;";
-	
+
+	private static final String SEARCHED_PRODUCT = """
+	SELECT p.id, p.name, p.bed, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.lng, p.lat FROM property p 
+	left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating from review group by propertyId) r
+    ON p.id = r.propertyId
+    join asset a on p.id = a.property_id
+    WHERE a.name = '1' 
+    AND p.id NOT IN (select property_id from booking WHERE str_to_date(?, "%d/%m/%Y") >= date_start AND str_to_date(?, "%d/%m/%Y") < date_end)
+    AND p.total_guest >= ?
+    AND MATCH(country) AGAINST(?) > 0 
+    """;
 	public ProductDAO() {
 	}
 
@@ -229,7 +237,7 @@ public class ProductDAO {
 				e.printStackTrace();
 			}
 		}
-		
+
 		Connection connection = Connector.makeConnection();
 		BookingDAO bookingDAO = new BookingDAO();
 		for (int i = 0; i < categoriesAmount; i++) {
@@ -242,7 +250,7 @@ public class ProductDAO {
 				ps = connection.prepareStatement(SELECT_ALL_PRODUCT_BY_CATEGORY );
 				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
-				
+
 				while (rs.next()) {
 					long propertyId = rs.getLong("id");
 					String district = rs.getString("district");
@@ -298,10 +306,10 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom, 
-			String bed, String bathroom, long userId, String district, String city, String country, String streetAddress, String longtitude, 
+	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom,
+			String bed, String bathroom, long userId, String district, String city, String country, String streetAddress, String longtitude,
 			String latitude, String price, String category) {
-		
+
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -312,7 +320,7 @@ public class ProductDAO {
 			if (rs.next()) {
 				id = rs.getString("id");
 			}
-			
+
 			ps = connection.prepareStatement(INSERT_INTO_PRODUCT);
 			ps.setString(1, id);
 			ps.setString(2, houseTitle);
@@ -333,8 +341,8 @@ public class ProductDAO {
 			ps.setString(17, category);
 			System.out.println(ps);
 			ps.executeUpdate();
-			
-			
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -354,10 +362,10 @@ public class ProductDAO {
 				return "";
 			}
 		}
-		
+
 		return id;
 	}
-	
+
 	public List<Product> selectHousesOwnByUser(long userId) {
 		List<Product> products = new ArrayList<>();
 		Connection connection = Connector.makeConnection();
@@ -365,7 +373,7 @@ public class ProductDAO {
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(SELECT_HOUSES_BY_USER_ID);
-			ps.setLong(1, userId);			
+			ps.setLong(1, userId);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -410,16 +418,16 @@ public class ProductDAO {
 		}
 		return products;
 	}
-	
+
 	public boolean deleteProductById(String id) {
-		
+
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(DELETE_PRODUCT_BY_ID);
 			ps.setString(1, id);
 			ps.executeUpdate();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -436,8 +444,66 @@ public class ProductDAO {
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
-	
+
+
+
+	public List<Product> searchForProperty(String district, String city, String country, int guests, String dateStart, String dateEnd) {
+		String modifiedQuery = SEARCHED_PRODUCT;
+		List<Product> result = new ArrayList<>();
+		if (district != null) {
+			modifiedQuery += " AND MATCH(district) AGAINST(\"" + district + "\") > 0";
+		}
+		if (city != null) {
+			modifiedQuery += " AND MATCH(city) AGAINST(\"" + city + "\") > 0";
+		}
+		modifiedQuery += " LIMIT 20;";
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(modifiedQuery);
+			ps.setString(1, dateStart);
+			ps.setString(2, dateEnd);
+			ps.setInt(3, guests);
+			ps.setString(4, country);
+			System.out.println(ps.toString());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				int bed = rs.getInt("bed");
+				String name = rs.getString("name");
+				String dis = rs.getString("district");
+				String cit = rs.getString("city");
+				String cou = rs.getString("country");
+				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
+				String url = rs.getString("url");
+				BigDecimal price = rs.getBigDecimal("price");
+				double lng = rs.getDouble("lng");
+				double lat = rs.getDouble("lat");
+				result.add(new Product(id, name, bed, dis, cit, cou, avg_rating, url, price, lng, lat));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+
+	}
 }

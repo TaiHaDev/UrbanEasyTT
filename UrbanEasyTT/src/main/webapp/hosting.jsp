@@ -36,12 +36,13 @@
                 </tr>
                 <c:forEach var="p" items="${products}">
 	                <tr>
+	                	
 	                    <td class="img-hosting-contain more-space">
 	                    	<a href="<%=request.getContextPath()%>/product-detail?id=${p.getId()}">
 	                    		<img class="img-hosting" src="${p.url}" alt="${p.id}">
 	                    	</a>
 	                    </td>
-	                    <td>${p.name}</td>
+	                    <td>${p.name}</td> 
 	                    <td class="more-space">${p.status}</td>
 	                    <td>${p.guest}</td>
 	                    <td>${p.bedroom}</td>
