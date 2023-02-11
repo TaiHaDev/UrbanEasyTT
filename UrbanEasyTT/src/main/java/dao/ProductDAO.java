@@ -38,6 +38,16 @@ public class ProductDAO {
 			+ "    		  		join asset a on p.id = a.property_id\r\n"
 			+ "					where a.name='1' and p.category_id=? ORDER BY view DESC LIMIT 100;"; // + 1
 	private static final String UPDATE_PROPERTY_VIEW = "UPDATE PROPERTY SET view = view + 1 WHERE id = ?;";
+	private static final String SEARCHED_PRODUCT = """
+	SELECT p.id, p.name, p.bed, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.lng, p.lat FROM property p 
+	left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating from review group by propertyId) r
+    ON p.id = r.propertyId
+    join asset a on p.id = a.property_id
+    WHERE a.name = '1' 
+    AND p.id NOT IN (select property_id from booking WHERE str_to_date(?, "%d/%m/%Y") >= date_start AND str_to_date(?, "%d/%m/%Y") < date_end)
+    AND p.total_guest >= ?
+    AND MATCH(country) AGAINST(?) > 0 
+    """;
 	public ProductDAO() {
 	}
 
@@ -280,5 +290,61 @@ public class ProductDAO {
 			}
 		}
 		return products;
+	}
+	
+	public List<Product> searchForProperty(String district, String city, String country, int guests, String dateStart, String dateEnd) {
+		String modifiedQuery = SEARCHED_PRODUCT;
+		List<Product> result = new ArrayList<>();
+		if (district != null) {
+			modifiedQuery += " AND MATCH(district) AGAINST(\"" + district + "\") > 0";
+		}
+		if (city != null) {
+			modifiedQuery += " AND MATCH(city) AGAINST(\"" + city + "\") > 0";
+		}
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(modifiedQuery);
+			ps.setString(1, dateStart);
+			ps.setString(2, dateEnd);
+			ps.setInt(3, guests);
+			ps.setString(4, country);
+			System.out.println(ps.toString());
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				long id = rs.getLong("id");
+				int bed = rs.getInt("bed");
+				String name = rs.getString("name");
+				String dis = rs.getString("district");
+				String cit = rs.getString("city");
+				String cou = rs.getString("country");
+				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0; 
+				String url = rs.getString("url");
+				BigDecimal price = rs.getBigDecimal("price");
+				double lng = rs.getDouble("lng");
+				double lat = rs.getDouble("lat");
+				result.add(new Product(id, name, bed, dis, cit, cou, avg_rating, url, price, lng, lat));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+		
 	}
 }
