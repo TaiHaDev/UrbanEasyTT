@@ -37,10 +37,12 @@ td{
     border-radius: 4px;
     object-fit: cover;
     background-position: center center;
+    cursor:pointer;
 
 }
 .img-hosting-contain{
 	width:70px;
+	
 }
 tr{
     border-bottom: 1px solid rgb(190, 190, 190);
