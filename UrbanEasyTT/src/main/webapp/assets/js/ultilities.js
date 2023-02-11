@@ -59,6 +59,7 @@ const toggleSearchBarHandler = event => {
 };
 
 const destinationInput = document.getElementById("destination");
+
 let auto;
 let searchingDistrict;
 let searchingCity;

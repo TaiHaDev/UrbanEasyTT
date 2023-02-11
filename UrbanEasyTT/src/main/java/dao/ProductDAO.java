@@ -459,6 +459,7 @@ public class ProductDAO {
 		if (city != null) {
 			modifiedQuery += " AND MATCH(city) AGAINST(\"" + city + "\") > 0";
 		}
+		modifiedQuery += " LIMIT 20;";
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;

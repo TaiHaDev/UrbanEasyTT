@@ -90,7 +90,7 @@
 					</div>
 					<a href="<%=request.getContextPath()%>/hosting"  class="block px-4 py-2 text-sm text-gray-700">Switch
 						to Hosting</a> 
-						<a href="<%=request.getContextPath()%>/step1.jsp"  class="block px-4 py-2 text-sm text-gray-700">Add new Property</a> 
+						<a href="<%=request.getContextPath()%>/step1.jsp"  class="block px-4 py-2 text-sm text-gray-700 border-b">Add new Property</a> 
 						<a href="<%=request.getContextPath()%>/LogoutServlet"
 						class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
 					</div>
@@ -146,7 +146,7 @@
 					placeholder="Add guests" type="number" />
 			</div>
 			<input type="hidden" id="district">
-			<input type="hidden" id="city" name="city">
+			<input type="hidden" id="city">
 			<input type="hidden" id="country" name="country">
 			<button type="submit" class="searching-button-big">
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none"

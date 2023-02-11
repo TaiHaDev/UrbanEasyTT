@@ -146,6 +146,7 @@
 		const priceElem = document.getElementById("price" + i);
 		el.innerText = priceElem.innerText;
 		el.addEventListener('mouseenter', function () {
+			corElem.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 		    corElem.classList.add("shadow-2xl");
 		  });
 		 el.addEventListener('mouseleave', function () {
