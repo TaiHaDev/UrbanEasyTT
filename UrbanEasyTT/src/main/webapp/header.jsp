@@ -89,7 +89,9 @@
 							Lists</a>
 					</div>
 					<a href="<%=request.getContextPath()%>/hosting"  class="block px-4 py-2 text-sm text-gray-700">Switch
-						to Hosting</a> <a href="<%=request.getContextPath()%>/LogoutServlet"
+						to Hosting</a> 
+						<a href="<%=request.getContextPath()%>/step1.jsp"  class="block px-4 py-2 text-sm text-gray-700">Add new Property</a> 
+						<a href="<%=request.getContextPath()%>/LogoutServlet"
 						class="block px-4 py-2 text-sm text-gray-700">Sign out</a>
 					</div>
 					</c:if>
