@@ -377,7 +377,7 @@ public class ProductDAO {
 					status= "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp Available";
 				}
 				else {
-					status= "<i class=\"fa-solid fa-circle-check grey-dot\"></i>&nbsp Booked";
+					status= "<i class=\"fa-solid fa-circle yellow-dot\"></i>&nbsp Booked";
 				}
 				int guest = rs.getInt("total_guest");
 				int bedroom = rs.getInt("bedroom");

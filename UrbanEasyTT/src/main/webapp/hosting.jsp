@@ -69,18 +69,9 @@
             </table>
         </div>
     </div>
-    <script>
-		let btns = document.querySelectorAll('.delete-icon');
-
-		btns.forEach(function(btn){
-		btn.addEventListener('click', function(){
-			let nextDiv = btn.nextElementSibling;
-			nextDiv.classList.remove('hiddenn');
-		});
-		});
-	</script>
-    <jsp:include page="footer.jsp" />
     
+    <jsp:include page="footer.jsp" />
+    <script src="assets/js/hosting.js"></script>
   
 </body>
 </html>

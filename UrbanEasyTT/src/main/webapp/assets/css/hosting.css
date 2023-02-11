@@ -75,6 +75,9 @@ td{
 .grey-dot{
     color: #d8d8d8;
 }
+.yellow-dot{
+	color:  #ffea1c;
+}
 .hiddenn{
     display: none;
 }
