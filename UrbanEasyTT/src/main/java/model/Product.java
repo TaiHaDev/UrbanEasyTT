@@ -19,34 +19,13 @@ public class Product {
     private String url;
     private BigDecimal price;
     private long userId;
-	private String city;
-	private String country;
-	private double stars;
-	private double lng;
-	private double lat;
-	private String url;
-	private BigDecimal price;
-	private long userId;
+
 	private int view;
 	private String status;
 	private String dayAvailable;
 	private String dayAvailableNext;
 
-	public String getDescription() {
-		return description;
-	}
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public String getNeighbourhoodOverview() {
-		return neighbourhoodOverview;
-	}
-
-	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
-		this.neighbourhoodOverview = neighbourhoodOverview;
-	}
 
 	private int categoryID;
     private int bedroom;

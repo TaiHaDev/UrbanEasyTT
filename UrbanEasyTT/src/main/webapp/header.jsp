@@ -58,8 +58,8 @@
             </svg>
 				</button>
 			</div>
-			<div class="relative ">
-				<a href="<%=request.getContextPath()%>/step1.jsp"><button class="font-medium">Host Property</button></a>
+			<div class="relative">
+				
 				<button
 					class="w-8 cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-sky-400 rounded-full">
 					<c:if test="${param.avatar == \"\" }"><svg xmlns="http://www.w3.org/2000/svg" fill="none"
