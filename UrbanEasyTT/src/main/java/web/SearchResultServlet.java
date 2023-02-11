@@ -2,6 +2,7 @@ package web;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,8 +44,8 @@ public class SearchResultServlet extends HttpServlet {
 		String city = request.getParameter("city");
 		String country = request.getParameter("country");
 		List<Product> searchResult = productDAO.searchForProperty(district, city, country, guests, dateStart, dateEnd);
-		List<Double> lngList = searchResult.stream().map(prod -> prod.getLng()).toList();
-		List<Double> latList = searchResult.stream().map(prod -> prod.getLat()).toList();
+		List<Double> lngList = searchResult.stream().map(prod -> prod.getLng()).collect(Collectors.toList());
+		List<Double> latList = searchResult.stream().map(prod -> prod.getLat()).collect(Collectors.toList());
 		System.out.println(latList);
 		request.setAttribute("lat", latList);
 		request.setAttribute("lng", lngList);
