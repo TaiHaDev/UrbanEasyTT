@@ -7,10 +7,10 @@ amenitiesButtons.forEach(button => {
 		const index = selectedAmenities.indexOf(e.target.dataset.value);
 		if(index > -1) {
 			selectedAmenities.splice(index, 1);
-			e.target.classList.remove('selected');
+			button.classList.remove('selected');
 		} else {
-			selectedAmenities.push(e.target.dataset.value);
-			e.target.classList.add('selected');
+			selectedAmenities.push(button.dataset.value);
+			button.classList.add('selected');
 		}
 		console.log(selectedAmenities);
 		submit2Selections.disabled = selectedAmenities.length > 0 ? false : true;

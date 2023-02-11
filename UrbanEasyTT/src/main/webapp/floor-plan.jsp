@@ -64,7 +64,7 @@
 
     <!-- footer -->
     <div class="foot-rent-home">
-        <a href="<%=request.getContextPath()%>/location" class="foot-rent-back">
+        <a href="<%=request.getContextPath()%>/location-confirm" class="foot-rent-back">
             <button>Back</button>
         </a>
         <a href="step2.jsp">

@@ -37,7 +37,7 @@
           <p>.</p>
         </li>
         <li>
-          <a href="about-us.jsp">About</a>
+          <a href="about.jsp">About</a>
         </li>
       </ul>
     </div>

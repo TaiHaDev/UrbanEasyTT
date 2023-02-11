@@ -30,7 +30,21 @@ public class NeighborhoodServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
+		try {
+			HttpSession session = request.getSession();
+            String neighborhoodSaved = (String) session.getAttribute("neighborhood");
+            request.setAttribute("neighborhoodSaved", neighborhoodSaved);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("neighborhood.jsp");
+            dispatcher.forward(request, response);
+            
+            
+            //PrintWriter writer = response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -39,19 +53,21 @@ public class NeighborhoodServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("neighborhood.jsp");
-            dispatcher.forward(request, response);
-            
-            String neighborhood = request.getParameter("neighborhood");
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("neighborhood", neighborhood);
-            
-            //PrintWriter writer = response.getWriter();
+			String neighborhood = request.getParameter("neighborhood");
+			if(neighborhood!="") {
+				HttpSession session = request.getSession();
+		        session.setAttribute("neighborhood", neighborhood);
+		        response.sendRedirect("step3.jsp");
+			}
+	        else {
+	        	doGet(request,response);
+	        }
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		
+        
 	}
 
 }

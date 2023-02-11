@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    background-color: #fff;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color:#141414;
+}
+h1,h2,h3,p{
+	overflow: hidden;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+
+.account-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 100px 30px;
+    margin-bottom: 20px;
+}
+.avatar-info{
+    padding: 0px 20px;
+    border: 2px solid #bebebe;
+    border-radius: 12px;
+    padding: 50px;
+    margin-bottom: 100px;
+    max-width:300px;
+}
+.avatar-info img{
+    border-radius: 50%;
+    border: 3px solid #3d3d3d;
+    width: 200px;
+    height: 200px;
+	object-fit: cover;
+    background-position: center center;
+}
+.change-avatar{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-bottom: 20px;
+}
+.change-avatar button{
+    margin: 10px 8px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.change-avatar button:hover{
+    background-color: #bebebe;
+}
+
+.avatar-info h3{
+    margin-top: 10px;
+    padding: 20px 0px;
+}
+.email-confirm{
+    display: flex;  
+    padding-bottom: 50px;
+    padding-top:20px;
+
+}
+.flexing{
+	display:flex;
+	flex-wrap: wrap;
+	margin-top:20px;
+}
+.flexing h3{
+	padding:0px;
+	margin:0px;
+	
+}
+
+.info-user{
+    padding: 0px 70px;
+    width: 600px;
+    
+}
+.info-user h1{
+	padding-bottom: 8px;
+}
+.info-user ul{
+    padding-top: 40px;
+    list-style: none;
+}
+.info-user ul li {
+    font-size: 22px;
+    padding-bottom: 20px;
+}
+
+.info-user button{
+    margin: 10px 0px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+.info-user button:hover{
+    background-color: #bebebe;
+}
+.change-info{
+    display: none;
+}
+.change-info form{
+    display: flex;
+    flex-direction: column;
+}
+.change-info form label{
+    padding-top: 10px;
+    padding-bottom: 2px;
+    font-size: 18px;
+}
+.change-info form input[type=text]{
+    padding: 10px 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #696969;
+}
+.change-info form input[type=text]::placeholder{
+    font-size: 15px;
+}
+.change-info form input[type=submit], .change-info form button{
+    width: 80px;
+    align-self: flex-end;
+    background-color: #fff;
+    border: 2px solid #272727;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.change-info form input[type=submit]:hover{
+    background-color: #bebebe;
+}
+
+
+.form-popup {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    
+    border: 3px solid #f1f1f1;
+    z-index: 9;
+}
+
+.form-popup form {
+    max-width: 300px;
+    padding: 20px;
+    background-color: white;
+}
+
+.form-popup form input[type=file] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border-radius: 15px;
+    background-color: #272727;
+    color: #e9e9e9;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+
+}
+.form-popup form input[type=submit], .form-popup form button{
+    background-color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #141414;
+    cursor: pointer;
+
+}
+.form-popup form button{
+    background-color: #ffffff;
+}
+.form-popup form input[type=submit]{
+    float: right;
+    background-color: #272727;
+    color: #f0f0f0;
+}
+.form-popup form input[type=submit]:hover{
+    background-color: #131313;
+}
+

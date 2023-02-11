@@ -1,0 +1,141 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+
+html, body {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    background-color: #fff;
+    -ms-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+td{
+    overflow: hidden;
+	white-space: nowrap; 
+	text-overflow: ellipsis;
+}
+.container-listing{
+    margin-top: 80px;
+    padding: 20px 40px;
+    margin-bottom:50px;
+}
+.head-listing{
+	margin-bottom:20px;
+}
+.table-listing{
+    text-align: left;
+    width: 100%;
+    border-collapse: collapse;
+}
+.img-hosting{
+    width: 60px;
+    height: 35px;
+    border-radius: 4px;
+    object-fit: cover;
+    background-position: center center;
+
+}
+.img-hosting-contain{
+	width:70px;
+}
+tr{
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+th{
+    padding: 10px 0px;
+}
+td{
+    padding: 15px 0px;
+}
+.small-size-col{
+    width: 90px;
+}
+.edit-listing{
+    color: rgb(119, 119, 170);
+    cursor: pointer;
+}
+.edit-listing:hover{
+    color: rgb(31, 31, 105);
+}
+
+.erase-listing{
+    color: #e21530;
+    cursor: pointer;    
+}
+.erase-listing:hover{
+    color: #9e0000;
+}
+.green-dot{
+    color: #0ab404;
+}
+.grey-dot{
+    color: #d8d8d8;
+}
+.yellow-dot{
+	color:  #ffea1c;
+}
+.hiddenn{
+    display: none;
+}
+
+.popup {
+	 position: fixed;
+	 width: 100%;
+	 height: 100%;
+	 top: 0;
+	 left: 0;
+	 background: rgba(0,0,0,0.6);
+}
+
+.confirm-popup .popup-content{
+	 width: 400px;
+	 height: 200px;
+	 background: #ffffff;
+	 margin: 100px auto;
+	 position: relative;
+	 border: 2px solid #a3a3a3;
+}
+
+.close {
+	 position: absolute;
+	 top: 5px;
+	 right: 5px;
+	 border-radius: 50%;
+	 background: #222;
+	 border: 3px solid #fff;
+	 color: #fff;
+	 text-decoration: none;
+	 line-height: 0;
+	 padding: 9px 0 11px;
+	 width: 20px;
+	 text-align: center;
+}
+	
+.popup:target {
+	  display: block;
+}
+.button-danger{
+	height:40px;
+	width:100px;
+	background-color:#222;
+	color: white;
+	border-radius: 12px;
+	cursor:pointer;
+	margin-left: 150px;
+	margin-top: 60px;
+	text-align: center;
+}
+.popup-content h4{
+	word-wrap: break-word;      
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    padding: 20px 20px;	
+    color: #222;
+}
+.more-space{
+	padding-right:5px;
+}

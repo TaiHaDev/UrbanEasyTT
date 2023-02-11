@@ -34,7 +34,20 @@ public class HouseNameServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
+		try {
+			HttpSession session = request.getSession();
+            String title = (String) session.getAttribute("houseTitle");
+            request.setAttribute("title", title);
+            
+			RequestDispatcher dispatcher = request.getRequestDispatcher("name-your-house.jsp");
+            dispatcher.forward(request, response);
+            
+            //PrintWriter writer = response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -43,20 +56,20 @@ public class HouseNameServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("name-your-house.jsp");
-            dispatcher.forward(request, response);
-            
-            String houseTitle = request.getParameter("name");
-            
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("houseTitle", houseTitle);
-            
-            //PrintWriter writer = response.getWriter();
+			String houseTitle = request.getParameter("name");
+			System.out.println("title: "+houseTitle);
+			if(houseTitle!="") {
+				HttpSession session = request.getSession();
+	            session.setAttribute("houseTitle", houseTitle);
+	            response.sendRedirect("description");
+			}
+	        else {
+	        	doGet(request,response);
+	        }
 		} catch (Exception e) {
 			// TODO: handle exception
-			e.printStackTrace();
 		}
+		
 	}
 
 }

@@ -8,24 +8,45 @@ package model;
 import java.math.BigDecimal;
 
 public class Product {
-    private long id;
-    private String name;
+	private long id;
+	private String name;
 	private String district;
-    private String city;
-    private String country;
-    private double stars;
-    private double lng;
-    private double lat;
-    private String url;
-    private BigDecimal price;
-    private long userId;
+	private String city;
+	private String country;
+	private double stars;
+	private double lng;
+	private double lat;
+	private String url;
+	private BigDecimal price;
+	private long userId;
+	private int view;
+	private String status;
+	private String dayAvailable;
+	private String dayAvailableNext;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getNeighbourhoodOverview() {
+		return neighbourhoodOverview;
+	}
+
+	public void setNeighbourhoodOverview(String neighbourhoodOverview) {
+		this.neighbourhoodOverview = neighbourhoodOverview;
+	}
+
 	private int categoryID;
-    private int bedroom;
-    private int guest;
-    private int bed;
-    private int bath;
-    private String description;
-    private String neighbourhoodOverview;
+	private int bedroom;
+	private int guest;
+	private int bed;
+	private int bath;
+	private String description;
+	private String neighbourhoodOverview;
 
     // contrustor for product-detail
     public Product(long id, String name, String district, String city, String country, double stars, double lng, double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price, String description, String neighbourhoodOverview) {
@@ -60,7 +81,7 @@ public class Product {
     	this.lng = lng;
     	this.lat = lat;
     }
-    
+
     public String getDescription() {
 		return description;
 	}
@@ -74,8 +95,32 @@ public class Product {
 		this.neighbourhoodOverview = neighbourhoodOverview;
 	}
     public int getBedroom() {
+	// contrustor for product-detail
+	public Product(long id, String name, String district, String city, String country, double stars, double lng,
+			double lat, long userId, int guest, int bedroom, int bed, int bath, BigDecimal price, String description,
+			String neighbourhoodOverview) {
+		this.id = id;
+		this.district = district;
+		this.city = city;
+		this.country = country;
+		this.stars = stars;
+		this.lng = lng;
+		this.lat = lat;
+		this.userId = userId;
+		this.guest = guest;
+		this.bedroom = bedroom;
+		this.bed = bed;
+		this.bath = bath;
+		this.name = name;
+		this.price = price;
+		this.description = description;
+		this.neighbourhoodOverview = neighbourhoodOverview;
+	}
+
+	public int getBedroom() {
 		return bedroom;
 	}
+
 	public void setBedroom(int bedroom) {
 		this.bedroom = bedroom;
 	}
@@ -202,6 +247,39 @@ public class Product {
 	public void setUserId(long userId) {
 		this.userId = userId;
 	}
+
+	public int getView() {
+		return view;
+	}
+
+	public void setView(int view) {
+		this.view = view;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDayAvailable() {
+		return dayAvailable;
+	}
+
+	public void setDayAvailable(String dayAvailable) {
+		this.dayAvailable = dayAvailable;
+	}
+
+	public String getDayAvailableNext() {
+		return dayAvailableNext;
+	}
+
+	public void setDayAvailableNext(String dayAvailableNext) {
+		this.dayAvailableNext = dayAvailableNext;
+	}
+
 	@Override
 	public String toString() {
 		return "Product [id=" + id + ", name=" + name + ", district=" + district + ", city=" + city + ", country="

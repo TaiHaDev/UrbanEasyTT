@@ -1,3 +1,4 @@
+<%@page import="java.io.File"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -16,8 +17,10 @@
 	
     <div class="structure-content">
         <h1>Congratulations</h1>
-        <span>Your house was uploaded successfully, thank you for using UrbanEasy.</span>
-        <span>You will receive notifications when someone want to rent your place.</span>
+        <span>Your house was uploaded, thank you for using UrbanEasy.</span>
+        <br>
+        <span>You will receive notification when someone rent your place.</span>
+        
     </div>
   
     <!-- footer -->

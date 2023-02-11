@@ -3,6 +3,9 @@
   <welcome-file-list>
     <welcome-file>home</welcome-file>
   </welcome-file-list>
-  
+  <context-param>
+    <param-name>tempfile.dir</param-name>
+    <param-value>tmpfiles</param-value>
+  </context-param>
 
 </web-app>

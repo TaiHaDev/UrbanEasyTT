@@ -83,7 +83,6 @@
 
 	<div class="product-card gridd"
 		id="${firstProduct.get(0).getCategoryID()}">
-
 		<c:forEach var="p" items="${firstProduct}">
 			<div class="card2">
 				<a
@@ -107,7 +106,7 @@
 								</p>
 							</div>
 						</div>
-						<p>Viewed 22,424 times last week</p>
+						<p>Viewed ${p.getView()} times last week</p>
 						<p>Jul 30 - Aug 4</p>
 						<div class="price-info">
 							<p class="price">
@@ -152,7 +151,7 @@
 									</p>
 								</div>
 							</div>
-							<p>Viewed 22,424 times last week</p>
+							<p>Viewed ${p.getView()} times last week</p>
 							<p>Jul 30 - Aug 4</p>
 							<div class="price-info">
 								<p class="price">

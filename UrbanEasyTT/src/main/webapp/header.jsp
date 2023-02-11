@@ -79,7 +79,7 @@
 					<c:if test="${param.userId != \"\"}">
 											<div class="in">
 											<div class="border-b">
-						<a href="#"
+						<a href="<%=request.getContextPath()%>/account"
 							class="block px-4 py-2 text-sm text-gray-700 font-medium">Your
 							Account</a>
 						<a href="<%=request.getContextPath()%>/bookings"

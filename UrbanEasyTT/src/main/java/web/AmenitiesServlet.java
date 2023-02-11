@@ -59,13 +59,15 @@ public class AmenitiesServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Gson gson = new Gson();
 		System.out.println("i'm here help me");
-		var type = new TypeToken<ArrayList<Integer>>(){}.getType();
-		ArrayList<Integer> myMap = gson.fromJson(request.getReader(), type);
+		var type = new TypeToken<ArrayList<String>>(){}.getType();
+		ArrayList<String> myMap = gson.fromJson(request.getReader(), type);
 		
 		
 		HttpSession session = request.getSession();
         session.setAttribute("amenities", myMap);
-		System.out.println("after json " + myMap.get(0));
+		for(String amen: myMap) {
+			System.out.println(amen);
+		}
 	}
 
 }

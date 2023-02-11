@@ -30,7 +30,24 @@ public class PriceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
+		try {
+			HttpSession session = request.getSession();
+            String priceSaved = (String) session.getAttribute("price");
+            request.setAttribute("priceSaved", priceSaved);
+            
+			RequestDispatcher dispatcher = request.getRequestDispatcher("price.jsp");
+            dispatcher.forward(request, response);
+            
+            String price = request.getParameter("price");
+            
+            session.setAttribute("price", price);
+            
+            //PrintWriter writer = response.getWriter();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -39,18 +56,18 @@ public class PriceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		try {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("price.jsp");
-            dispatcher.forward(request, response);
-            
-            String price = request.getParameter("price");
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("price", price);
-            
-            //PrintWriter writer = response.getWriter();
+			String price = request.getParameter("price");
+	        if(price!="") {
+		        HttpSession session = request.getSession();
+		        session.setAttribute("price", price);
+		        response.sendRedirect("image-upload");
+	        }
+	        else {
+	        	doGet(request,response);
+	        }
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
+			// TODO: handle exception
 		}
 	}
 

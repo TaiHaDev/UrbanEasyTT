@@ -35,7 +35,7 @@
         <a href="step2.jsp" class="foot-rent-back">
             <button>Back</button>
         </a>
-        <a href="<%=request.getContextPath()%>/image-upload">
+        <a href="<%=request.getContextPath()%>/title">
             <button type="submit" id="verify-amenities" class="foot-rent-home-button">Next</button>
         </a>
 
