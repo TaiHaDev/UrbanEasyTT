@@ -128,7 +128,6 @@
 	for (let i = 0; i < latList.length; i++) {
 		numbers.push(i);
 	}; 
-	console.log(numbers);
 	mapboxgl.accessToken = 'pk.eyJ1IjoiYXBpZXhwbG9yZXIiLCJhIjoiY2xiZzJ4ZmEyMGFrejN2bXV1YXRucnRkMCJ9.3KIUk-IF5zhcKaaPNEyQjQ';
 	const map = new mapboxgl.Map(
 			{
