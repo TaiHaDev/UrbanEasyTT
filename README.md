@@ -1,7 +1,7 @@
 # UrbanEasy Project using MVC Servlet (client side)
-<sub>UrbanEasy is a platform for people to list and rent out their homes or other properties to guests. It is an online 
+**UrbanEasy is a platform for people to list and rent out their homes or other properties to guests. It is an online 
 marketplace where people can list and rent short-term lodging, including vacation rentals, apartment rentals, homestays, 
-hotel beds, or hotel rooms.</sub>
+hotel beds, or hotel rooms.**
 
 ## Technologies
 - Java Servlet MVC, Web API
