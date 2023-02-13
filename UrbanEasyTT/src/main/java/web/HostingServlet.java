@@ -30,7 +30,7 @@ public class HostingServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.productDAO = new ProductDAO();
+		this.productDAO = ProductDAO.getInstance();
 	}
 
 	/**

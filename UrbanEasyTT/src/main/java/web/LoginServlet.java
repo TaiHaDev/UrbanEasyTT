@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.loginDAO = new AuthenticationDAO();
+		this.loginDAO = AuthenticationDAO.getInstance();
 	}
 
 	/**

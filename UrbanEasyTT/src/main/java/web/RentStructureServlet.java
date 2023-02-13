@@ -30,7 +30,7 @@ public class RentStructureServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public void init() {
-		this.categoryDAO = new CategoryDAO();
+		this.categoryDAO = CategoryDAO.getInstance();
 	}
 
 	public RentStructureServlet() {

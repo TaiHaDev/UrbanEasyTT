@@ -27,7 +27,7 @@ public class VerificationServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.authenticationDAO = new AuthenticationDAO();
+		this.authenticationDAO = AuthenticationDAO.getInstance();
 	}
 
 	/**

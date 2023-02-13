@@ -31,7 +31,7 @@ public class AmenitiesServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public void init() {
-		this.facilityDAO = new FacilityDAO();
+		this.facilityDAO = FacilityDAO.getInstance();
 	}
 
 	public AmenitiesServlet() {

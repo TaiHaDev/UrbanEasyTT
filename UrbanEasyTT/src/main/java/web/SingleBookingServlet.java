@@ -28,7 +28,7 @@ public class SingleBookingServlet extends HttpServlet {
 	}
 
 	public void init() {
-		bookingDAO = new BookingDAO();
+		bookingDAO = BookingDAO.getInstance();
 	}
 
 	/**

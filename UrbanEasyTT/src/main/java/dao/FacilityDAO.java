@@ -10,6 +10,18 @@ import java.util.List;
 import model.Facility;
 
 public class FacilityDAO {
+	private static FacilityDAO instance;
+
+	public static FacilityDAO getInstance() {
+		if (instance == null) {
+			instance = new FacilityDAO();
+		}
+		return instance;
+	}
+
+	private FacilityDAO() {
+	}
+
 	private static final String SELECT_ALL_FACILITIES = "SELECT * FROM facility;";
 	private static final String INSERT_INTO_FACILITY_DETAIL = "INSERT INTO falcility_detail "
 			+ "(falcility_id, apartment_id) VALUES (?, ?);";

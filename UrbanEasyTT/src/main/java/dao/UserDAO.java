@@ -12,6 +12,17 @@ import model.User;
 import util.Connector;
 
 public class UserDAO {
+	private static UserDAO instance;
+
+	public static UserDAO getInstance() {
+		if (instance == null) {
+			instance = new UserDAO();
+		}
+		return instance;
+	}
+
+	private UserDAO() {
+	}
 	private static final String SELECT_USER_BY_ID = "SELECT user_name, about, is_host, year(date) as year_join, avatar_url FROM USER WHERE id = ?;";
 	private static final String SELECT_PROPERTY_OWNED_BY_USER_ID = "SELECT property.id,url, avg_rating, property.name  FROM UrbanEasyV2.user join property on user.id = property.user_id join asset on asset.property_id = property.id LEFT join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) / 6 as avg_rating FROM review GROUP BY propertyId) r ON property.id = r.propertyId where user.id = ? AND asset.name = \"1\";";
 	private static final String SELECT_USER_BY_ID_TO_SHOW = "select user_name, phone_number, email, avatar_url, YEAR(date) as year, about from user where id=?;";

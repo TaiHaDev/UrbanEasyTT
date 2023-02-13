@@ -27,8 +27,8 @@ public class HomeServlet extends HttpServlet {
     }
 
     public void init() {
-        this.productDAO = new ProductDAO();
-        this.categoryDAO = new CategoryDAO();
+        this.productDAO = ProductDAO.getInstance();
+        this.categoryDAO = CategoryDAO.getInstance();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

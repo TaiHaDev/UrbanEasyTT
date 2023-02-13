@@ -26,7 +26,7 @@ public class SuccessfulPaymentServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.bookingDAO = new BookingDAO();
+		this.bookingDAO = BookingDAO.getInstance();
 	}
 
 	/**

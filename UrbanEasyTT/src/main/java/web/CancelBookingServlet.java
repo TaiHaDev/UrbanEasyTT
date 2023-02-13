@@ -18,7 +18,7 @@ public class CancelBookingServlet extends HttpServlet {
 	private BookingDAO bookingDAO;
 
 	public void init() {
-		this.bookingDAO = new BookingDAO();
+		this.bookingDAO = BookingDAO.getInstance();
 	}
 
 	/**

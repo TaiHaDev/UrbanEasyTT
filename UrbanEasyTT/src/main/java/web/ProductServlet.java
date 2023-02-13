@@ -37,9 +37,9 @@ public class ProductServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.productDAO = new ProductDAO();
-		this.reviewDAO = new ReviewDAO();
-		this.bookingDAO = new BookingDAO();
+		this.productDAO = ProductDAO.getInstance();
+		this.reviewDAO = ReviewDAO.getInstance();
+		this.bookingDAO = BookingDAO.getInstance();
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

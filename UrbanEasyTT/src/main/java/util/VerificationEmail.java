@@ -64,7 +64,7 @@ public class VerificationEmail {
 	public static void ScheduleVerificationRowDeletion(int id) {
 		TimerTask task = new TimerTask() {
 			public void run() {
-				AuthenticationDAO authenticationDAO = new AuthenticationDAO();
+				AuthenticationDAO authenticationDAO = AuthenticationDAO.getInstance();
 				authenticationDAO.deleteVerificationRow(id);
 			}
 		};

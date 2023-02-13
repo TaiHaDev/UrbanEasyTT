@@ -9,6 +9,18 @@ import model.User;
 import util.Connector;
 
 public class AuthenticationDAO {
+	private static AuthenticationDAO instance;
+
+	public static AuthenticationDAO getInstance() {
+		if (instance == null) {
+			instance = new AuthenticationDAO();
+		}
+		return instance;
+	}
+
+	private AuthenticationDAO() {
+	}
+
 	private final String AUTHENTICATE_USER_AND_RETURN_ID = "SELECT id, avatar_url FROM user WHERE email = ? AND password = ?;";
 	private final String CHECK_IF_EMAIL_IS_REGISTERED = "SELECT * FROM user WHERE email = ?;";
 	private final String INSERT_TEMPORARY_USER_INFO = "INSERT INTO verification_detail ( name, password, email, code) values (?, ?, ?, ?);";

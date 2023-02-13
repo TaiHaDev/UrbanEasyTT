@@ -30,7 +30,7 @@ public class SubmitReviewServlet extends HttpServlet {
 	}
 
 	public void init() {
-		reviewDAO = new ReviewDAO();
+		reviewDAO = ReviewDAO.getInstance();
 	}
 
 	/**

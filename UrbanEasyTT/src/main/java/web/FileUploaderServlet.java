@@ -33,9 +33,9 @@ public class FileUploaderServlet extends HttpServlet {
 	private AssetDAO assetDAO;
 	
 	public void init() {
-		this.productDAO = new ProductDAO();
-		this.facilityDAO = new FacilityDAO();
-		this.assetDAO = new AssetDAO();
+		this.productDAO = ProductDAO.getInstance();
+		this.facilityDAO = FacilityDAO.getInstance();
+		this.assetDAO = AssetDAO.getInstance();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)

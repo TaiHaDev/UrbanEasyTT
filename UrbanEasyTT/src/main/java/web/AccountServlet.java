@@ -37,7 +37,7 @@ public class AccountServlet extends HttpServlet {
 	}
 
 	public void init() {
-		this.userDAO = new UserDAO();
+		this.userDAO = UserDAO.getInstance();
 	}
 
 	/**

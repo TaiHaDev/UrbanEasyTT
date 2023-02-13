@@ -34,8 +34,8 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		this.userDAO = new UserDAO();
-		this.reviewDAO = new ReviewDAO();
+		this.userDAO = UserDAO.getInstance();
+		this.reviewDAO = ReviewDAO.getInstance();
 	}
 
 	/**

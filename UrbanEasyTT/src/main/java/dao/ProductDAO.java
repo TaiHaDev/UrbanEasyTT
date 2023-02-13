@@ -17,6 +17,18 @@ import java.util.List;
 import model.Product;
 
 public class ProductDAO {
+	private static ProductDAO instance;
+
+	public static ProductDAO getInstance() {
+		if (instance == null) {
+			instance = new ProductDAO();
+		}
+		return instance;
+	}
+
+	private ProductDAO() {
+	}
+
 	private static final String SELECT_PRODUCT = "SELECT p.id,p.description, p.neighborhood_overview, p.name, p.district, p.city, p.country, r.avg_rating, p.lng, p.lat, user_id, total_guest, bedroom, bed, bath, default_price FROM property p left join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) as avg_rating FROM review GROUP BY propertyId) r ON p.id = r.propertyId WHERE id = ?; ";
 	private static final String SELECT_ASSET_BY_ID = "SELECT name, url FROM asset WHERE property_id = ?;";
 
@@ -56,9 +68,6 @@ public class ProductDAO {
 			   AND p.total_guest >= ?
 			   AND MATCH(country) AGAINST(?) > 0
 			   """;
-
-	public ProductDAO() {
-	}
 
 	public Product selectProduct(long id) {
 		Product result = null;

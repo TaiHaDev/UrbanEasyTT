@@ -6,11 +6,19 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 public class AssetDAO {
-	private static final String INSERT_TO_ASSET = "INSERT INTO asset (property_id, name, url) VALUES (?,?,?);";
+	private static AssetDAO instance;
 
-	public AssetDAO() {
-		super();
+	public static AssetDAO getInstance() {
+		if (instance == null) {
+			instance = new AssetDAO();
+		}
+		return instance;
 	}
+
+	private AssetDAO() {
+	}
+	
+	private static final String INSERT_TO_ASSET = "INSERT INTO asset (property_id, name, url) VALUES (?,?,?);";
 
 	public boolean insertToAsset(String insertedId, ArrayList<String> imgs) {
 		Connection connection = Connector.makeConnection();

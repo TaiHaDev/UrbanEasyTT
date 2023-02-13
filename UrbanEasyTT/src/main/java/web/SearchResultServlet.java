@@ -23,7 +23,7 @@ public class SearchResultServlet extends HttpServlet {
 	private ProductDAO productDAO;
 
 	public void init() {
-		this.productDAO = new ProductDAO();
+		this.productDAO = ProductDAO.getInstance();
 	}
 
 	/**

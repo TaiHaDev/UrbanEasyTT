@@ -10,11 +10,19 @@ import java.util.List;
 import model.Category;
 
 public class CategoryDAO {
-	private static final String SELECT_ALL_CATEGORIES = "SELECT * FROM category;";
+	private static CategoryDAO instance;
 
-	public CategoryDAO() {
-		super();
+	public static CategoryDAO getInstance() {
+		if (instance == null) {
+			instance = new CategoryDAO();
+		}
+		return instance;
 	}
+
+	private CategoryDAO() {
+	}
+
+	private static final String SELECT_ALL_CATEGORIES = "SELECT * FROM category;";
 
 	public List<Category> selectAllCategory() {
 		List<Category> categoryList = new ArrayList<Category>();

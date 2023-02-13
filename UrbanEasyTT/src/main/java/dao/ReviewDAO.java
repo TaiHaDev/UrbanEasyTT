@@ -12,6 +12,18 @@ import model.User;
 import util.Connector;
 
 public class ReviewDAO {
+	private static ReviewDAO instance;
+
+	public static ReviewDAO getInstance() {
+		if (instance == null) {
+			instance = new ReviewDAO();
+		}
+		return instance;
+	}
+
+	private ReviewDAO() {
+	}
+	
 	private static final String COUNT_REVIEWS_BY_USER_ID = "SELECT count(propertyId) as review_count, user.id, user.avatar_url, user.user_name FROM user JOIN property on user.id = property.user_id LEFT JOIN review on review.propertyId = property.id WHERE user.id = ? GROUP BY user.id, user.avatar_url, user.user_name;";
 	private static final String SELECT_REVIEW_OF_OWNER_BY_ID = "SELECT userId , property.id as property_id, review.date, property.name, comment, url, u.user_name, city, country, u.avatar_url FROM user JOIN property on user.id = property.user_id JOIN review on review.propertyId = property.id JOIN asset ON asset.property_id = property.id JOIN user u ON review.userId = u.id  WHERE user.id = ? AND asset.name = \"1\" AND comment IS NOT NULL;";
 	private static final String SELECT_REVIEW_BY_PROPERTY_ID = "SELECT user.id, user_name, avatar_url, comment, review.date, cleanliness_rating, communication_rating, checkin_rating, accuracy_rating, location_rating, value_rating FROM property\n"

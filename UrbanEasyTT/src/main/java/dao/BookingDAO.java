@@ -17,6 +17,18 @@ import util.Connector;
 import util.Ultilities;
 
 public class BookingDAO {
+	private static BookingDAO instance;
+
+	public static BookingDAO getInstance() {
+		if (instance == null) {
+			instance = new BookingDAO();
+		}
+		return instance;
+	}
+
+	private BookingDAO() {
+	}
+
 	private static final String INSERT_BOOKING = "INSERT INTO booking (property_id, user_id, date_start, date_end) VALUES(?,?, str_to_date(?, '%d/%m/%Y'), str_to_date(?, '%d/%m/%Y'));";
 	private static final String SELECT_BOOKING_BY_PROPERTY_ID = "SELECT date_start, date_end FROM booking WHERE property_id = ?;";
 	private static final String SELECT_BOOKINGS_INFO = "SELECT booking.id, property.name, asset.url, street_address, date_start, date_end, status FROM booking JOIN property ON booking.property_id = property.id JOIN asset ON asset.property_id = property.id WHERE booking.user_id = ? AND asset.name='1' ORDER BY date DESC;";
@@ -42,10 +54,6 @@ public class BookingDAO {
 			put(12, "Dec");
 		}
 	};
-
-	public BookingDAO() {
-		super();
-	}
 
 	public void insertCustomerBooking(long propertyId, long userId, String dateStart, String dateEnd) {
 		Connection connection = Connector.makeConnection();
