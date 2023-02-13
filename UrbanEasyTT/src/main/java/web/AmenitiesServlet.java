@@ -17,55 +17,59 @@ import com.google.gson.reflect.TypeToken;
 
 import dao.FacilityDAO;
 import model.Facility;
+
 /**
  * Servlet implementation class AmenitiesServlet
  */
 @WebServlet("/amenities")
 public class AmenitiesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private FacilityDAO facilityDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	public void init() {
-        this.facilityDAO = new FacilityDAO();
-    }
-    public AmenitiesServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void init() {
+		this.facilityDAO = new FacilityDAO();
+	}
+
+	public AmenitiesServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			List<Facility> facilities = this.facilityDAO.selectAllFacility();
 			request.setAttribute("facilities", facilities);
-            
-            RequestDispatcher dispatcher = request.getRequestDispatcher("amenities.jsp");
-            dispatcher.forward(request, response);
+
+			RequestDispatcher dispatcher = request.getRequestDispatcher("amenities.jsp");
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Gson gson = new Gson();
 		System.out.println("i'm here help me");
-		var type = new TypeToken<ArrayList<String>>(){}.getType();
+		var type = new TypeToken<ArrayList<String>>() {
+		}.getType();
 		ArrayList<String> myMap = gson.fromJson(request.getReader(), type);
-		
-		
+
 		HttpSession session = request.getSession();
-        session.setAttribute("amenities", myMap);
-		for(String amen: myMap) {
+		session.setAttribute("amenities", myMap);
+		for (String amen : myMap) {
 			System.out.println(amen);
 		}
 	}

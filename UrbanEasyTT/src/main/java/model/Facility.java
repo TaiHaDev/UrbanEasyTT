@@ -4,7 +4,7 @@ public class Facility {
 	private int id;
 	private String name;
 	private String icon;
-	
+
 	public Facility(int id, String name, String icon) {
 		super();
 		this.id = id;
@@ -36,7 +36,4 @@ public class Facility {
 		this.icon = icon;
 	}
 
-	
-	
-	
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.ProductDAO;
 import dao.ReviewDAO;
 import dao.UserDAO;
 import model.Product;
@@ -25,25 +24,26 @@ public class UserServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserDAO userDAO;
 	private ReviewDAO reviewDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public UserServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    @Override
-    public void init() throws ServletException {
-    	// TODO Auto-generated method stub
-    	this.userDAO = new UserDAO();
-    	this.reviewDAO = new ReviewDAO();
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public UserServlet() {
+		super();
+	}
+
+	@Override
+	public void init() throws ServletException {
+		this.userDAO = new UserDAO();
+		this.reviewDAO = new ReviewDAO();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			long userId = Long.parseLong(request.getParameter("id"));
 			User chosenUser = userDAO.selectUserById(userId);
@@ -55,17 +55,18 @@ public class UserServlet extends HttpServlet {
 			request.setAttribute("totalReviews", reviewsFromUser.size());
 			RequestDispatcher dispatcher = request.getRequestDispatcher("user.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

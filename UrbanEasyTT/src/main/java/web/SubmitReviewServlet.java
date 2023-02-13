@@ -20,33 +20,38 @@ import dao.ReviewDAO;
 @WebServlet("/submitReview")
 public class SubmitReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private ReviewDAO reviewDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SubmitReviewServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-    	reviewDAO = new ReviewDAO();
-    }
+	private ReviewDAO reviewDAO;
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public SubmitReviewServlet() {
+		super();
+	}
+
+	public void init() {
+		reviewDAO = new ReviewDAO();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Gson gson = new Gson();
-		var type = new TypeToken<Map<String, String>>(){}.getType();
-		Map<String,String> myMap = gson.fromJson(request.getReader(), type);
+		var type = new TypeToken<Map<String, String>>() {
+		}.getType();
+		Map<String, String> myMap = gson.fromJson(request.getReader(), type);
 		response.setContentType("application/json");
 		long bookingId = Long.parseLong(myMap.get("bookingId"));
 		long propertyId = Long.parseLong(myMap.get("propertyId"));
@@ -58,11 +63,11 @@ public class SubmitReviewServlet extends HttpServlet {
 		double locationRating = Double.parseDouble(myMap.get("locationRating"));
 		double valueRating = Double.parseDouble(myMap.get("valueRating"));
 		String comment = myMap.get("commentContent");
-		reviewDAO.insertNewReviewFromUser(bookingId, propertyId, userId, checkInRating, cleanlinessRating, communicationRating, accuracyRating, locationRating, valueRating, comment);
+		reviewDAO.insertNewReviewFromUser(bookingId, propertyId, userId, checkInRating, cleanlinessRating,
+				communicationRating, accuracyRating, locationRating, valueRating, comment);
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentLength(0);
 
-		
 	}
 
 }

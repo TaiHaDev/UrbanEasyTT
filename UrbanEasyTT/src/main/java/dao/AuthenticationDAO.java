@@ -48,7 +48,6 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -82,7 +81,6 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -122,7 +120,6 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -147,12 +144,11 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 	}
-	
+
 	public boolean verifyCodes(int id, String code) {
 		boolean result = false;
 		Connection connection = Connector.makeConnection();
@@ -181,13 +177,12 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return result;
 	}
-	
+
 	public void finalisingUser(int id) {
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
@@ -206,7 +201,6 @@ public class AuthenticationDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

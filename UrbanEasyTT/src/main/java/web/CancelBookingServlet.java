@@ -16,23 +16,24 @@ import dao.BookingDAO;
 public class CancelBookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BookingDAO bookingDAO;
-    
+
 	public void init() {
 		this.bookingDAO = new BookingDAO();
 	}
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CancelBookingServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public CancelBookingServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		long bookingId = Long.parseLong(request.getParameter("id"));
 		if (request.getSession().getAttribute("userId") != null) {
 			bookingDAO.cancelBooking(bookingId);
@@ -40,14 +41,15 @@ public class CancelBookingServlet extends HttpServlet {
 		}
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentLength(0);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

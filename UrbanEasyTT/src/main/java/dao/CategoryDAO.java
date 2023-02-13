@@ -9,10 +9,9 @@ import java.util.List;
 
 import model.Category;
 
-
 public class CategoryDAO {
-	private static final String SELECT_ALL_CATEGORIES= "SELECT * FROM category;";
-	
+	private static final String SELECT_ALL_CATEGORIES = "SELECT * FROM category;";
+
 	public CategoryDAO() {
 		super();
 	}
@@ -20,36 +19,35 @@ public class CategoryDAO {
 	public List<Category> selectAllCategory() {
 		List<Category> categoryList = new ArrayList<Category>();
 		Connection connection = Connector.makeConnection();
-		PreparedStatement ps=null;
-		ResultSet rs=null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 		try {
-            ps = connection.prepareStatement(SELECT_ALL_CATEGORIES); 
+			ps = connection.prepareStatement(SELECT_ALL_CATEGORIES);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-	        	int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String url = rs.getString("url");
-                categoryList.add(new Category(id, name, url));
-	        }
+				int id = rs.getInt("id");
+				String name = rs.getString("name");
+				String url = rs.getString("url");
+				categoryList.add(new Category(id, name, url));
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				if(rs!=null) {
+				if (rs != null) {
 					rs.close();
 				}
-				if(ps!=null) {
+				if (ps != null) {
 					ps.close();
 				}
-				if(connection!=null) {
+				if (connection != null) {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} 
-		 		
+		}
+
 		return categoryList;
 	}
 }

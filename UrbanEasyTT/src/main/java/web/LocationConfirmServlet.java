@@ -16,68 +16,66 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "location-confirm", urlPatterns = { "/location-confirm" })
 public class LocationConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LocationConfirmServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public LocationConfirmServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-            HttpSession session = request.getSession();
+			HttpSession session = request.getSession();
 			String streetNumber = (String) session.getAttribute("streetNumber");
 			String route = (String) session.getAttribute("route");
 			String district = (String) session.getAttribute("district");
 			String city = (String) session.getAttribute("city");
 			String country = (String) session.getAttribute("country");
-			
+
 			request.setAttribute("streetNumber", streetNumber);
 			request.setAttribute("route", route);
 			request.setAttribute("district", district);
 			request.setAttribute("city", city);
 			request.setAttribute("country", country);
-            
-			if(country !=null && city != null) {
+
+			if (country != null && city != null) {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("location-confirm.jsp");
-	            dispatcher.forward(request, response);
-			}
-			else {
+				dispatcher.forward(request, response);
+			} else {
 				response.sendRedirect("location-confirm");
 			}
-			
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			String streetNumberReal = request.getParameter("streetNumber");
-            String routeReal = request.getParameter("route");
-            String districtReal = request.getParameter("district");
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("streetNumber", streetNumberReal);
-            session.setAttribute("route", routeReal);
-            session.setAttribute("district", districtReal);
-            
-            System.out.println(streetNumberReal+", "+ routeReal+", "+ districtReal);
-            
-            response.sendRedirect("floor-plan");
+			String routeReal = request.getParameter("route");
+			String districtReal = request.getParameter("district");
+
+			HttpSession session = request.getSession();
+			session.setAttribute("streetNumber", streetNumberReal);
+			session.setAttribute("route", routeReal);
+			session.setAttribute("district", districtReal);
+
+			System.out.println(streetNumberReal + ", " + routeReal + ", " + districtReal);
+
+			response.sendRedirect("floor-plan");
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}

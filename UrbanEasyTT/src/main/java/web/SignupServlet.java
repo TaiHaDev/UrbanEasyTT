@@ -2,7 +2,6 @@ package web;
 
 import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,35 +21,41 @@ import util.VerificationEmail;
 @WebServlet("/SignupServlet")
 public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private AuthenticationDAO authenticationDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SignupServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-        this.authenticationDAO = new AuthenticationDAO();
-        
-    }
+	private AuthenticationDAO authenticationDAO;
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public SignupServlet() {
+		super();
+	}
+
+	public void init() {
+		this.authenticationDAO = new AuthenticationDAO();
+
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
 		Gson gson = new Gson();
-		var type = new TypeToken<Map<String, String>>(){}.getType();
-		Map<String,String> myMap = gson.fromJson(request.getReader(), type);
-		response.setContentType("application/json");	
+		var type = new TypeToken<Map<String, String>>() {
+		}.getType();
+		Map<String, String> myMap = gson.fromJson(request.getReader(), type);
+		response.setContentType("application/json");
 		String email = myMap.get("email");
 		String name = myMap.get("name");
 		String password = myMap.get("password");
@@ -60,12 +65,14 @@ public class SignupServlet extends HttpServlet {
 			String json = gson.toJson("email false");
 			response.getWriter().print(json);
 		} else {
-			// generate random verqification code and add to a table in the database, then send that code through
+			// generate random verqification code and add to a table in the database, then
+			// send that code through
 			// email to user
 			int generatedNumber = VerificationEmail.sendVerificationEmail(myMap.get("email"));
 			int id = authenticationDAO.insertTemporaryUserDetail(email, password, name, generatedNumber);
 			VerificationEmail.ScheduleVerificationRowDeletion(id);
-			// send back id and then making post request from client side with that id and verification code
+			// send back id and then making post request from client side with that id and
+			// verification code
 			String json = gson.toJson(id);
 			response.getWriter().print(json);
 		}

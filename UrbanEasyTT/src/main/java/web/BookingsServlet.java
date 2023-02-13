@@ -19,21 +19,25 @@ import model.Booking;
 @WebServlet("/bookings")
 public class BookingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BookingDAO bookingDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public BookingsServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() { 
-    	this.bookingDAO = new BookingDAO();
-    }
+	private BookingDAO bookingDAO;
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public BookingsServlet() {
+		super();
+	}
+
+	public void init() {
+		this.bookingDAO = new BookingDAO();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		long userId = (Long) request.getSession().getAttribute("userId");
 		List<Booking> bookings = bookingDAO.getBookingInfo(userId);
 		System.out.println(userId);
@@ -43,10 +47,11 @@ public class BookingsServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -1,19 +1,13 @@
 package dao;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
 import model.Product;
-import model.Review;
 import model.User;
 import util.Connector;
 
@@ -21,9 +15,9 @@ public class UserDAO {
 	private static final String SELECT_USER_BY_ID = "SELECT user_name, about, is_host, year(date) as year_join, avatar_url FROM USER WHERE id = ?;";
 	private static final String SELECT_PROPERTY_OWNED_BY_USER_ID = "SELECT property.id,url, avg_rating, property.name  FROM UrbanEasyV2.user join property on user.id = property.user_id join asset on asset.property_id = property.id LEFT join (SELECT propertyId, AVG(cleanliness_rating + communication_rating + checkin_rating + accuracy_rating + location_rating + value_rating) / 6 as avg_rating FROM review GROUP BY propertyId) r ON property.id = r.propertyId where user.id = ? AND asset.name = \"1\";";
 	private static final String SELECT_USER_BY_ID_TO_SHOW = "select user_name, phone_number, email, avatar_url, YEAR(date) as year, about from user where id=?;";
-	private static final String UPDATE_USER_BY_ID ="UPDATE user SET user_name=?, phone_number=?, email=? WHERE id=?;";
-	private static final String UPDATE_AVATAR_BY_ID ="UPDATE user SET avatar_url=? WHERE id=?;";
-	
+	private static final String UPDATE_USER_BY_ID = "UPDATE user SET user_name=?, phone_number=?, email=? WHERE id=?;";
+	private static final String UPDATE_AVATAR_BY_ID = "UPDATE user SET avatar_url=? WHERE id=?;";
+
 	public User selectUserById(long id) {
 		User result = null;
 		Connection connection = Connector.makeConnection();
@@ -57,7 +51,6 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -101,7 +94,6 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -138,7 +130,6 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -150,9 +141,9 @@ public class UserDAO {
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(UPDATE_USER_BY_ID);
-			
-			ps.setString(1,name);
-			ps.setString(2,phone);
+
+			ps.setString(1, name);
+			ps.setString(2, phone);
 			ps.setString(3, email);
 			ps.setLong(4, id);
 			ps.executeUpdate();
@@ -167,20 +158,19 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
 	}
-	
+
 	public void updateAvatarUser(long id, String url) {
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		try {
 			ps = connection.prepareStatement(UPDATE_AVATAR_BY_ID);
-			
-			ps.setString(1,url);
+
+			ps.setString(1, url);
 			ps.setLong(2, id);
 			ps.executeUpdate();
 		} catch (Exception e) {
@@ -194,10 +184,9 @@ public class UserDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		}
 	}
 }

@@ -40,10 +40,6 @@ public class HomeServlet extends HttpServlet {
         	List<List<Product>> products = this.productDAO.selectProductByCategory();
         	List<Category> categories = this.categoryDAO.selectAllCategory();
         	
-        	
-            
-//        	request.setAttribute("firstProductList", products.get(0));
-//        	products.remove(0);
         	request.setAttribute("firstProduct", products.get(0));
         	products.remove(0);
             request.setAttribute("products", products);

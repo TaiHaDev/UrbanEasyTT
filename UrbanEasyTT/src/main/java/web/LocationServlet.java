@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import model.Facility;
-
 /**
  * Servlet implementation class RentLocation
  */
@@ -29,23 +26,20 @@ public class LocationServlet extends HttpServlet {
 	 */
 	public LocationServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
-            
-			RequestDispatcher dispatcher = request.getRequestDispatcher("location.jsp");
-            dispatcher.forward(request, response);
 
-            
-            
+			RequestDispatcher dispatcher = request.getRequestDispatcher("location.jsp");
+			dispatcher.forward(request, response);
+
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
@@ -56,7 +50,6 @@ public class LocationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		Gson gson = new Gson();
 		var type = new TypeToken<Map<String, String>>() {
 		}.getType();

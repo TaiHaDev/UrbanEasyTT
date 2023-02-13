@@ -18,37 +18,40 @@ import model.Booking;
 @WebServlet("/booking")
 public class SingleBookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private BookingDAO bookingDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public SingleBookingServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-    	bookingDAO = new BookingDAO();
-    }
+	private BookingDAO bookingDAO;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public SingleBookingServlet() {
+		super();
+	}
+
+	public void init() {
+		bookingDAO = new BookingDAO();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		long bookingId = Long.parseLong(request.getParameter("id"));
-		Booking bookingDetail  = bookingDAO.getBookingDetails(bookingId);
+		Booking bookingDetail = bookingDAO.getBookingDetails(bookingId);
 		request.setAttribute("booking", bookingDetail);
 		request.setAttribute("id", bookingId);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("booking-detail.jsp");
 		dispatcher.forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

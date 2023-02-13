@@ -8,17 +8,12 @@ package dao;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import util.Connector;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
-
-import model.Category;
 import model.Product;
 
 public class ProductDAO {
@@ -38,10 +33,10 @@ public class ProductDAO {
 			+ "    		  		join asset a on p.id = a.property_id\r\n"
 			+ "					where a.name='1' and p.category_id=? ORDER BY view DESC LIMIT 100;"; // + 1
 	private static final String UPDATE_PROPERTY_VIEW = "UPDATE PROPERTY SET view = view + 1 WHERE id = ?;";
-	private static final String INSERT_INTO_PRODUCT ="INSERT INTO property (id, name, description,neighborhood_overview, total_guest, bedroom, bed, bath, user_id, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
+	private static final String INSERT_INTO_PRODUCT = "INSERT INTO property (id, name, description,neighborhood_overview, total_guest, bedroom, bed, bath, user_id, district, city, country, street_address,lng,lat, default_price,category_id)\r\n"
 			+ "			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String CREATE_NEW_AUTO_INCREMENT_ID = "SELECT id+1 as id FROM property ORDER BY id DESC LIMIT 0, 1;";
-	private static final String SELECT_HOUSES_BY_USER_ID ="SELECT distinct p.id, a.url, p.name, b.status, p.total_guest, p.bedroom, p.bed, p.bath, p.city, p.country, r.avg_rating, p.default_price as price, p.view\r\n"
+	private static final String SELECT_HOUSES_BY_USER_ID = "SELECT distinct p.id, a.url, p.name, b.status, p.total_guest, p.bedroom, p.bed, p.bath, p.city, p.country, r.avg_rating, p.default_price as price, p.view\r\n"
 			+ "								    		FROM UrbanEasyV2.property p left join \r\n"
 			+ "			                                   (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating \r\n"
 			+ "								    		FROM UrbanEasyV2.review\r\n"
@@ -49,58 +44,60 @@ public class ProductDAO {
 			+ "								   		left join asset a on p.id = a.property_id \r\n"
 			+ "			                            left join booking b on p.id = b.property_id\r\n"
 			+ "			                            where a.name='1' and p.user_id=?;";
-	private static final String DELETE_PRODUCT_BY_ID ="DELETE FROM property WHERE id = ?;";
+	private static final String DELETE_PRODUCT_BY_ID = "DELETE FROM property WHERE id = ?;";
 
 	private static final String SEARCHED_PRODUCT = """
-	SELECT p.id, p.name, p.bed, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.lng, p.lat FROM property p 
-	left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating from review group by propertyId) r
-    ON p.id = r.propertyId
-    join asset a on p.id = a.property_id
-    WHERE a.name = '1' 
-    AND p.id NOT IN (select property_id from booking WHERE str_to_date(?, "%d/%m/%Y") >= date_start AND str_to_date(?, "%d/%m/%Y") < date_end)
-    AND p.total_guest >= ?
-    AND MATCH(country) AGAINST(?) > 0 
-    """;
+			SELECT p.id, p.name, p.bed, p.district, p.city, p.country, r.avg_rating, a.url, p.default_price as price, p.lng, p.lat FROM property p
+			left join (SELECT propertyId, AVG((cleanliness_rating+communication_rating+checkin_rating+accuracy_rating+location_rating+value_rating)/6) as avg_rating from review group by propertyId) r
+			   ON p.id = r.propertyId
+			   join asset a on p.id = a.property_id
+			   WHERE a.name = '1'
+			   AND p.id NOT IN (select property_id from booking WHERE str_to_date(?, "%d/%m/%Y") >= date_start AND str_to_date(?, "%d/%m/%Y") < date_end)
+			   AND p.total_guest >= ?
+			   AND MATCH(country) AGAINST(?) > 0
+			   """;
+
 	public ProductDAO() {
 	}
 
 	public Product selectProduct(long id) {
-    	Product result = null;
-    	Connection connection = Connector.makeConnection();
-    	PreparedStatement ps = null;
-    	PreparedStatement ps2 = null;
-    	ResultSet rs = null;
-    	try {
-    		ps2 = connection.prepareStatement(UPDATE_PROPERTY_VIEW);
-    		ps2.setLong(1, id);
-    		ps2.execute();
-    		ps = connection.prepareStatement(SELECT_PRODUCT);
-    		ps.setLong(1, id);
-    		rs = ps.executeQuery();
-    	
-    		while(rs.next()) {
-    			long propertyId = rs.getLong("id");
-    			String district = rs.getString("district");
-    			String city = rs.getString("city");
-    			String country = rs.getString("country");
-    			double lng = rs.getDouble("lng");
-    			double lat = rs.getDouble("lat");
-    			double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0; 
-    			long userId = rs.getLong("user_id");
-    			int totalGuest = rs.getInt("total_guest");
-    			int bedroom = rs.getInt("bedroom");
-    			int bed = rs.getInt("bed");
-    			int bath = rs.getInt("bath");
-    			String name = rs.getString("name");
-    			String description = rs.getString("description");
-    			String overview = rs.getString("neighborhood_overview");
-    			BigDecimal price = rs.getBigDecimal("default_price");
-    			result = new Product(propertyId, name, district, city, country, avg_rating, lng, lat, userId, totalGuest, bedroom, bed, bath, price, description, overview);
-    		}
-    		
-    	} catch (SQLException e) {
-    		e.printStackTrace();
-    	} finally {
+		Product result = null;
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		PreparedStatement ps2 = null;
+		ResultSet rs = null;
+		try {
+			ps2 = connection.prepareStatement(UPDATE_PROPERTY_VIEW);
+			ps2.setLong(1, id);
+			ps2.execute();
+			ps = connection.prepareStatement(SELECT_PRODUCT);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				long propertyId = rs.getLong("id");
+				String district = rs.getString("district");
+				String city = rs.getString("city");
+				String country = rs.getString("country");
+				double lng = rs.getDouble("lng");
+				double lat = rs.getDouble("lat");
+				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
+				long userId = rs.getLong("user_id");
+				int totalGuest = rs.getInt("total_guest");
+				int bedroom = rs.getInt("bedroom");
+				int bed = rs.getInt("bed");
+				int bath = rs.getInt("bath");
+				String name = rs.getString("name");
+				String description = rs.getString("description");
+				String overview = rs.getString("neighborhood_overview");
+				BigDecimal price = rs.getBigDecimal("default_price");
+				result = new Product(propertyId, name, district, city, country, avg_rating, lng, lat, userId,
+						totalGuest, bedroom, bed, bath, price, description, overview);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
 			try {
 				if (rs != null) {
 					rs.close();
@@ -115,54 +112,52 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	}
-    	return result;
-    	
-    }
+		}
+		return result;
 
-	 public String[] selectAssets(long id) {
-	    	String[] result = new String[5];
-	    	Connection connection = Connector.makeConnection();
-	    	PreparedStatement ps = null;
-	    	ResultSet rs = null;
-	    	try {
-	    		ps = connection.prepareStatement(SELECT_ASSET_BY_ID);
-	    		ps.setLong(1, id);
-	    		rs = ps.executeQuery();
-	    		while (rs.next()) {
-	    			String name = rs.getString("name");
-	    			String url = rs.getString("url");
-	    			for (int i = 1; i <= 5; i++) {
+	}
 
-	    				if (name.contains("" + i)) {
-	    					result[i-1] = url;
-	    					break;
-	    				}
-	    			}
-	    	}
-	    	} catch (SQLException e) {
-	    		e.printStackTrace();
-	    	} finally {
-				try {
-					if (rs != null) {
-						rs.close();
+	public String[] selectAssets(long id) {
+		String[] result = new String[5];
+		Connection connection = Connector.makeConnection();
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			ps = connection.prepareStatement(SELECT_ASSET_BY_ID);
+			ps.setLong(1, id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				String name = rs.getString("name");
+				String url = rs.getString("url");
+				for (int i = 1; i <= 5; i++) {
+
+					if (name.contains("" + i)) {
+						result[i - 1] = url;
+						break;
 					}
-					if (ps != null) {
-						ps.close();
-					}
-					if (connection != null) {
-						connection.close();
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 			}
-	    	return result;
-	    }
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+				if (ps != null) {
+					ps.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
 
 	public List<Product> selectAllProducts2() {
 		List<Product> products = new ArrayList<>();
@@ -183,7 +178,8 @@ public class ProductDAO {
 				BigDecimal price = rs.getBigDecimal("price");
 				int category_id = rs.getInt("category_id");
 				int view = rs.getInt("view");
-				products.add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
+				products.add(
+						new Product(propertyId, district, city, country, avg_rating, price, url, category_id, view));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -199,7 +195,6 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -233,13 +228,11 @@ public class ProductDAO {
 					connection0.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 
 		Connection connection = Connector.makeConnection();
-		BookingDAO bookingDAO = new BookingDAO();
 		for (int i = 0; i < categoriesAmount; i++) {
 
 			PreparedStatement ps = null;
@@ -247,7 +240,7 @@ public class ProductDAO {
 			products.add(new ArrayList<Product>());
 			try {
 
-				ps = connection.prepareStatement(SELECT_ALL_PRODUCT_BY_CATEGORY );
+				ps = connection.prepareStatement(SELECT_ALL_PRODUCT_BY_CATEGORY);
 				ps.setString(1, Integer.toString(i + 1));
 				rs = ps.executeQuery();
 
@@ -261,7 +254,8 @@ public class ProductDAO {
 					BigDecimal price = rs.getBigDecimal("price");
 					int category_id = rs.getInt("category_id");
 					int view = rs.getInt("view");
-					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url, category_id,view));
+					products.get(i).add(new Product(propertyId, district, city, country, avg_rating, price, url,
+							category_id, view));
 
 				}
 				try {
@@ -272,7 +266,6 @@ public class ProductDAO {
 						ps.close();
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				rs = null;
@@ -290,7 +283,6 @@ public class ProductDAO {
 					}
 
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -300,20 +292,20 @@ public class ProductDAO {
 			try {
 				connection.close();
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
 		return products;
 	}
-	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest, String bedroom,
-			String bed, String bathroom, long userId, String district, String city, String country, String streetAddress, String longtitude,
-			String latitude, String price, String category) {
+
+	public String insertIntoProduct(String houseTitle, String description, String neighborhood, String guest,
+			String bedroom, String bed, String bathroom, long userId, String district, String city, String country,
+			String streetAddress, String longtitude, String latitude, String price, String category) {
 
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String id="";
+		String id = "";
 		try {
 			ps = connection.prepareStatement(CREATE_NEW_AUTO_INCREMENT_ID);
 			rs = ps.executeQuery();
@@ -342,7 +334,6 @@ public class ProductDAO {
 			System.out.println(ps);
 			ps.executeUpdate();
 
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -357,7 +348,6 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return "";
 			}
@@ -381,11 +371,10 @@ public class ProductDAO {
 				String url = rs.getString("url");
 				String name = rs.getString("name");
 				String status = rs.getString("status");
-				if(status==null) {
-					status= "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp Available";
-				}
-				else {
-					status= "<i class=\"fa-solid fa-circle yellow-dot\"></i>&nbsp Booked";
+				if (status == null) {
+					status = "<i class=\"fa-solid fa-circle-check green-dot\"></i>&nbsp Available";
+				} else {
+					status = "<i class=\"fa-solid fa-circle yellow-dot\"></i>&nbsp Booked";
 				}
 				int guest = rs.getInt("total_guest");
 				int bedroom = rs.getInt("bedroom");
@@ -396,7 +385,8 @@ public class ProductDAO {
 				double avg_rating = (double) Math.round(rs.getDouble("avg_rating") * 10.0) / 10.0;
 				BigDecimal price = rs.getBigDecimal("price");
 				int view = rs.getInt("view");
-				products.add(new Product(propertyId,name, city, country, avg_rating, url, price, view, status, bedroom, guest, bed, bath));
+				products.add(new Product(propertyId, name, city, country, avg_rating, url, price, view, status, bedroom,
+						guest, bed, bath));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -412,7 +402,6 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -439,7 +428,6 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;
 			}
@@ -448,9 +436,8 @@ public class ProductDAO {
 		return true;
 	}
 
-
-
-	public List<Product> searchForProperty(String district, String city, String country, int guests, String dateStart, String dateEnd) {
+	public List<Product> searchForProperty(String district, String city, String country, int guests, String dateStart,
+			String dateEnd) {
 		String modifiedQuery = SEARCHED_PRODUCT;
 		List<Product> result = new ArrayList<>();
 		if (district != null) {
@@ -499,7 +486,6 @@ public class ProductDAO {
 					connection.close();
 				}
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

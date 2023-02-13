@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Date;
-
 public class Booking {
 	private long id;
 	private long propertyId;
@@ -18,7 +16,7 @@ public class Booking {
 	private String hostPhoneNumber;
 	private String bookingDate;
 	private String hostEmail;
-	
+
 	public long getPropertyId() {
 		return propertyId;
 	}
@@ -34,11 +32,11 @@ public class Booking {
 	public void setHostId(long hostId) {
 		this.hostId = hostId;
 	}
+
 	private String paidAmount;
 	private boolean isReviewed;
 	private int length;
-	
-	
+
 	public String getName() {
 		return name;
 	}
@@ -55,7 +53,8 @@ public class Booking {
 		this.length = length;
 	}
 
-	public Booking(long id, String propertyUrl, String startDate, String endDate, String address, String status, String name) {
+	public Booking(long id, String propertyUrl, String startDate, String endDate, String address, String status,
+			String name) {
 		super();
 		this.id = id;
 		this.propertyUrl = propertyUrl;
@@ -65,7 +64,6 @@ public class Booking {
 		this.status = status;
 		this.name = name;
 	}
-	
 
 	@Override
 	public String toString() {
@@ -77,9 +75,10 @@ public class Booking {
 				+ length + "]";
 	}
 
-	public Booking(long id, long propertyId, long hostId, String avatarUrl, String propertyUrl, String name, String startDate, String endDate, String address,
-			String status, int guest, String hostName, String hostPhoneNumber, String bookingDate, String hostEmail,
-			String paidAmount, boolean isReviewed, int length) {
+	public Booking(long id, long propertyId, long hostId, String avatarUrl, String propertyUrl, String name,
+			String startDate, String endDate, String address, String status, int guest, String hostName,
+			String hostPhoneNumber, String bookingDate, String hostEmail, String paidAmount, boolean isReviewed,
+			int length) {
 		super();
 		this.id = id;
 		this.propertyId = propertyId;
@@ -184,12 +183,15 @@ public class Booking {
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public String getPropertyUrl() {
 		return propertyUrl;
 	}
+
 	public void setPropertyUrl(String propertyUrl) {
 		this.propertyUrl = propertyUrl;
 	}
@@ -197,12 +199,15 @@ public class Booking {
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
 	public String getStatus() {
 		return status;
 	}
+
 	public void setStatus(String status) {
 		this.status = status;
 	}

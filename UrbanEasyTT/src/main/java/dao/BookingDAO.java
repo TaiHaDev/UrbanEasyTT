@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.time.LocalDate;
-import java.time.Month;
 
 import model.Booking;
 import util.Connector;
@@ -230,7 +229,7 @@ public class BookingDAO {
 	}
 
 	public List<String> getAvailableDate(long propertyId) {
-		
+
 		List<String> result = new ArrayList<>();
 		Connection connection = Connector.makeConnection();
 		PreparedStatement ps = null;
@@ -239,24 +238,25 @@ public class BookingDAO {
 			ps = connection.prepareStatement(BOOK_DATE_AVAILABLE);
 			ps.setLong(1, propertyId);
 			rs = ps.executeQuery();
-	
-			if(rs.next()) {
+
+			if (rs.next()) {
 				String start = Ultilities.reformatDate(rs.getDate("dateAvailable"));
 				String end = Ultilities.reformatDate(rs.getDate("dateEnd"));
-				
-				String dateAvailableStart = month.get(Integer.parseInt(start.substring(3, 5))) + " " + start.substring(0,2);
+
+				String dateAvailableStart = month.get(Integer.parseInt(start.substring(3, 5))) + " "
+						+ start.substring(0, 2);
 				String dateAvailableEnd = month.get(Integer.parseInt(end.substring(3, 5))) + " " + end.substring(0, 2);
-				System.out.println("Hello: "+dateAvailableStart+" "+dateAvailableEnd);
+				System.out.println("Hello: " + dateAvailableStart + " " + dateAvailableEnd);
 				result.add(dateAvailableStart);
 				result.add(dateAvailableEnd);
-				
-			}else {
-				Random rand= new Random();
-				
+
+			} else {
+				Random rand = new Random();
+
 				LocalDate currentDate = LocalDate.now();
-				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
-				currentDate=currentDate.plusDays(rand.nextInt((10 - 4) + 1) + 4);
-				result.add(month.get(currentDate.getMonthValue())+" "+currentDate.getDayOfMonth());
+				result.add(month.get(currentDate.getMonthValue()) + " " + currentDate.getDayOfMonth());
+				currentDate = currentDate.plusDays(rand.nextInt((10 - 4) + 1) + 4);
+				result.add(month.get(currentDate.getMonthValue()) + " " + currentDate.getDayOfMonth());
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

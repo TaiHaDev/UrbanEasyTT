@@ -2,11 +2,8 @@ package web;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -31,7 +28,6 @@ import dao.ProductDAO;
 )
 public class FileUploaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String SAVE_DIR = "userUploadFiles";
 	private ProductDAO productDAO;
 	private FacilityDAO facilityDAO;
 	private AssetDAO assetDAO;

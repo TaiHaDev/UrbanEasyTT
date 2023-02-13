@@ -17,7 +17,6 @@ public class Review {
 	private double accuracy;
 	private double location;
 	private double value;
-	
 
 	public Review(String propertyName, String date, String comment, String propertyUrl, String userUrl, long propertyId,
 			long reviewerId, String userName, String city, String country) {
@@ -47,10 +46,6 @@ public class Review {
 		this.location = location;
 		this.value = value;
 	}
-	
-
-
-
 
 	public double getCleanliness() {
 		return cleanliness;
@@ -139,8 +134,6 @@ public class Review {
 	public void setUserUrl(String userUrl) {
 		this.userUrl = userUrl;
 	}
-
-
 
 	public String getPropertyName() {
 		return propertyName;

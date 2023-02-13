@@ -11,9 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.AuthenticationDAO;
-import dao.ProductDAO;
-import dao.ReviewDAO;
-import dao.UserDAO;
 import model.User;
 
 /**
@@ -22,30 +19,34 @@ import model.User;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private AuthenticationDAO loginDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-        this.loginDAO = new AuthenticationDAO();
-    }
+	private AuthenticationDAO loginDAO;
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public LoginServlet() {
+		super();
+	}
+
+	public void init() {
+		this.loginDAO = new AuthenticationDAO();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String userName = request.getParameter("email");
 		String password = request.getParameter("password");
 		User user = loginDAO.authenticateUser(userName, password);
@@ -59,7 +60,7 @@ public class LoginServlet extends HttpServlet {
 			}
 			response.sendRedirect(referrer);
 		} else {
-			HttpSession session =  request.getSession();
+			HttpSession session = request.getSession();
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("avatar", user.getAvatarURL());
 			session.setMaxInactiveInterval(60 * 60); // user sẽ bị log out ra nếu không hoạt động trong một tiếng
@@ -73,8 +74,6 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 
-		
-		
 	}
 
 }

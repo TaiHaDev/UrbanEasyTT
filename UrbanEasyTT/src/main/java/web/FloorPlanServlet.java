@@ -26,20 +26,17 @@ public class FloorPlanServlet extends HttpServlet {
      */
     public FloorPlanServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		try {
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("floor-plan.jsp");
             dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}

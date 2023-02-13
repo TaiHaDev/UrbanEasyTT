@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,48 +25,51 @@ import model.Category;
 public class RentStructureServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CategoryDAO categoryDAO;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	public void init() {
-        this.categoryDAO = new CategoryDAO();
-    }
-    public RentStructureServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public void init() {
+		this.categoryDAO = new CategoryDAO();
+	}
+
+	public RentStructureServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		try {
 			List<Category> categories = this.categoryDAO.selectAllCategory();
 			request.setAttribute("categories", categories);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("structure.jsp");
-            dispatcher.forward(request, response);
+			dispatcher.forward(request, response);
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Gson gson = new Gson();
 		System.out.println("i'm here help me");
-		var type = new TypeToken<Map<String,String>>(){}.getType();
-		Map<String,String> myMap = gson.fromJson(request.getReader(), type);
-		
+		var type = new TypeToken<Map<String, String>>() {
+		}.getType();
+		Map<String, String> myMap = gson.fromJson(request.getReader(), type);
+
 		String category = myMap.get("selectedCategory");
-		
+
 		HttpSession session = request.getSession();
-        session.setAttribute("structure", category);
+		session.setAttribute("structure", category);
 		System.out.println("after json " + category);
 	}
 
