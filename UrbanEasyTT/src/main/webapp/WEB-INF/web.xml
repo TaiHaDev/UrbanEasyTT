@@ -7,5 +7,25 @@
     <param-name>tempfile.dir</param-name>
     <param-value>tmpfiles</param-value>
   </context-param>
+  
+  
+  <error-page>
+  	<error-code>404</error-code>
+  	<location>/error?code=404</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>500</error-code>
+  	<location>/error?code=500</location>
+  </error-page>
 
+  <error-page>
+  	<error-code>401</error-code>
+  	<location>/error?code=401</location>
+  </error-page>
+  
+  <error-page>
+  	<error-code>502</error-code>
+  	<location>/error?code=502</location>
+  </error-page>
 </web-app>
