@@ -62,7 +62,7 @@
 					                	
 					                </form> 
 					                <button type="submit" class="button-danger" form="${p.id}" >Yeah I'm sure</button>
-					                <a href="#" class="close">x</a>
+					                <a href="<%=request.getContextPath()%>/hosting" class="close">x</a>
 					        	</div>
 					        </div>
 	                    </td>
