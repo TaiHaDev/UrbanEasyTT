@@ -44,6 +44,9 @@ public class UserDAO {
 				String year = rs.getString("year_join");
 				String name = rs.getString("user_name");
 				String avatarURL = rs.getString("avatar_url");
+				if (avatarURL.equals("https://a0.muscache.com/defaults/user_pic-225x225.png?v=3")) {
+					avatarURL = "https://ui-avatars.com/api/?name=" + name + "&background=random&size=200";
+				}
 				boolean isHost = rs.getInt("is_host") == 1 ? true : false;
 				result = new User(name, about, isHost, year, avatarURL);
 			}
@@ -85,7 +88,7 @@ public class UserDAO {
 				String avatarURL = rs.getString("avatar_url");
 				String year = rs.getString("year");
 				String about = rs.getString("about");
-				if (avatarURL == null) {
+				if (avatarURL.equals("https://a0.muscache.com/defaults/user_pic-225x225.png?v=3")) {
 					avatarURL = "https://ui-avatars.com/api/?name=" + name + "&background=random&size=200";
 				}
 				result = new User(name, phone, email, avatarURL, year, about);
