@@ -545,7 +545,7 @@
         const elem = document.getElementById('final-check-in');
         const elem2 = document.getElementById('final-check-out');
     	const modifyDisableDates = date => {
-    		console.log(disabledDates);
+    			
     		for (let i = 0; i < disabledDates.length; i++) {
     			const d = disabledDates[i];
     			const parts = d.split("/");
@@ -557,9 +557,10 @@
     				disabledDates.splice(i, 1);
     				date2.setDate(date2.getDate() + 1);
     				disabledDates.push(date2);
+    				disabledDates.push(date);
     				return 
     			}
-    			console.log(disabledDates)
+    			
     		}
     	}
         const config = {
@@ -571,6 +572,7 @@
                 onChange: function(selectedDates, dateStr, instance) {
                 	elem.value = selectedDates[0].toLocaleDateString();
                 	if (selectedDates[1]) {
+                		
                         elem2.value = selectedDates[1].toLocaleDateString();
                        	night = daysBetween(selectedDates[0], selectedDates[1]);
                         calculateAndRenderFee(night);

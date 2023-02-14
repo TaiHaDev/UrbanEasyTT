@@ -97,21 +97,27 @@ function onPlaceChanged() {
 }
 const cal1 = document.getElementById('check-in');
 const cal2 = document.getElementById('check-out');
-const config = {
+const db = [];
+const configuration = {
 	mode: "range",
 	dateFormat: "d/m/Y",
 	minDate: "today",
+	disable: db,
 	maxDate: new Date().fp_incr(365),
 	onChange: function(selectedDates, dateStr, instance) {
 		cal1.value = selectedDates[0].toLocaleDateString();
 		if (selectedDates[1]) {
 			cal2.value = selectedDates[1].toLocaleDateString();
+		} else {
+			db.push(selectedDates[0]);
+			instance.config.disable = db;
+            instance.redraw();
 		}
 	},
 
 };
-let calendar = flatpickr(cal1, config);
-let calendar2 = flatpickr(cal2, config);
+let searchCal = flatpickr(cal1, configuration);
+let searchCal2 = flatpickr(cal2, configuration);
 
 const guestNumber = document.getElementById("guest-number");
 
