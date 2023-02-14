@@ -461,8 +461,8 @@ public class ProductDAO {
 		ResultSet rs = null;
 		try {
 			ps = connection.prepareStatement(modifiedQuery);
-			ps.setString(1, dateStart);
-			ps.setString(2, dateEnd);
+			ps.setString(2, dateStart);
+			ps.setString(1, dateEnd);
 			ps.setInt(3, guests);
 			ps.setString(4, country);
 			System.out.println(ps.toString());
