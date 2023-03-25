@@ -3,6 +3,9 @@
 marketplace where people can list and rent short-term lodging, including vacation rentals, apartment rentals, homestays, 
 hotel beds, or hotel rooms.**
 
+### Watch this demo video while we deploying our website ^^: https://drive.google.com/file/d/1fNHUM4rpk8VNnwwcQHfi_TUz-Dof07F6/view?usp=sharing
+### Administration system using Spring boot: https://github.com/TinDaKing/Spring_UrbanEasy
+
 ## Technologies
 - Java Servlet MVC, Web API
 - Languages: Java, HTML, CSS, JavaScript, SQL
