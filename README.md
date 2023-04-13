@@ -1,9 +1,10 @@
+<h1>Website: https://urbaneasy.herokuapp.com/home</h1>
 # UrbanEasy Project using MVC Servlet (client side)
 **UrbanEasy is a platform for people to list and rent out their homes or other properties to guests. It is an online 
 marketplace where people can list and rent short-term lodging, including vacation rentals, apartment rentals, homestays, 
 hotel beds, or hotel rooms.**
 
-### Watch this demo video while we deploying our website ^^: https://drive.google.com/file/d/1fNHUM4rpk8VNnwwcQHfi_TUz-Dof07F6/view?usp=sharing
+### Watch this demo video ^^: https://drive.google.com/file/d/1fNHUM4rpk8VNnwwcQHfi_TUz-Dof07F6/view?usp=sharing
 ### Administration system using Spring boot: https://github.com/TinDaKing/Spring_UrbanEasy
 
 ## Technologies
